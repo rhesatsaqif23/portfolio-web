@@ -1,42 +1,76 @@
 "use client";
 
-import { motion, Variants, Easing } from "framer-motion";
+import { motion, Variants, Easing, useInView } from "framer-motion";
+import { useRef } from "react";
 import { GraduationCap, Smartphone, Sparkles, Award } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import InfoItem from "./InfoItem";
 
-/* ---------------- Variants ---------------- */
+/* ---------------- Animation ---------------- */
 
 const easeOutExpo: Easing = [0.16, 1, 0.3, 1];
 
-const container: Variants = {
+const sectionContainer: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.18,
+      staggerChildren: 0.35,
     },
   },
 };
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
+const titleFade: Variants = {
+  hidden: { opacity: 0, y: 32 },
   show: {
     opacity: 1,
     y: 0,
+    transition: { duration: 1.1, ease: easeOutExpo },
+  },
+};
+
+const profileReveal: Variants = {
+  hidden: { opacity: 0, scale: 0.88 },
+  show: {
+    opacity: 1,
+    scale: 1,
     transition: {
-      duration: 0.9,
+      duration: 1,
+      delay: 0.15,
       ease: easeOutExpo,
     },
   },
 };
 
-const fadeScale: Variants = {
-  hidden: { opacity: 0, scale: 0.92 },
+const textReveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
-    scale: 1,
+    y: 0,
     transition: {
-      duration: 0.9,
+      duration: 1,
+      delay: 0.2,
+      ease: easeOutExpo,
+    },
+  },
+};
+
+const infoContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0,
+    },
+  },
+};
+
+const infoItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
       ease: easeOutExpo,
     },
   },
@@ -45,26 +79,34 @@ const fadeScale: Variants = {
 /* ---------------- About Section ---------------- */
 
 export default function AboutSection() {
+  const ref = useRef(null);
+
+  // hanya trigger keluar animasi kalau section benar-benar keluar viewport
+  const isInView = useInView(ref, {
+    amount: 0.15,
+    margin: "-10% 0px -10% 0px",
+  });
+
   return (
-    <section
+    <motion.section
+      ref={ref}
       id="about"
+      variants={sectionContainer}
+      initial="hidden"
+      animate={isInView ? "show" : "hidden"}
       className="
-        relative min-h-screen
+        relative scroll-mt-28 min-h-screen
         px-6 sm:px-10 lg:px-20 xl:px-28
-        py-24 md:py-28
       "
     >
       {/* ================= TITLE ================= */}
       <motion.h2
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.6 }}
+        variants={titleFade}
         className="
           text-center
           text-4xl md:text-5xl
           font-bold text-white
-          mb-10 md:mb-14
+          mb-8
         "
       >
         About Me
@@ -72,10 +114,6 @@ export default function AboutSection() {
 
       {/* ================= CONTENT ================= */}
       <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.4 }}
         className="
           mx-auto
           grid max-w-7xl items-center
@@ -85,16 +123,13 @@ export default function AboutSection() {
           xl:gap-x-8
         "
       >
-        {/* ================= PROFILE CARD (LEFT) ================= */}
-        <motion.div
-          variants={fadeScale}
-          className="flex justify-center"
-        >
+        {/* Profile */}
+        <motion.div variants={profileReveal} className="flex justify-center">
           <ProfileCard />
         </motion.div>
 
-        {/* ================= TEXT (RIGHT) ================= */}
-        <motion.div variants={fadeUp} className="pr-0 md:pr-6 lg:pr-10">
+        {/* Text */}
+        <motion.div variants={textReveal} className="pr-0 md:pr-6 lg:pr-10">
           <p className="text-lg text-white/80 leading-relaxed mb-4">
             I’m{" "}
             <span className="text-white font-semibold">
@@ -108,42 +143,54 @@ export default function AboutSection() {
             and <span className="text-white">Front-End Development</span>.
           </p>
 
-          <p className="text-lg text-white/70 leading-relaxed mb-10">
+          <p className="text-lg text-white/80 leading-relaxed mb-10">
             I specialize in translating ideas and UI/UX designs into functional,
-            scalable, and user-centered applications. Through real-world
-            projects, competitions, and team collaboration, I continuously
-            sharpen both my technical and problem-solving skills.
+            scalable, and user-centered applications.
           </p>
 
-          {/* ================= INFO LIST ================= */}
-          <div className="grid gap-4 md:gap-6 sm:grid-cols-2">
-            <InfoItem
-              variants={fadeUp}
-              icon={<GraduationCap />}
-              title="Education"
-              desc="Informatics Engineering, Universitas Brawijaya (2023–2027)"
-            />
-            <InfoItem
-              variants={fadeUp}
-              icon={<Award />}
-              title="GPA"
-              desc="3.92 / 4.00"
-            />
-            <InfoItem
-              variants={fadeUp}
-              icon={<Smartphone />}
-              title="Main Focus"
-              desc="Mobile Development, Front-End Development"
-            />
-            <InfoItem
-              variants={fadeUp}
-              icon={<Sparkles />}
-              title="Character"
-              desc="Ambitious, Fast Learner, Detail-oriented"
-            />
-          </div>
+          {/* Info */}
+          <motion.div
+            variants={infoContainer}
+            className="grid gap-4 md:gap-6 sm:grid-cols-2"
+          >
+            <motion.div variants={infoItem}>
+              <InfoItem
+                variants={infoItem}
+                icon={<GraduationCap />}
+                title="Education"
+                desc="Informatics Engineering, Universitas Brawijaya (2023–2027)"
+              />
+            </motion.div>
+
+            <motion.div variants={infoItem}>
+              <InfoItem
+                variants={infoItem}
+                icon={<Smartphone />}
+                title="Main Focus"
+                desc="Mobile Development, Front-End Development, Software Engineering"
+              />
+            </motion.div>
+
+            <motion.div variants={infoItem}>
+              <InfoItem
+                variants={infoItem}
+                icon={<Award />}
+                title="GPA"
+                desc="3.92 / 4.00"
+              />
+            </motion.div>
+
+            <motion.div variants={infoItem}>
+              <InfoItem
+                variants={infoItem}
+                icon={<Sparkles />}
+                title="Character"
+                desc="Ambitious, Fast Learner, Detail-oriented"
+              />
+            </motion.div>
+          </motion.div>
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 }

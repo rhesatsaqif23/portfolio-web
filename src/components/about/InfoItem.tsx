@@ -10,15 +10,9 @@ interface InfoItemProps {
   variants: Variants;
 }
 
-export default function InfoItem({
-  icon,
-  title,
-  desc,
-  variants,
-}: InfoItemProps) {
+export default function InfoItem({ icon, title, desc }: InfoItemProps) {
   return (
     <motion.div
-      variants={variants}
       whileHover={{ scale: 1.04 }}
       transition={{
         type: "spring",
@@ -48,7 +42,7 @@ export default function InfoItem({
       {/* Text */}
       <div className="relative z-10">
         <p className="text-white font-medium">{title}</p>
-        <p className="text-white/70 text-sm leading-relaxed">{desc}</p>
+        <p className="text-white/80 text-sm leading-relaxed">{desc}</p>
       </div>
     </motion.div>
   );

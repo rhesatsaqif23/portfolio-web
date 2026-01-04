@@ -12,8 +12,8 @@ export default function DecorBackground() {
   });
 
   /* PARALLAX (scroll-based) */
-  const yLeft = useTransform(scrollYProgress, [0, 1], [140, -360]);
-  const yRight = useTransform(scrollYProgress, [0, 1], [-120, 300]);
+  const yLeft = useTransform(scrollYProgress, [0, 1], [140, -280]);
+  const yRight = useTransform(scrollYProgress, [0, 1], [-120, 240]);
 
   return (
     <div

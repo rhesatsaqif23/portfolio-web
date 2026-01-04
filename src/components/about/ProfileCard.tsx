@@ -39,7 +39,7 @@ export default function ProfileCard() {
   }
 
   return (
-    <div className="perspective-[1200px]">
+    <div className="perspective-distant">
       <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
