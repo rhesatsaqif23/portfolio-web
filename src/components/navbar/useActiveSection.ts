@@ -13,31 +13,32 @@ const SECTION_IDS = [
 ];
 
 export function useActiveSection() {
-  const [active, setActive] = useState("home");
+  const [active, setActive] = useState<string>("home");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible.length > 0) {
-          setActive(visible[0].target.id);
-        }
-      },
-      {
-        threshold: [0.3, 0.6, 0.9],
-        rootMargin: "-20% 0px -20% 0px",
-      }
-    );
+    const observers: IntersectionObserver[] = [];
 
     SECTION_IDS.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) observer.observe(el);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActive(id);
+          }
+        },
+        {
+          rootMargin: "-40% 0px -40% 0px", // aktif saat section di tengah layar
+          threshold: 0,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
     });
 
-    return () => observer.disconnect();
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   return active;

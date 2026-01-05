@@ -95,8 +95,8 @@ export default function AboutSection() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="
-        relative scroll-mt-28 min-h-screen
-        px-6 sm:px-10 lg:px-20 xl:px-28
+        relative scroll-mt-16 min-h-screen
+        px-6 sm:px-10 lg:px-20 xl:px-28 py-8
       "
     >
       {/* ================= TITLE ================= */}
@@ -145,7 +145,8 @@ export default function AboutSection() {
 
           <p className="text-lg text-white/80 leading-relaxed mb-10">
             I specialize in translating ideas and UI/UX designs into functional,
-            scalable, and user-centered applications.
+            scalable, and user-centered applications through real-world
+            projects, team collaboration, and continuous learning.
           </p>
 
           {/* Info */}

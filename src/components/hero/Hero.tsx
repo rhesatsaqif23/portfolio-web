@@ -11,7 +11,7 @@ import {
   Instagram,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import DecorBackground from "./DecorBackground";
+import DecorBackground from "../common/DecorBackground";
 
 /* ---------------- Variants ---------------- */
 
@@ -79,7 +79,7 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: false, amount: 0.6 }}
+        viewport={{ once: false, amount: 0.1 }}
         className="flex flex-col items-center px-6"
       >
         {/* Intro */}

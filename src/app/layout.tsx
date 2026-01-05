@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import StarsBackground from "../components/StarsBackground";
+import StarsBackground from "../components/common/StarsBackground";
 import Navbar from "../components/navbar/Navbar";
 
 const inter = Inter({

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { useActiveSection } from "./useActiveSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Home", href: "#home", icon: Home },
@@ -25,11 +25,19 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const scrollActive = useActiveSection();
   const [clicked, setClicked] = useState<string | null>(null);
+  const scrollActive = useActiveSection();
 
-  // priority: klik > scroll
+  // klik punya prioritas sementara
   const active = clicked ?? scrollActive;
+
+  // Lepaskan kontrol klik hanya ketika observer sudah mencapai section yang sama
+  useEffect(() => {
+    if (clicked && scrollActive === clicked) {
+      const timer = setTimeout(() => setClicked(null), 0);
+      return () => clearTimeout(timer);
+    }
+  }, [scrollActive, clicked]);
 
   return (
     <motion.nav
@@ -53,12 +61,9 @@ export default function Navbar() {
                   behavior: "smooth",
                   block: "start",
                 });
-
-                // lepaskan kontrol setelah scroll selesai
-                setTimeout(() => setClicked(null), 700);
               }}
               className={clsx(
-                "relative flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium",
+                "relative flex items-center gap-2 rounded-full px-3 py-3 text-sm font-medium",
                 "transition-colors duration-200",
                 isActive
                   ? "text-white"
@@ -76,7 +81,7 @@ export default function Navbar() {
                     isActive ? "opacity-100" : "opacity-70"
                   )}
                 />
-                <span className="hidden md:inline">{item.label}</span>
+                <span className="hidden lg:inline">{item.label}</span>
               </motion.span>
 
               {isActive && (
