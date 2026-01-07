@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import ExperienceCard from "./ExperienceCard";
 import { Experience } from "@/src/types/experience";
 
@@ -13,91 +13,81 @@ interface Props {
 export default function ExperienceTimelineItem({ experience }: Props) {
   const iconRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(iconRef, { amount: 0.25, once: false });
 
-  const hasAnimatedRef = useRef(false);
+  const hasAnimatedLine = useRef(false);
   const [visible, setVisible] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("right");
 
-  // Tentukan arah animasi (berdasarkan urutan odd/even)
+  /* DETERMINE DIRECTION */
   useEffect(() => {
     const el = iconRef.current?.closest(".vertical-timeline-element");
     if (!el) return;
 
     const index = Array.from(el.parentElement?.children || []).indexOf(el);
+
     const updateDirection = () => {
       const isMobile = window.innerWidth < 1170;
-      const dir = isMobile ? "right" : index % 2 === 0 ? "left" : "right";
-      setDirection(dir);
+      setDirection(isMobile ? "right" : index % 2 === 0 ? "left" : "right");
     };
 
-    requestAnimationFrame(updateDirection);
+    updateDirection();
     window.addEventListener("resize", updateDirection);
-
     return () => window.removeEventListener("resize", updateDirection);
   }, []);
 
-  // ENTER
-  useEffect(() => {
-    if (!inView) return;
-    const frame = requestAnimationFrame(() => setVisible(true));
-    return () => cancelAnimationFrame(frame);
-  }, [inView]);
-
-  // EXIT (saat 100% keluar layar)
+  /* REPEATABLE VISIBILITY (100% out = hide) */
   useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
 
-    const handleScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const fullyOut = rect.bottom <= 0 || rect.top >= window.innerHeight;
-      if (fullyOut) {
-        requestAnimationFrame(() => setVisible(false));
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // true jika ADA bagian card di viewport
+        setVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0, // 0% terlihat pun masih dianggap visible
       }
-    };
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
-  // Garis timeline (hanya sekali)
+  /* TIMELINE LINE ANIMATION (only once) */
   useEffect(() => {
+    if (!visible || hasAnimatedLine.current) return;
     const timeline = document.querySelector(".vertical-timeline");
-    if (!timeline) return;
-    if (inView && !hasAnimatedRef.current) {
-      timeline.classList.add("animate-line");
-      hasAnimatedRef.current = true;
-    }
-  }, [inView]);
+    timeline?.classList.add("animate-line");
+    hasAnimatedLine.current = true;
+  }, [visible]);
 
-  // Overlap antar card
-  const calculateOverlap = () => {
-    const element = iconRef.current?.closest(
-      ".vertical-timeline-element"
-    ) as HTMLElement;
-    if (!element) return;
-
-    const prev = element.previousElementSibling as HTMLElement;
-    if (!prev) return;
-
-    const prevCard = prev.querySelector(
-      ".vertical-timeline-element-content"
-    ) as HTMLElement;
-    if (!prevCard) return;
-
-    const prevHeight = prevCard.offsetHeight;
-    const isMobile = window.innerWidth < 1170;
-    const overlap = isMobile ? 0 : Math.min(prevHeight * 0.6, 400);
-    element.style.marginTop = `-${overlap}px`;
-  };
-
+  /* OVERLAP BETWEEN CARDS */
   useEffect(() => {
+    const calculateOverlap = () => {
+      const element = iconRef.current?.closest(
+        ".vertical-timeline-element"
+      ) as HTMLElement;
+      if (!element) return;
+
+      const prev = element.previousElementSibling as HTMLElement;
+      if (!prev) return;
+
+      const prevCard = prev.querySelector(
+        ".vertical-timeline-element-content"
+      ) as HTMLElement;
+      if (!prevCard) return;
+
+      const prevHeight = prevCard.offsetHeight;
+      const isMobile = window.innerWidth < 1170;
+      const overlap = isMobile ? 0 : Math.min(prevHeight * 0.6, 400);
+
+      element.style.marginTop = `-${overlap}px`;
+    };
+
     calculateOverlap();
-    const handleResize = () => calculateOverlap();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", calculateOverlap);
+    return () => window.removeEventListener("resize", calculateOverlap);
   }, []);
 
   return (
@@ -140,7 +130,7 @@ export default function ExperienceTimelineItem({ experience }: Props) {
           <div
             className="
               relative flex items-center justify-center
-              h-3.5 w-3.5 md:h-4 md:w-4
+              h-4 w-4 md:h-5 md:w-5
               rounded-full bg-cyan-400
               shadow-[0_0_8px_rgba(34,211,238,0.6)]
               hover:shadow-[0_0_20px_rgba(34,211,238,0.9)]

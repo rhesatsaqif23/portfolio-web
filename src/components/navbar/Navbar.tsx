@@ -44,7 +44,7 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
-      className="fixed top-6 left-1/2 z-50 -translate-x-1/2"
+      className="fixed top-6 left-1/2 z-30 -translate-x-1/2"
     >
       <div className="flex items-center gap-1 rounded-full border border-white/15 bg-[#0b1220]/70 backdrop-blur-xl px-4 py-2 shadow-lg shadow-black/40">
         {navItems.map((item) => {
@@ -64,7 +64,7 @@ export default function Navbar() {
               }}
               className={clsx(
                 "relative flex items-center gap-2 rounded-full px-3 py-3 text-sm font-medium",
-                "transition-colors duration-200",
+                "transition-colors duration-200 cursor-pointer",
                 isActive
                   ? "text-white"
                   : "text-white/60 hover:text-white hover:bg-white/5"

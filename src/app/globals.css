@@ -12,6 +12,8 @@
 
 html,
 body {
+  max-width: 100%;
+  overflow-x: hidden;
   height: 100%;
   scroll-behavior: smooth;
 }
@@ -60,7 +62,7 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translateX(120vw) translateY(120vh);
+    transform: translateX(100vw) translateY(100vh);
     opacity: 0;
   }
 }

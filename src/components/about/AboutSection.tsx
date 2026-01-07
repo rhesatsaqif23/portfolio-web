@@ -95,8 +95,8 @@ export default function AboutSection() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="
-        relative scroll-mt-16 min-h-screen
-        px-6 sm:px-10 lg:px-20 xl:px-28 py-8
+        relative scroll-mt-24 min-h-screen
+        px-6 sm:px-10 lg:px-20 xl:px-28 py-4
       "
     >
       {/* ================= TITLE ================= */}

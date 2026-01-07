@@ -13,11 +13,12 @@ export default function ExperienceCard({ experience }: Props) {
   return (
     <article
       className="
-        group relative w-full max-w-2xl
+        group relative z-10 hover:z-30
+        w-full max-w-2xl
         rounded-2xl border-2 border-white/25
         bg-white/5 backdrop-blur-xl
         p-6 md:p-7
-        transition-all
+        transition-all duration-300
         hover:border-cyan-400
         hover:shadow-[0_0_48px_rgba(34,211,238,0.45)]
       "
