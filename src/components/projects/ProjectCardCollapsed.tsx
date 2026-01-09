@@ -72,6 +72,7 @@ export default function ProjectCardCollapsed({ project, onOpen }: Props) {
           src={supabaseImage(project.thumbnailUrl || "", 1200)}
           alt={project.title}
           fill
+          sizes="(max-width: 768px) 100vw, 768px"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
 

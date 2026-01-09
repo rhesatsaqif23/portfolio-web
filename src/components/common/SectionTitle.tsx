@@ -60,7 +60,7 @@ export default function SectionTitle({
         {title}
       </h2>
       {subtitle && (
-        <p className="text-white/80 text-lg max-w-2xl mx-auto">{subtitle}</p>
+        <p className="text-white/80 text-md md:text-lg max-w-2xl mx-auto">{subtitle}</p>
       )}
     </motion.div>
   );

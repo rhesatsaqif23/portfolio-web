@@ -48,6 +48,7 @@ export default function TechCard({ name, icon, color }: TechCardProps) {
           src={icon}
           alt={name}
           fill
+          sizes="64px"
           className="
             object-contain
             grayscale

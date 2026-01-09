@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import StarsBackground from "../components/common/StarsBackground";
+import dynamic from "next/dynamic";
 import Navbar from "../components/navbar/Navbar";
+
+const StarsBackground = dynamic(() => import("../components/common/StarsBackground"), {
+  ssr: false,
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} relative`}>
       <body className="relative overflow-x-hidden text-white">
         {/* BACKGROUND LAYER */}
         <div className="fixed inset-0 -z-10">
@@ -29,7 +33,7 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-[url('/images/background.png')] bg-cover bg-center bg-no-repeat" />
 
           {/* DARK GRADIENT */}
-          <div className="absolute inset-0 bg-linear-to-b from-black/40 via-[#020617]/60 to-[#020617]/90" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/60 via-[#020617]/80 to-[#020617]/90" />
 
           {/* STARS */}
           <StarsBackground />

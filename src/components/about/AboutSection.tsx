@@ -1,87 +1,24 @@
 "use client";
 
-import { motion, Variants, Easing, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GraduationCap, Smartphone, Sparkles, Award } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import InfoItem from "./InfoItem";
+import {
+  infoContainer,
+  infoItem,
+  profileReveal,
+  sectionContainer,
+  textReveal,
+  titleFade,
+} from "./motion";
 
-/* ---------------- Animation ---------------- */
-
-const easeOutExpo: Easing = [0.16, 1, 0.3, 1];
-
-const sectionContainer: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.35,
-    },
-  },
-};
-
-const titleFade: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1.1, ease: easeOutExpo },
-  },
-};
-
-const profileReveal: Variants = {
-  hidden: { opacity: 0, scale: 0.88 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 1,
-      delay: 0.15,
-      ease: easeOutExpo,
-    },
-  },
-};
-
-const textReveal: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1,
-      delay: 0.2,
-      ease: easeOutExpo,
-    },
-  },
-};
-
-const infoContainer: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0,
-    },
-  },
-};
-
-const infoItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: easeOutExpo,
-    },
-  },
-};
-
-/* ---------------- About Section ---------------- */
+/* About Section */
 
 export default function AboutSection() {
   const ref = useRef(null);
 
-  // hanya trigger keluar animasi kalau section benar-benar keluar viewport
   const isInView = useInView(ref, {
     amount: 0.15,
     margin: "-10% 0px -10% 0px",
@@ -99,20 +36,20 @@ export default function AboutSection() {
         px-6 sm:px-10 lg:px-20 xl:px-28 py-4
       "
     >
-      {/* ================= TITLE ================= */}
+      {/* TITLE */}
       <motion.h2
         variants={titleFade}
         className="
           text-center
           text-4xl md:text-5xl
           font-bold text-white
-          mb-8
+          mb-12
         "
       >
         About Me
       </motion.h2>
 
-      {/* ================= CONTENT ================= */}
+      {/* CONTENT */}
       <motion.div
         className="
           mx-auto
@@ -130,23 +67,31 @@ export default function AboutSection() {
 
         {/* Text */}
         <motion.div variants={textReveal} className="pr-0 md:pr-6 lg:pr-10">
-          <p className="text-lg text-white/80 leading-relaxed mb-4">
-            I’m{" "}
+          {/* HEADING */}
+          <h3 className="text-xl md:text-2xl font-bold text-white text-center md:text-start mb-4">
+            Hi, I&apos;m <span className="text-cyan-300">Rhesa</span>
+          </h3>
+
+          <p className="text-base md:text-md text-white/80 leading-relaxed mb-4 text-justify">
+            I’m an{" "}
             <span className="text-white font-semibold">
-              Rhesa Tsaqif Adyatma
-            </span>
-            , an Informatics Engineering student at{" "}
-            <span className="text-cyan-300 font-medium">
-              Universitas Brawijaya
+              Informatics Engineering student
             </span>{" "}
-            with a strong focus on <span className="text-white">Mobile</span>{" "}
-            and <span className="text-white">Front-End Development</span>.
+            at{" "}
+            Universitas Brawijaya with a strong focus on <span className="text-white font-semibold">Mobile</span>{" "}
+            and <span className="text-white font-semibold">Front-End Development</span>. I’m
+            passionate about transforming ideas and designs into functional,
+            responsive, and user-centered applications.
           </p>
 
-          <p className="text-lg text-white/80 leading-relaxed mb-10">
-            I specialize in translating ideas and UI/UX designs into functional,
-            scalable, and user-centered applications through real-world
-            projects, team collaboration, and continuous learning.
+          <p className="text-base md:text-md text-white/80 leading-relaxed mb-10 text-justify">
+            I enjoy building software that solves real-world problems using{" "}
+            <span className="text-white font-semibold">clean architecture</span>, maintainable
+            code, and well-crafted interfaces. I’m continuously expanding my
+            skills toward{" "}
+            <span className="text-white font-semibold">full-stack development</span>, aiming
+            to deliver scalable, end-to-end solutions that balance intuitive user
+            experience with solid software engineering practices.
           </p>
 
           {/* Info */}
@@ -159,7 +104,7 @@ export default function AboutSection() {
                 variants={infoItem}
                 icon={<GraduationCap />}
                 title="Education"
-                desc="Informatics Engineering, Universitas Brawijaya (2023–2027)"
+                desc="Informatics Engineering, Universitas Brawijaya (2023–Present)"
               />
             </motion.div>
 
@@ -176,8 +121,8 @@ export default function AboutSection() {
               <InfoItem
                 variants={infoItem}
                 icon={<Award />}
-                title="GPA"
-                desc="3.92 / 4.00"
+                title="Projects"
+                desc="Build more than 9 Mobile & Web Applications"
               />
             </motion.div>
 
@@ -185,8 +130,8 @@ export default function AboutSection() {
               <InfoItem
                 variants={infoItem}
                 icon={<Sparkles />}
-                title="Character"
-                desc="Ambitious, Fast Learner, Detail-oriented"
+                title="Personality"
+                desc="Growth-oriented, Detail-oriented, Adaptable, Problem Solver"
               />
             </motion.div>
           </motion.div>

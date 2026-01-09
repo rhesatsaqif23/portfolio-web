@@ -20,7 +20,7 @@ export default function InfoItem({ icon, title, desc }: InfoItemProps) {
         damping: 18,
       }}
       className="
-        group relative flex items-start gap-4
+        group relative flex items-center gap-4
         rounded-xl border border-white/15
         bg-white/5 p-4 backdrop-blur-xl
         transition-colors duration-300
@@ -41,7 +41,7 @@ export default function InfoItem({ icon, title, desc }: InfoItemProps) {
 
       {/* Text */}
       <div className="relative z-10">
-        <p className="text-white font-medium">{title}</p>
+        <p className="text-white font-semibold mb-1">{title}</p>
         <p className="text-white/80 text-sm leading-relaxed">{desc}</p>
       </div>
     </motion.div>

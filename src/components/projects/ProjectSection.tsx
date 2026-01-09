@@ -28,8 +28,8 @@ export default function ProjectSection({ projects }: Props) {
         relative
         scroll-mt-16
         py-12
-        px-4
-        sm:px-6
+        px-6
+        sm:px-12
         md:px-20
         lg:px-28
       "

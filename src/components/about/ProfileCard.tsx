@@ -47,7 +47,7 @@ export default function ProfileCard() {
         style={{ rotateX, rotateY }}
         className="
           relative group
-          w-60 md:w-70
+          w-60 sm:w-70 md:w-75
           rounded-2xl
           bg-linear-to-br from-white/10 to-white/5
           backdrop-blur-xl
