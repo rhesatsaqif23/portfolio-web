@@ -12,7 +12,9 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-const DecorBackground = dynamic(() => import("../common/DecorBackground"), { ssr: false });
+const DecorBackground = dynamic(() => import("../common/DecorBackground"), {
+  ssr: false,
+});
 import SocialIcon from "../common/SocialIcon";
 import BlurText from "../common/BlurText";
 
@@ -47,19 +49,23 @@ function TypingLoop({ text }: { text: string }) {
 
   useEffect(() => {
     const speed = deleting ? 50 : 80;
-    const timeout = setTimeout(() => {
+    let nestedTimeout: number | null = null;
+    const timeout = window.setTimeout(() => {
       if (!deleting && value.length < text.length) {
         setValue(text.slice(0, value.length + 1));
       } else if (deleting && value.length > 0) {
         setValue(text.slice(0, value.length - 1));
       } else if (!deleting && value.length === text.length) {
-        setTimeout(() => setDeleting(true), 1200);
+        nestedTimeout = window.setTimeout(() => setDeleting(true), 1200);
       } else if (deleting && value.length === 0) {
         setDeleting(false);
       }
     }, speed);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (nestedTimeout) clearTimeout(nestedTimeout);
+    };
   }, [value, deleting, text]);
 
   return (

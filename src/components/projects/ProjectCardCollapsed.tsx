@@ -6,36 +6,17 @@ import { ExternalLink, Github, Star, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Project } from "@/src/types/project";
 import { supabaseImage } from "@/src/utils/supabaseImage";
-import { useEffect, useRef, useState } from "react";
+import useInView from "@/src/hooks/useInView";
 
 interface Props {
   project: Project;
   onOpen: () => void;
 }
 
-export default function ProjectCardCollapsed({ project, onOpen }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+import React from "react";
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!visible && entry.intersectionRatio >= 0.1) {
-          setVisible(true);
-        }
-        if (visible && entry.intersectionRatio === 0) {
-          setVisible(false);
-        }
-      },
-      { threshold: [0, 0.1] }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [visible]);
+function ProjectCardCollapsed({ project, onOpen }: Props) {
+  const { ref, visible } = useInView<HTMLElement>(0.1);
 
   return (
     <motion.article
@@ -154,3 +135,5 @@ export default function ProjectCardCollapsed({ project, onOpen }: Props) {
     </motion.article>
   );
 }
+
+export default React.memo(ProjectCardCollapsed);

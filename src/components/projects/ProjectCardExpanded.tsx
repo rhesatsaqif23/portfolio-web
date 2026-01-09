@@ -19,11 +19,9 @@ interface Props {
   onClose: () => void;
 }
 
-export default function ProjectCardExpanded({
-  project,
-  isActive,
-  onClose,
-}: Props) {
+import React from "react";
+
+function ProjectCardExpanded({ project, isActive, onClose }: Props) {
   return (
     <ModalPortal>
       <AnimatePresence>
@@ -248,3 +246,5 @@ export default function ProjectCardExpanded({
     </ModalPortal>
   );
 }
+
+export default React.memo(ProjectCardExpanded);

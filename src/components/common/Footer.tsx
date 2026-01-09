@@ -45,10 +45,10 @@ export default function Footer() {
         "
       >
         {/* LEFT */}
-        <div className="text-sm text-white/80 flex items-center gap-1">
+        <div className="text-sm text-white/60 flex items-center gap-1">
           <span>©</span>
           <span>2026</span>
-          <span className="text-white/80 font-medium">Rhesa Tsaqif Adyatma</span>
+          <span className="text-white/60 font-medium">RHESA TSAQIF ADYATMA</span>
         </div>
 
         {/* RIGHT */}

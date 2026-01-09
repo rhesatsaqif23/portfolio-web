@@ -35,20 +35,32 @@ export default function StarsBackground() {
       return base;
     };
 
+    let resizeRAF: number | null = null;
+
     const resize = () => {
       if (!mounted) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (resizeRAF) cancelAnimationFrame(resizeRAF);
+      resizeRAF = requestAnimationFrame(() => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-      const count = prefersReduced ? Math.min(40, getStarCount()) : getStarCount();
+        const count = prefersReduced
+          ? Math.min(40, getStarCount())
+          : getStarCount();
 
-      stars = Array.from({ length: count }, (): Star => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.4 + 0.4,
-        o: Math.random(),
-        s: Math.random() * 0.015 + 0.005,
-      }));
+        stars = Array.from(
+          { length: count },
+          (): Star => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.4 + 0.4,
+            o: Math.random(),
+            s: Math.random() * 0.015 + 0.005,
+          })
+        );
+
+        resizeRAF = null;
+      });
     };
 
     const animate = () => {
@@ -103,6 +115,7 @@ export default function StarsBackground() {
     return () => {
       mounted = false;
       if (rafId) cancelAnimationFrame(rafId);
+      if (resizeRAF) cancelAnimationFrame(resizeRAF);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibility);
     };

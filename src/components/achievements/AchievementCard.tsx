@@ -1,44 +1,21 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Achievement } from "@/src/types/achievement";
 import { resolvePosition } from "@/src/utils/resolvePosition";
+import useInView from "@/src/hooks/useInView";
 
 interface Props {
   achievement: Achievement;
 }
 
 export default function AchievementCard({ achievement }: Props) {
-  const ref = useRef<HTMLLIElement>(null);
-  const [visible, setVisible] = useState(false);
+  const { ref, visible } = useInView<HTMLLIElement>({
+    threshold: [0, 0.05],
+    rootMargin: "0px 0px -5% 0px",
+  });
   const { icon: Icon, label } = resolvePosition(achievement.position);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // ENTER
-        if (!visible && entry.intersectionRatio >= 0.05) {
-          setVisible(true);
-        }
-
-        // EXIT (benar-benar keluar layar)
-        if (visible && entry.intersectionRatio === 0) {
-          setVisible(false);
-        }
-      },
-      {
-        threshold: [0, 0.05],
-        rootMargin: "0px 0px -5% 0px",
-      }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [visible]);
 
   return (
     <motion.li

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import React from "react";
 import {
   Mail,
   MapPin,
@@ -12,32 +12,13 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
-
-// Helper hook untuk animasi masuk/keluar viewport
-function useInView(threshold = 0.4) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!visible && entry.intersectionRatio >= threshold) setVisible(true);
-        if (visible && entry.intersectionRatio === 0) setVisible(false);
-      },
-      { threshold: [0, threshold] }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [visible, threshold]);
-
-  return { ref, visible };
-}
+import useInView from "@/src/hooks/useInView";
 
 export default function ContactSection() {
-  const { ref: headerRef, visible: headerVisible } = useInView(0.25);
-  const { ref: cardRef, visible: cardVisible } = useInView(0.15);
+  const { ref: headerRef, visible: headerVisible } =
+    useInView<HTMLDivElement>(0.25);
+  const { ref: cardRef, visible: cardVisible } =
+    useInView<HTMLDivElement>(0.15);
 
   return (
     <section

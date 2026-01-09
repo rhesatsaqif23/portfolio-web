@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import React from "react";
 import clsx from "clsx";
+import useInView from "@/src/hooks/useInView";
 import { Folder, Globe, Smartphone } from "lucide-react";
 
 const categories = [
@@ -17,28 +18,7 @@ interface Props {
 }
 
 export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!visible && entry.intersectionRatio >= 0.6) {
-          setVisible(true);
-        }
-        if (visible && entry.intersectionRatio === 0) {
-          setVisible(false);
-        }
-      },
-      { threshold: [0, 0.6] }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [visible]);
+  const { ref, visible } = useInView<HTMLDivElement>(0.6);
 
   return (
     <motion.div

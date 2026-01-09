@@ -17,7 +17,7 @@ export default function AchievementSection({ achievements }: Props) {
       className="
         relative
         scroll-mt-16
-        py-12
+        py-16
         px-4
         sm:px-6
         md:px-20

@@ -16,29 +16,28 @@ export function useActiveSection() {
   const [active, setActive] = useState<string>("home");
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const elements = SECTION_IDS.map((id) =>
+      document.getElementById(id)
+    ).filter(Boolean) as HTMLElement[];
+    if (elements.length === 0) return;
 
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            const id = (entry.target as HTMLElement).id;
             setActive(id);
           }
-        },
-        {
-          rootMargin: "-40% 0px -40% 0px", // aktif saat section di tengah layar
-          threshold: 0,
-        }
-      );
+        });
+      },
+      {
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: 0,
+      }
+    );
 
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return active;

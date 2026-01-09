@@ -9,7 +9,9 @@ interface TechCardProps {
   color: string;
 }
 
-export default function TechCard({ name, icon, color }: TechCardProps) {
+import React from "react";
+
+function TechCard({ name, icon, color }: TechCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -60,16 +62,20 @@ export default function TechCard({ name, icon, color }: TechCardProps) {
       </div>
 
       {/* TEXT */}
-      <p className="
+      <p
+        className="
         relative z-10
         text-sm
         font-medium
         text-white/75
         transition-colors duration-300
         group-hover:text-white
-      ">
+      "
+      >
         {name}
       </p>
     </motion.div>
   );
 }
+
+export default React.memo(TechCard);

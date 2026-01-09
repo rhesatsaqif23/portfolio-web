@@ -9,7 +9,9 @@ interface Props {
   experience: Experience;
 }
 
-export default function ExperienceCard({ experience }: Props) {
+import React from "react";
+
+function ExperienceCard({ experience }: Props) {
   return (
     <article
       className="
@@ -98,3 +100,5 @@ export default function ExperienceCard({ experience }: Props) {
     </article>
   );
 }
+
+export default React.memo(ExperienceCard);

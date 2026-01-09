@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import React from "react";
+import useInView from "@/src/hooks/useInView";
 
 interface SectionTitleProps {
   title: string;
@@ -14,33 +15,7 @@ export default function SectionTitle({
   subtitle,
   className = "",
 }: SectionTitleProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Masuk ketika cukup terlihat
-        if (!visible && entry.intersectionRatio >= 0.6) {
-          setVisible(true);
-        }
-
-        // Keluar hanya jika BENAR-BENAR tidak terlihat
-        if (visible && entry.intersectionRatio === 0) {
-          setVisible(false);
-        }
-      },
-      {
-        threshold: [0, 0.6],
-      }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [visible]);
+  const { ref, visible } = useInView<HTMLDivElement>(0.6);
 
   return (
     <motion.div
@@ -60,7 +35,9 @@ export default function SectionTitle({
         {title}
       </h2>
       {subtitle && (
-        <p className="text-white/80 text-md md:text-lg max-w-2xl mx-auto">{subtitle}</p>
+        <p className="text-white/80 text-md md:text-lg max-w-2xl mx-auto">
+          {subtitle}
+        </p>
       )}
     </motion.div>
   );

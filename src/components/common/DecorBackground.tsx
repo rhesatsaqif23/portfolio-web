@@ -1,10 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import { useRef } from "react";
+import usePrefersReducedMotion from "@/src/hooks/usePrefersReducedMotion";
 
 export default function DecorBackground() {
   const ref = useRef<HTMLDivElement>(null);
+  const reduced = usePrefersReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -12,8 +14,11 @@ export default function DecorBackground() {
   });
 
   /* PARALLAX (scroll-based) */
-  const yLeft = useTransform(scrollYProgress, [0, 1], [140, -280]);
-  const yRight = useTransform(scrollYProgress, [0, 1], [-120, 240]);
+  const zero = useMotionValue(0);
+  const yLeftTransform = useTransform(scrollYProgress, [0, 1], [140, -280]);
+  const yRightTransform = useTransform(scrollYProgress, [0, 1], [-120, 240]);
+  const yLeft = reduced ? zero : yLeftTransform;
+  const yRight = reduced ? zero : yRightTransform;
 
   return (
     <div
@@ -26,33 +31,44 @@ export default function DecorBackground() {
         alt=""
         style={{ y: yLeft }}
         initial={{ opacity: 0, x: "-95%" }}
-        animate={{
-          opacity: 1,
-          x: "-50%",
-          rotate: [0, 8, -6, 0],
-          translateX: [0, 26, -18, 0],
-          translateY: [0, -22, 14, 0],
-        }}
-        transition={{
-          opacity: { duration: 1.7, ease: "easeOut" },
-          x: { duration: 1.7, ease: [0.16, 1, 0.3, 1] },
+        animate={
+          reduced
+            ? { opacity: 1, x: "-50%" }
+            : {
+                opacity: 1,
+                x: "-50%",
+                rotate: [0, 8, -6, 0],
+                translateX: [0, 26, -18, 0],
+                translateY: [0, -22, 14, 0],
+              }
+        }
+        transition={
+          reduced
+            ? {
+                opacity: { duration: 1.7, ease: "easeOut" },
+                x: { duration: 1.7, ease: [0.16, 1, 0.3, 1] },
+              }
+            : {
+                opacity: { duration: 1.7, ease: "easeOut" },
+                x: { duration: 1.7, ease: [0.16, 1, 0.3, 1] },
 
-          rotate: {
-            duration: 18,
-            ease: "easeInOut",
-            repeat: Infinity,
-          },
-          translateX: {
-            duration: 22,
-            ease: "easeInOut",
-            repeat: Infinity,
-          },
-          translateY: {
-            duration: 26,
-            ease: "easeInOut",
-            repeat: Infinity,
-          },
-        }}
+                rotate: {
+                  duration: 18,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                },
+                translateX: {
+                  duration: 22,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                },
+                translateY: {
+                  duration: 26,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                },
+              }
+        }
         className="
           absolute
           top-[60%]
@@ -68,33 +84,44 @@ export default function DecorBackground() {
         alt=""
         style={{ y: yRight }}
         initial={{ opacity: 0, x: "95%" }}
-        animate={{
-          opacity: 1,
-          x: "50%",
-          rotate: [0, -9, 7, 0],
-          translateX: [0, -24, 16, 0],
-          translateY: [0, 20, -14, 0],
-        }}
-        transition={{
-          opacity: { duration: 1.7, ease: "easeOut" },
-          x: { duration: 1.7, ease: [0.16, 1, 0.3, 1] },
+        animate={
+          reduced
+            ? { opacity: 1, x: "50%" }
+            : {
+                opacity: 1,
+                x: "50%",
+                rotate: [0, -9, 7, 0],
+                translateX: [0, -24, 16, 0],
+                translateY: [0, 20, -14, 0],
+              }
+        }
+        transition={
+          reduced
+            ? {
+                opacity: { duration: 1.7, ease: "easeOut" },
+                x: { duration: 1.7, ease: [0.16, 1, 0.3, 1] },
+              }
+            : {
+                opacity: { duration: 1.7, ease: "easeOut" },
+                x: { duration: 1.7, ease: [0.16, 1, 0.3, 1] },
 
-          rotate: {
-            duration: 20,
-            ease: "easeInOut",
-            repeat: Infinity,
-          },
-          translateX: {
-            duration: 24,
-            ease: "easeInOut",
-            repeat: Infinity,
-          },
-          translateY: {
-            duration: 28,
-            ease: "easeInOut",
-            repeat: Infinity,
-          },
-        }}
+                rotate: {
+                  duration: 20,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                },
+                translateX: {
+                  duration: 24,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                },
+                translateY: {
+                  duration: 28,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                },
+              }
+        }
         className="
           absolute
           top-[46%]

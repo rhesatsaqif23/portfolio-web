@@ -11,7 +11,8 @@ export default function usePrefersReducedMotion() {
     if (query.addEventListener) query.addEventListener("change", update);
     else query.addListener(update);
     return () => {
-      if (query.removeEventListener) query.removeEventListener("change", update);
+      if (query.removeEventListener)
+        query.removeEventListener("change", update);
       else query.removeListener(update);
     };
   }, []);
