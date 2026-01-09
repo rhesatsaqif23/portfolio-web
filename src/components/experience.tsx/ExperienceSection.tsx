@@ -14,7 +14,10 @@ export default function ExperienceSection({ experiences }: Props) {
   if (!experiences.length) return null;
 
   return (
-    <section id="experiences" className="relative py-28 px-6 md:px-20 lg:px-28">
+    <section
+      id="experiences"
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
+    >
       <SectionTitle
         title="Experiences"
         subtitle="A journey through my professional, academic, and organizational experiences."

@@ -24,15 +24,7 @@ export default function ProjectSection({ projects }: Props) {
   return (
     <section
       id="projects"
-      className="
-        relative
-        scroll-mt-16
-        py-12
-        px-6
-        sm:px-12
-        md:px-20
-        lg:px-28
-      "
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
     >
       {/* ================= TITLE ================= */}
       <SectionTitle

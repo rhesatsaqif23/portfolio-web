@@ -35,10 +35,7 @@ export default function TechStackSection() {
   return (
     <section
       id="stack"
-      className="
-        relative scroll-mt-12 min-h-screen
-        px-6 sm:px-10 md:px-20 xl:px-28 py-16
-      "
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
     >
       <SectionTitle
         title="Tech Stack"

@@ -16,6 +16,7 @@ body {
   overflow-x: hidden;
   height: 100%;
   scroll-behavior: smooth;
+  scroll-padding-top: 24px;
 }
 
 body {
@@ -74,6 +75,15 @@ body {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Hide scrollbar but keep scroll */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Garis timeline utama */

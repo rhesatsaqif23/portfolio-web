@@ -14,15 +14,7 @@ export default function AchievementSection({ achievements }: Props) {
   return (
     <section
       id="achievements"
-      className="
-        relative
-        scroll-mt-16
-        py-16
-        px-4
-        sm:px-6
-        md:px-20
-        lg:px-28
-      "
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
     >
       <SectionTitle
         title="Achievements"

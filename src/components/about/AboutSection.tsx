@@ -31,10 +31,7 @@ export default function AboutSection() {
       variants={sectionContainer}
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
-      className="
-        relative scroll-mt-24 min-h-screen
-        px-6 sm:px-10 lg:px-20 xl:px-28 py-4
-      "
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
     >
       {/* TITLE */}
       <motion.h2
@@ -77,21 +74,25 @@ export default function AboutSection() {
             <span className="text-white font-semibold">
               Informatics Engineering student
             </span>{" "}
-            at{" "}
-            Universitas Brawijaya with a strong focus on <span className="text-white font-semibold">Mobile</span>{" "}
-            and <span className="text-white font-semibold">Front-End Development</span>. I’m
-            passionate about transforming ideas and designs into functional,
-            responsive, and user-centered applications.
+            at Universitas Brawijaya with a strong focus on{" "}
+            <span className="text-white font-semibold">Mobile</span> and{" "}
+            <span className="text-white font-semibold">
+              Front-End Development
+            </span>
+            . I’m passionate about transforming ideas and designs into
+            functional, responsive, and user-centered applications.
           </p>
 
           <p className="text-base md:text-md text-white/80 leading-relaxed mb-10 text-justify">
             I enjoy building software that solves real-world problems using{" "}
-            <span className="text-white font-semibold">clean architecture</span>, maintainable
-            code, and well-crafted interfaces. I’m continuously expanding my
-            skills toward{" "}
-            <span className="text-white font-semibold">full-stack development</span>, aiming
-            to deliver scalable, end-to-end solutions that balance intuitive user
-            experience with solid software engineering practices.
+            <span className="text-white font-semibold">clean architecture</span>
+            , maintainable code, and well-crafted interfaces. I’m continuously
+            expanding my skills toward{" "}
+            <span className="text-white font-semibold">
+              full-stack development
+            </span>
+            , aiming to deliver scalable, end-to-end solutions that balance
+            intuitive user experience with solid software engineering practices.
           </p>
 
           {/* Info */}

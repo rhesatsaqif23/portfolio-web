@@ -23,7 +23,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-8 py-24 px-8 md:px-20 lg:px-28"
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
     >
       {/* HEADER */}
       <motion.div
