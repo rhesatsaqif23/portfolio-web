@@ -30,6 +30,23 @@ export default function Navbar() {
 
   const active = clicked ?? scrollActive;
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    requestAnimationFrame(() => {
+      const top =
+        el.getBoundingClientRect().top +
+        document.documentElement.scrollTop -
+        32;
+
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    });
+  };
+
   useEffect(() => {
     if (clicked && scrollActive === clicked) {
       const t = setTimeout(() => setClicked(null), 0);
@@ -70,12 +87,11 @@ export default function Navbar() {
 
           return (
             <button
+            type="button"
               key={item.label}
               onClick={() => {
                 setClicked(id);
-                document.getElementById(id)?.scrollIntoView({
-                  behavior: "smooth",
-                });
+                scrollToSection(id);
               }}
               className={clsx(
                 "relative flex items-center gap-2 rounded-full",
