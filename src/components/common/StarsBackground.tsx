@@ -56,7 +56,7 @@ export default function StarsBackground() {
             r: Math.random() * 1.4 + 0.4,
             o: Math.random(),
             s: Math.random() * 0.015 + 0.005,
-          })
+          }),
         );
 
         resizeRAF = null;

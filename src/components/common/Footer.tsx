@@ -48,7 +48,9 @@ export default function Footer() {
         <div className="text-sm text-white/60 flex items-center gap-1">
           <span>©</span>
           <span>2026</span>
-          <span className="text-white/60 font-medium">RHESA TSAQIF ADYATMA</span>
+          <span className="text-white/60 font-medium">
+            RHESA TSAQIF ADYATMA
+          </span>
         </div>
 
         {/* RIGHT */}

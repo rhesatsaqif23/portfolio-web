@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 
-export default function SocialIcon({ icon, href }: { icon: React.ReactNode; href: string }) {
+export default function SocialIcon({
+  icon,
+  href,
+}: {
+  icon: React.ReactNode;
+  href: string;
+}) {
   return (
     <motion.a
       href={href}
