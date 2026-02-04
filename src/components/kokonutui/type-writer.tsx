@@ -1,26 +1,16 @@
 "use client";
 
-/**
- * @author: @dorianbaffier
- * @description: Typewriter
- * @version: 1.0.0
- * @date: 2025-06-26
- * @license: MIT
- * @website: https://kokonutui.com
- * @github: https://github.com/kokonut-labs/kokonutui
- */
-
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-type TypewriterSequence = {
+export type TypewriterSequence = {
   text: string;
   deleteAfter?: boolean;
   pauseAfter?: number;
 };
 
-type TypewriterTitleProps = {
-  sequences?: TypewriterSequence[];
+interface TypingEffectProps {
+  sequences: TypewriterSequence[];
   typingSpeed?: number;
   startDelay?: number;
   autoLoop?: boolean;
@@ -28,16 +18,10 @@ type TypewriterTitleProps = {
   deleteSpeed?: number;
   pauseBeforeDelete?: number;
   naturalVariance?: boolean;
-};
+}
 
-const DEFAULT_SEQUENCES: TypewriterSequence[] = [
-  { text: "Typewriter", deleteAfter: true },
-  { text: "Multiple Words", deleteAfter: true },
-  { text: "Auto Loop", deleteAfter: false },
-];
-
-export default function TypewriterTitle({
-  sequences = DEFAULT_SEQUENCES,
+export default function TypingEffect({
+  sequences,
   typingSpeed = 50,
   startDelay = 200,
   autoLoop = true,
@@ -45,39 +29,24 @@ export default function TypewriterTitle({
   deleteSpeed = 30,
   pauseBeforeDelete = 1000,
   naturalVariance = true,
-}: TypewriterTitleProps) {
+}: TypingEffectProps) {
   const [displayText, setDisplayText] = useState("");
   const sequenceIndexRef = useRef(0);
   const charIndexRef = useRef(0);
   const isDeletingRef = useRef(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Initialize with the sequences provided
   const sequencesRef = useRef(sequences);
+
   useEffect(() => {
     sequencesRef.current = sequences;
   }, [sequences]);
 
   useEffect(() => {
     const getTypingDelay = () => {
-      if (!naturalVariance) {
-        return typingSpeed;
-      }
-
-      // More natural human typing pattern
+      if (!naturalVariance) return typingSpeed;
       const random = Math.random();
-
-      // 10% chance of a longer pause (thinking/hesitation)
-      if (random < 0.1) {
-        return typingSpeed * 2;
-      }
-
-      // 10% chance of a burst (fast typing)
-      if (random > 0.9) {
-        return typingSpeed * 0.5;
-      }
-
-      // Standard variance (+/- 40%)
+      if (random < 0.1) return typingSpeed * 2;
+      if (random > 0.9) return typingSpeed * 0.5;
       const variance = 0.4;
       const min = typingSpeed * (1 - variance);
       const max = typingSpeed * (1 + variance);
@@ -86,9 +55,7 @@ export default function TypewriterTitle({
 
     const runTypewriter = () => {
       const currentSequence = sequencesRef.current[sequenceIndexRef.current];
-      if (!currentSequence) {
-        return;
-      }
+      if (!currentSequence) return;
 
       if (isDeletingRef.current) {
         if (charIndexRef.current > 0) {
@@ -106,10 +73,11 @@ export default function TypewriterTitle({
               runTypewriter();
             }, loopDelay);
           } else if (!isLastSequence) {
+            // Jeda singkat sebelum mulai mengetik kata berikutnya
             timeoutRef.current = setTimeout(() => {
               sequenceIndexRef.current += 1;
               runTypewriter();
-            }, 100); // Quick transition to next word
+            }, 20);
           }
         }
       } else if (charIndexRef.current < currentSequence.text.length) {
@@ -147,17 +115,12 @@ export default function TypewriterTitle({
       }
     };
 
-    // Start the loop
     timeoutRef.current = setTimeout(runTypewriter, startDelay);
 
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [
-    // Only restart effect if timing configs change.
-    // We use sequencesRef for content to avoid restarting on array reference change.
     typingSpeed,
     deleteSpeed,
     pauseBeforeDelete,
@@ -168,31 +131,22 @@ export default function TypewriterTitle({
   ]);
 
   return (
-    <div className="relative mx-auto w-full max-w-4xl py-24">
-      <div className="relative z-10 flex flex-col items-center justify-center text-center">
-        <motion.div
-          animate={{ opacity: 1 }}
-          className="flex items-center gap-1 font-mono text-4xl text-black tracking-tight md:text-6xl dark:text-white"
-          initial={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="inline-block min-h-[1.2em] min-w-[0.5em]">
-            {displayText}
-          </span>
-          <motion.span
-            animate={{
-              opacity: [1, 1, 0, 0],
-            }}
-            className="inline-block h-[1em] w-[3px] bg-black dark:bg-white"
-            transition={{
-              duration: 1,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "loop",
-              ease: "linear",
-            }}
-          />
-        </motion.div>
-      </div>
-    </div>
+    <span className="inline-flex items-center whitespace-nowrap">
+      <span>
+        {displayText}
+        &#8203;
+      </span>
+
+      <motion.span
+        animate={{ opacity: [1, 1, 0, 0] }}
+        transition={{
+          duration: 1,
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "loop",
+          ease: "linear",
+        }}
+        className="ml-1 inline-block h-[1em] w-[3px] bg-cyan-300"
+      />
+    </span>
   );
 }

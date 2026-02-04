@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
 import "./globals.css";
-
-import StarsBackground from "../components/common/StarsBackground";
 import Navbar from "../components/navbar/Navbar";
+import ThemeBackground from "../components/common/ThemeBackground";
+import ClickSpark from "@/src/components/common/ClickSpark";
+import { ThemeProvider } from "../components/common/ThemeProvider";
 
-const workSans = Work_Sans({ 
+const workSans = Work_Sans({
   subsets: ["latin"],
   variable: "--font-work-sans",
   display: "swap",
@@ -22,25 +23,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${workSans.variable} relative`}>
+    <html
+      lang="en"
+      className={`${workSans.variable} relative`}
+      suppressHydrationWarning
+    >
       <body className="relative overflow-x-hidden text-white">
-        {/* BACKGROUND LAYER */}
-        <div className="fixed inset-0 -z-10">
-          {/* IMAGE */}
-          <div className="absolute inset-0 bg-[url('/images/background.png')] bg-cover bg-center bg-no-repeat" />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ClickSpark
+            sparkColor="#fff"
+            sparkSize={10}
+            sparkRadius={15}
+            sparkCount={8}
+            duration={400}
+            className="flex flex-col min-h-screen"
+          >
+            {/* BACKGROUND */}
+            <ThemeBackground />
 
-          {/* DARK GRADIENT */}
-          <div className="absolute inset-0 bg-linear-to-b from-black/60 via-[#020617]/80 to-[#020617]/90" />
+            {/* NAVBAR */}
+            <Navbar />
 
-          {/* STARS */}
-          <StarsBackground />
-        </div>
-
-        {/* NAVBAR */}
-        <Navbar />
-
-        {/* PAGE CONTENT */}
-        <main className="relative z-10">{children}</main>
+            {/* PAGE CONTENT */}
+            <main className="relative z-10 grow">{children}</main>
+          </ClickSpark>
+        </ThemeProvider>
       </body>
     </html>
   );

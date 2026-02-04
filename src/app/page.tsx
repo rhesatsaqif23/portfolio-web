@@ -2,7 +2,7 @@ import AboutSection from "../components/about/AboutSection";
 import AchievementSection from "../components/achievements/AchievementSection";
 import Footer from "../components/common/Footer";
 import ContactSection from "../components/contact/ContactSection";
-import ExperienceSection from "../components/experience.tsx/ExperienceSection";
+import ExperienceSection from "../components/experience/ExperienceSection";
 import Hero from "../components/hero/Hero";
 import ProjectSection from "../components/projects/ProjectSection";
 import TechStackSection from "../components/tech-stack/TechStackSection";

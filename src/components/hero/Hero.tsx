@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import BlurText from "../common/BlurText";
-import TypingEffect from "./TypingEffect";
 import HeroSocials from "./HeroSocials";
 import HeroActions from "./HeroActions";
 import { containerVariants, fadeUpVariants } from "./motion";
+import TypingEffect from "../kokonutui/type-writer";
 
 const DecorBackground = dynamic(() => import("../common/DecorBackground"), {
   ssr: false,
@@ -49,7 +49,7 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Role (Typing Loop) */}
+        {/* Role (Advanced Typing Loop) */}
         <motion.h2
           variants={fadeUpVariants}
           className="
@@ -59,7 +59,19 @@ export default function Hero() {
             text-cyan-300
           "
         >
-          <TypingEffect text="Mobile & Front-End Developer" />
+          <TypingEffect
+            sequences={[
+              { text: "Mobile Developer", deleteAfter: true, pauseAfter: 2000 },
+              {
+                text: "Front-End Developer",
+                deleteAfter: true,
+                pauseAfter: 2000,
+              },
+            ]}
+            typingSpeed={80}
+            deleteSpeed={50}
+            naturalVariance={true}
+          />
         </motion.h2>
 
         {/* Social Icons */}

@@ -38,16 +38,16 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
         style={{ pointerEvents: visible ? "auto" : "none" }}
         className="
           group relative w-full rounded-2xl
-          border-2 border-white/20
-          bg-white/5 backdrop-blur-xl
+          border-2 border-white/10
+          bg-slate-950/60 backdrop-blur-xl
           overflow-hidden
           transition-colors duration-300
-          hover:border-cyan-400
-          hover:shadow-[0_12px_48px_rgba(34,211,238,0.35)]
+          hover:border-cyan-400/50
+          hover:shadow-[0_12px_48px_rgba(34,211,238,0.15)]
         "
       >
         {/* THUMB */}
-        <div className="relative h-52 w-full overflow-hidden">
+        <div className="relative h-52 w-full overflow-hidden bg-black/40">
           <Image
             src={supabaseImage(project.thumbnailUrl || "", 1200)}
             alt={project.title}
@@ -60,9 +60,10 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
             <span
               className="
                 absolute top-4 right-4
-                rounded-full bg-slate-900/80
-                border border-white/20
-                px-3 py-1 text-xs text-white/80
+                rounded-full bg-black/60
+                border-2 border-white/10
+                px-3 py-1 text-xs text-white/90
+                backdrop-blur-md
               "
             >
               {project.category}
@@ -81,7 +82,7 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
             )}
           </div>
 
-          <p className="text-white/75 text-sm leading-relaxed line-clamp-3">
+          <p className="text-white/70 text-sm leading-relaxed line-clamp-3">
             {project.description}
           </p>
 
@@ -91,11 +92,12 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
               onClick={onOpen}
               className="
                 group/viewmore flex-1 inline-flex items-center justify-center gap-2
-                rounded-xl border border-white/20 bg-white/5
+                /* Button background lebih gelap (black/20) */
+                rounded-lg border-2 border-white/10 bg-black/20
                 px-4 py-2 text-sm font-medium text-cyan-300
                 transition-all duration-300 cursor-pointer
                 hover:border-cyan-400 hover:bg-cyan-400/10 hover:scale-[1.03]
-                hover:shadow-[0_0_24px_rgba(34,211,238,0.35)]
+                hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]
               "
             >
               View More
@@ -107,7 +109,7 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
                 <Link
                   href={project.demoUrl}
                   target="_blank"
-                  className="group/icon p-2 rounded-xl border border-white/20 bg-white/5
+                  className="group/icon p-2 rounded-xl border-2 border-white/10 bg-black/20
                              text-white/70 transition-all duration-300
                              hover:border-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10
                              hover:scale-[1.08] hover:-translate-y-0.5"
@@ -120,7 +122,7 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
                 <Link
                   href={project.repoUrl}
                   target="_blank"
-                  className="group/icon p-2 rounded-xl border border-white/20 bg-white/5
+                  className="group/icon p-2.5 rounded-lg border-2 border-white/10 bg-black/20
                              text-white/70 transition-all duration-300
                              hover:border-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10
                              hover:scale-[1.08] hover:-translate-y-0.5"

@@ -2,14 +2,13 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import React from "react";
 
 interface TechCardProps {
   name: string;
   icon: string;
   color: string;
 }
-
-import React from "react";
 
 function TechCard({ name, icon, color }: TechCardProps) {
   return (
@@ -19,8 +18,9 @@ function TechCard({ name, icon, color }: TechCardProps) {
       className="
         group relative aspect-square
         rounded-2xl
-        border-2 border-white/20
-        bg-[#0b1220]/85
+        /* Border lebih subtle (white/10) dan Background lebih pekat (slate-950) */
+        border-2 border-white/10
+        bg-slate-950/60
         backdrop-blur-xl
         flex flex-col items-center justify-center
         gap-4
@@ -32,7 +32,8 @@ function TechCard({ name, icon, color }: TechCardProps) {
         e.currentTarget.style.boxShadow = `0 0 0 2px ${color}, 0 0 28px ${color}`;
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
+        // Reset ke border default yang baru (white/10)
+        e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
         e.currentTarget.style.boxShadow = "none";
       }}
     >
