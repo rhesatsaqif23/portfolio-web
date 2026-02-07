@@ -13,7 +13,6 @@ interface Props {
 }
 
 export default function ExperienceSection({ experiences }: Props) {
-  // 1. Gunakan HTMLDivElement karena ref dipasang di elemen div wrapper
   const timelineRef = useRef<HTMLDivElement>(null);
 
   if (!experiences.length) return null;
@@ -61,7 +60,6 @@ export default function ExperienceSection({ experiences }: Props) {
           md:[&_.vertical-timeline-element:nth-child(even)_.vertical-timeline-element-content]:float-right
         "
       >
-        {/* 2. Fix Type Passing: Force casting untuk menghindari error type mismatch */}
         <AnimatedGridLine
           containerRef={timelineRef as unknown as React.RefObject<HTMLElement>}
         />

@@ -34,7 +34,7 @@ export default function Navbar() {
       const top =
         el.getBoundingClientRect().top +
         document.documentElement.scrollTop -
-        100;
+        25;
       window.scrollTo({ top, behavior: "smooth" });
     });
     setIsOpen(false);
@@ -48,24 +48,31 @@ export default function Navbar() {
   }, [scrollActive, clicked]);
 
   return (
-    <div className="fixed top-4 md:top-6 inset-x-0 z-50 flex justify-center px-4 md:px-8">
+    <div className="fixed top-4 md:top-6 inset-x-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
       <motion.nav
+        layout
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+        transition={{
+          type: "spring",
+          stiffness: 200,
+          damping: 25,
+          mass: 0.8,
+        }}
         className={clsx(
-          "relative flex flex-col",
-          "border border-white/10 bg-black/50 backdrop-blur-xl shadow-2xl shadow-black/50",
-          "transition-all duration-500 ease-in-out",
+          "pointer-events-auto relative flex flex-col",
+          "border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-2xl shadow-black/40",
           "w-[95vw] md:w-[90vw] rounded-2xl",
           "lg:w-auto lg:rounded-full",
-          isOpen ? "rounded-3xl" : "",
+          "will-change-transform",
+          isOpen ? "rounded-2xl" : "",
         )}
       >
         {/* Top Bar */}
-        <div
+        <motion.div
+          layout="position"
           className={clsx(
-            "flex items-center w-full transition-all duration-300",
+            "flex items-center w-full",
             "justify-between px-4 py-2 md:px-6 md:py-3",
             "lg:justify-center lg:gap-4 xl:gap-6 lg:px-6 lg:py-4",
           )}
@@ -75,7 +82,7 @@ export default function Navbar() {
             onClick={() => scrollToSection("home")}
             className="flex items-center gap-3 md:gap-4 shrink-0 cursor-pointer group"
           >
-            <div className="relative h-8 w-8 md:h-10 md:w-10 rounded-full overflow-hidden border border-white/10 bg-white/5 transition-transform duration-300 group-hover:scale-110">
+            <div className="relative h-8 w-8 md:h-10 md:w-10 rounded-full overflow-hidden border border-white/10 bg-black/20 transition-transform duration-300 group-hover:scale-110">
               <Image
                 src="/images/logo.png"
                 alt="Logo"
@@ -83,15 +90,12 @@ export default function Navbar() {
                 className="object-cover"
               />
             </div>
-            <span className="text-sm md:text-base font-bold text-white tracking-wide transition-colors duration-300 group-hover:text-cyan-300 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
-              Rhesa Tsaqif
-            </span>
           </button>
 
-          {/* Desktop Divider (Hidden on sm/md) */}
+          {/* Desktop Divider */}
           <div className="hidden lg:block h-8 w-0.5 bg-white/10" />
 
-          {/* Desktop Navigation (Hidden on sm/md) */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => {
               const id = item.href.slice(1);
@@ -110,7 +114,7 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Mobile/Tablet Toggle (Hidden on lg+) */}
+          {/* Mobile/Tablet Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-2 text-white/80 hover:text-white transition-colors"
@@ -119,9 +123,9 @@ export default function Navbar() {
               {isOpen ? (
                 <motion.div
                   key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.8 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.2 }}
                 >
                   <X className="w-6 h-6" />
@@ -129,9 +133,9 @@ export default function Navbar() {
               ) : (
                 <motion.div
                   key="menu"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.8 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.2 }}
                 >
                   <Menu className="w-6 h-6" />
@@ -139,17 +143,17 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </button>
-        </div>
+        </motion.div>
 
-        {/* Mobile Dropdown Menu (lg:hidden) */}
+        {/* Mobile Dropdown Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="w-full overflow-hidden lg:hidden border-t border-white/5"
+              transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+              className="w-full overflow-hidden lg:hidden border-t border-white/10"
             >
               <div className="flex flex-col p-4 gap-2">
                 {navItems.map((item) => {

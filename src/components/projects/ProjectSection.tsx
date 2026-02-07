@@ -26,13 +26,13 @@ export default function ProjectSection({ projects }: Props) {
       id="projects"
       className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-24"
     >
-      {/* ================= TITLE ================= */}
+      {/* TITLE */}
       <SectionTitle
         title="Projects"
         subtitle="Selected projects showcasing my experience in mobile and web development."
       />
 
-      {/* ================= FILTER (NAVBAR STYLE) ================= */}
+      {/* FILTER (NAVBAR STYLE) */}
       <ProjectFilterBar
         activeCategory={activeCategory}
         onChange={(val) => {
@@ -41,7 +41,7 @@ export default function ProjectSection({ projects }: Props) {
         }}
       />
 
-      {/* ================= GRID ================= */}
+      {/* GRID */}
       <motion.div
         variants={container}
         initial="hidden"

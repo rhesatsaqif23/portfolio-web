@@ -7,6 +7,7 @@ import HeroSocials from "./HeroSocials";
 import HeroActions from "./HeroActions";
 import { containerVariants, fadeUpVariants } from "./motion";
 import TypingEffect from "../kokonutui/type-writer";
+import Badge from "../common/Badge";
 
 const DecorBackground = dynamic(() => import("../common/DecorBackground"), {
   ssr: false,
@@ -25,10 +26,14 @@ export default function Hero() {
         viewport={{ once: false, amount: 0.1 }}
         className="flex flex-col items-center px-6"
       >
+        <motion.div variants={fadeUpVariants} className="mb-6">
+          <Badge text="Welcome to My Portofolio" />
+        </motion.div>
+        
         {/* Intro */}
         <motion.p
           variants={fadeUpVariants}
-          className="text-xl md:text-2xl text-white/80 tracking-wide mb-5"
+          className="text-xl md:text-2xl text-white/90 tracking-wide mb-5"
         >
           Hello, I am
         </motion.p>

@@ -18,8 +18,8 @@ export default function SocialIcon({
         h-12 w-12 md:h-14 md:w-14
         items-center justify-center
         rounded-full
-        border-2 border-white/30
-        bg-white/5 backdrop-blur
+       border-2 border-white/10
+        bg-slate-950/60 backdrop-blur-xl
         text-white
         transition-colors duration-200
         hover:border-cyan-400

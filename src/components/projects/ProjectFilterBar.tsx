@@ -18,7 +18,6 @@ interface Props {
 }
 
 export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
-  // Gunakan wrapper statis untuk mendeteksi visibilitas agar tidak flicker
   const { ref, visible } = useInView<HTMLDivElement>(0.6);
 
   return (
@@ -36,13 +35,13 @@ export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
       >
         <div
           className="
-            flex items-center gap-1
+            flex items-center gap-4
             rounded-full
-            border border-white/15
-            bg-[#0b1220]/70
+            border border-white/10
+            bg-slate-950/60
             backdrop-blur-xl
             px-3 py-2
-            shadow-lg shadow-black/40
+            shadow-2xl shadow-black/40
           "
         >
           {categories.map((cat) => {
@@ -54,7 +53,7 @@ export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
                 key={cat.value}
                 onClick={() => onChange(cat.value)}
                 className={clsx(
-                  "relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
+                  "relative flex items-center gap-2 rounded-full px-4 py-2 text-md font-medium",
                   "transition-colors duration-200 cursor-pointer",
                   isActive
                     ? "text-white"
@@ -64,7 +63,7 @@ export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
                 <motion.span
                   whileHover={{ scale: 1.08 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 z-10"
                 >
                   <Icon
                     className={clsx(
@@ -79,11 +78,12 @@ export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
                   <motion.span
                     layoutId="project-filter-indicator"
                     className="
-                      absolute inset-0 -z-10
+                      absolute inset-0 z-0
                       rounded-full
                       bg-linear-to-r
                       from-cyan-400/30
                       to-blue-500/30
+                      border border-white/5
                     "
                     transition={{
                       type: "spring",

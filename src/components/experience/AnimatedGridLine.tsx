@@ -21,7 +21,6 @@ export default function AnimatedGridLine({
 
   const progressHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
-  // Mobile: left-6 (24px) | Tablet/Desktop: left-1/2 (Center)
   const positionClass = "left-6 md:left-1/2";
 
   return (

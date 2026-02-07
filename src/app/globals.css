@@ -4,56 +4,57 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ROOT VARIABLES */
 :root {
-  /* Base Colors */
-  --background: oklch(0.1 0.03 220);
-  --foreground: oklch(0.98 0.01 200);
-
-  /* Brand - Modern Neon Cyan (Brighter) */
-  --primary: oklch(0.8 0.18 190);
-  --primary-foreground: oklch(0.1 0.03 220);
-
-  /* Secondary & Accents */
-  --secondary: oklch(0.25 0.05 210);
-  --secondary-foreground: oklch(0.98 0.01 200);
-  --accent: oklch(0.88 0.14 180);
-  --accent-foreground: oklch(0.1 0.03 220);
-
-  /* UI Elements - Lighter for Visibility */
-  --muted: oklch(0.35 0.04 220); /* Terang agar scrollbar terlihat */
-  --muted-foreground: oklch(0.7 0.04 210);
-  --card: oklch(0.13 0.03 220);
-  --card-foreground: oklch(0.98 0.01 200);
-  --popover: oklch(0.13 0.03 220);
-  --popover-foreground: oklch(0.98 0.01 200);
-  --border: oklch(0.25 0.04 220);
-  --input: oklch(0.25 0.04 220);
-  --ring: oklch(0.8 0.18 190);
-
-  /* Semantic */
-  --destructive: oklch(0.65 0.22 25);
+  --background: oklch(0.05 0.01 240);
+  --foreground: oklch(0.98 0 0);
+  --primary: oklch(0.8 0.12 200);
+  --primary-foreground: oklch(0.1 0.05 240);
+  --card: oklch(0.1 0.02 240);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.1 0.02 240);
+  --popover-foreground: oklch(0.98 0 0);
+  --border: oklch(0.2 0.02 240);
+  --input: oklch(0.2 0.02 240);
+  --ring: oklch(0.8 0.12 200);
+  --secondary: oklch(0.2 0.02 240);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.35 0.02 240);
+  --muted-foreground: oklch(0.7 0.04 200);
+  --accent: oklch(0.2 0.02 240);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.6 0.15 25);
   --destructive-foreground: oklch(0.98 0 0);
-
-  /* Global Settings */
+  --radius: 0.75rem;
   --font-work-sans: "Work Sans", sans-serif;
-  --radius: 0.625rem;
+}
 
-  /* Sidebar */
-  --sidebar: oklch(0.11 0.03 220);
-  --sidebar-foreground: oklch(0.98 0.01 200);
-  --sidebar-primary: oklch(0.8 0.18 190);
-  --sidebar-primary-foreground: oklch(0.1 0.03 220);
-  --sidebar-accent: oklch(0.25 0.05 210);
-  --sidebar-accent-foreground: oklch(0.98 0.01 200);
-  --sidebar-border: oklch(0.25 0.04 220);
-  --sidebar-ring: oklch(0.8 0.18 190);
-
-  /* Charts */
-  --chart-1: oklch(0.8 0.18 190);
-  --chart-2: oklch(0.65 0.16 210);
-  --chart-3: oklch(0.55 0.14 225);
-  --chart-4: oklch(0.45 0.12 240);
-  --chart-5: oklch(0.88 0.14 180);
+/* THEME CONFIGURATION */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-work-sans);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 html,
@@ -145,25 +146,20 @@ body {
   }
 }
 
-/* Scrollbar Configuration */
+/* --- Scrollbar Configuration --- */
 * {
-  scrollbar-width: medium;
-  scrollbar-color: var(--muted) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.4 0.02 240) transparent;
 }
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
+
 *::-webkit-scrollbar-thumb {
-  background-color: var(--muted);
+  background-color: oklch(0.4 0.02 240);
   border-radius: 999px;
-  border: 2px solid var(--background);
+  border: 3px solid transparent;
   background-clip: content-box;
   transition: background-color 0.2s ease;
 }
+
 *::-webkit-scrollbar-thumb:hover {
   background-color: var(--primary);
 }
