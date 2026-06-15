@@ -29,7 +29,7 @@ export default function Footer({ profile }: Props) {
   const github = profile?.github ?? "https://github.com/rhesatsaqif23";
   const linkedin = profile?.linkedin ?? "https://linkedin.com/in/rhesa-tsaqif";
   const instagram = profile?.instagram ?? "https://instagram.com/ats_tsaqif_23";
-  const fullName = profile?.fullName ?? "Rhesa Tsaqif Adyatma";
+  const displayName = "Rhesa Tsaqif";
   const tagline = profile?.bioShort ?? "Developer passionate about building performant and scalable mobile & web applications.";
 
   const socials = [
@@ -40,7 +40,7 @@ export default function Footer({ profile }: Props) {
   ];
 
   return (
-    <footer className="relative bg-linear-to-br from-cyan-500 via-blue-600 to-indigo-700 text-white pt-8 sm:pt-10 lg:pt-12 pb-4 sm:pb-6 lg:pb-8 px-4 sm:px-6 lg:px-8 mt-auto overflow-hidden">
+    <footer className="relative bg-linear-to-br from-blue-900 via-blue-950 to-indigo-950 text-white pt-8 sm:pt-10 lg:pt-12 pb-4 sm:pb-6 lg:pb-8 px-4 sm:px-6 lg:px-8 mt-auto overflow-hidden">
       <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <div className="absolute top-0 right-0 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
@@ -60,7 +60,7 @@ export default function Footer({ profile }: Props) {
           <div className="w-full lg:w-1/2 flex flex-col sm:flex-row justify-center lg:justify-end gap-12 sm:gap-16 lg:gap-24 lg:pr-8">
             {/* Center-Right: Navigation */}
             <div className="text-center lg:text-start min-w-[140px]">
-              <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide uppercase">
+              <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
                 Navigation
               </h4>
               <ul className="space-y-2 sm:space-y-3">
@@ -79,7 +79,7 @@ export default function Footer({ profile }: Props) {
 
             {/* Right: Contact */}
             <div className="text-center lg:text-start min-w-[140px]">
-              <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide uppercase">
+              <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
                 Contact
               </h4>
               <div className="flex flex-col items-center sm:items-start gap-3 sm:gap-4">
@@ -114,7 +114,7 @@ export default function Footer({ profile }: Props) {
         {/* Row 2: Big name text */}
         <div className="text-center my-2 md:my-4 select-none">
           <p className="text-4xl sm:text-5xl md:text-6xl lg:text-[8rem] xl:text-[10rem] font-bold text-white leading-none tracking-wide">
-            {fullName.toUpperCase()}
+            {displayName}
           </p>
         </div>
 
