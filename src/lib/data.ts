@@ -130,6 +130,7 @@ export async function getAchievements(): Promise<Achievement[]> {
     description: a.description,
     url: a.url,
     sortOrder: a.sort_order,
+    category: a.category ?? null,
   }));
 }
 

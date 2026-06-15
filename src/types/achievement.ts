@@ -1,3 +1,5 @@
+export type AchievementCategory = "hackathon" | "software development" | "photo & video" | "applied technology";
+
 export interface Achievement {
   id: string
   title: string
@@ -7,4 +9,5 @@ export interface Achievement {
   description: string | null
   url: string | null
   sortOrder: number | null
+  category: AchievementCategory | null
 }
