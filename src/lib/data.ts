@@ -5,6 +5,7 @@ import { Experience } from "@/src/types/experience";
 import { Project } from "@/src/types/project";
 import { Achievement } from "@/src/types/achievement";
 import { Stat } from "@/src/types/stat";
+import { CaseStudy } from "@/src/types/case-study";
 
 function createSupabaseClient() {
   return createClient(
@@ -79,6 +80,7 @@ export function mapProject(p: any): Project {
     title: p.title,
     slug: p.slug,
     descriptionShort: p.description_short,
+    longDescription: p.long_description ?? null,
     thumbnailUrl: p.thumbnail_url,
     techStacks: p.tech_stacks ?? [],
     isFeatured: p.is_featured ?? false,
@@ -99,18 +101,29 @@ export async function getProjects(): Promise<Project[]> {
   return (data ?? []).map(mapProject);
 }
 
+export async function getProjectBySlug(slug: string): Promise<Project | null> {
+  const supabase = createSupabaseClient();
+  const { data } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  if (!data) return null;
+  return mapProject(data);
+}
+
 export async function getProjectsByCategory(category: string, max: number = 8): Promise<Project[]> {
   const supabase = createSupabaseClient();
   let query = supabase.from("projects").select("*").order("sort_order", { ascending: true });
-  
+
   if (category && category !== "All") {
     query = query.eq("category", category);
   }
-  
+
   if (max) {
     query = query.limit(max);
   }
-  
+
   const { data } = await query;
   return (data ?? []).map(mapProject);
 }
@@ -149,4 +162,48 @@ export async function getStats(): Promise<Stat[]> {
     icon: s.icon,
     sortOrder: s.sort_order,
   }));
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapCaseStudy(c: any): CaseStudy {
+  return {
+    id: c.id,
+    projectId: c.project_id,
+    role: c.role ?? "full-stack developer",
+    startDate: c.start_date ?? null,
+    endDate: c.end_date ?? null,
+    overview: c.overview ?? null,
+    problems: c.problems ?? [],
+    solutions: c.solutions ?? [],
+    features: c.features ?? [],
+    contributions: c.contributions ?? [],
+    techStacks: c.tech_stacks ?? [],
+    challenges: c.challenges ?? [],
+    results: c.results ?? [],
+    futurePlans: c.future_plans ?? [],
+    team: c.team ?? [],
+    gallery: c.gallery ?? [],
+  };
+}
+
+export async function getCaseStudyByProjectSlug(slug: string): Promise<CaseStudy | null> {
+  const supabase = createSupabaseClient();
+  const { data } = await supabase
+    .from("case_studies")
+    .select("*, projects!inner(slug)")
+    .eq("projects.slug", slug)
+    .maybeSingle();
+  if (!data) return null;
+  return mapCaseStudy(data);
+}
+
+export async function getCaseStudyByProjectId(projectId: string): Promise<CaseStudy | null> {
+  const supabase = createSupabaseClient();
+  const { data } = await supabase
+    .from("case_studies")
+    .select("*")
+    .eq("project_id", projectId)
+    .maybeSingle();
+  if (!data) return null;
+  return mapCaseStudy(data);
 }

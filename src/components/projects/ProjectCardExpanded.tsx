@@ -158,7 +158,7 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                   </div>
 
                   <p className="text-sm md:text-base text-white/90 leading-relaxed">
-                    {project.descriptionShort}
+                    {project.longDescription ?? project.descriptionShort}
                   </p>
 
                   <div className="space-y-3">
