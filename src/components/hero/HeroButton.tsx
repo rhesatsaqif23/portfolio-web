@@ -9,8 +9,9 @@ interface HeroButtonProps {
   label: string;
   icon: React.ReactNode;
   external?: boolean;
-  shineDelay?: string; // Tambahkan prop ini
+  shineDelay?: string;
   size?: "default" | "sm";
+  className?: string;
 }
 
 export default function HeroButton({
@@ -20,6 +21,7 @@ export default function HeroButton({
   external,
   shineDelay = "0s",
   size = "default",
+  className = "",
 }: HeroButtonProps) {
   return (
     <motion.a
@@ -39,6 +41,7 @@ export default function HeroButton({
         "bg-slate-950/60 backdrop-blur-xl",
         "hover:border-cyan-400",
         size === "default" ? "hover:px-8 md:hover:px-10" : "hover:px-6 md:hover:px-7",
+        className,
       )}
     >
       {/* SHINY EFFECT dengan animation-delay */}

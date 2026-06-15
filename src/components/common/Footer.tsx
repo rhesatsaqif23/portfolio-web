@@ -7,11 +7,13 @@ interface Props {
   profile: Profile | null;
 }
 
-const navItems = [
+const leftNavItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Stack", href: "#stack" },
   { label: "Experiences", href: "#experiences" },
+];
+const rightNavItems = [
   { label: "Projects", href: "#projects" },
   { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
@@ -30,7 +32,6 @@ export default function Footer({ profile }: Props) {
   const linkedin = profile?.linkedin ?? "https://linkedin.com/in/rhesa-tsaqif";
   const instagram = profile?.instagram ?? "https://instagram.com/ats_tsaqif_23";
   const displayName = "Rhesa Tsaqif";
-  const tagline = profile?.bioShort ?? "Developer passionate about building performant and scalable mobile & web applications.";
 
   const socials = [
     { name: "Email", href: `mailto:${email}`, icon: Mail },
@@ -51,20 +52,20 @@ export default function Footer({ profile }: Props) {
         <div className="flex flex-col lg:flex-row justify-between items-center gap-12 mb-4 w-full">
           {/* Left: Tagline (50%) */}
           <div className="w-full lg:w-1/2 text-center xl:text-left xl:pr-8">
-            <p className="text-white text-sm md:text-base leading-relaxed lg:max-w-md md:px-16 mx-auto font-medium">
-              {tagline}
+            <p className="text-white text-lg md:text-xl font-semibold leading-relaxed lg:max-w-md md:px-16 mx-auto">
+              Let&apos;s make something amazing together. Crafting experiences that delight, inspire, and empower.
             </p>
           </div>
 
-          {/* Right side wrapper: Navigation & Contact (50%) */}
+          {/* Right side wrapper: Navigation & Contact */}
           <div className="w-full lg:w-1/2 flex flex-col sm:flex-row justify-center lg:justify-end gap-12 sm:gap-16 lg:gap-24 lg:pr-8">
-            {/* Center-Right: Navigation */}
+            {/* Left Navigation Column */}
             <div className="text-center lg:text-start min-w-[140px]">
               <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
                 Navigation
               </h4>
               <ul className="space-y-2 sm:space-y-3">
-                {navItems.map((item) => (
+                {leftNavItems.map((item) => (
                   <li key={item.label}>
                     <button
                       onClick={() => scrollToSection(item.href.slice(1))}
@@ -76,22 +77,27 @@ export default function Footer({ profile }: Props) {
                 ))}
               </ul>
             </div>
-
-            {/* Right: Contact */}
+            {/* Right Navigation Column (no title) */}
+            <div className="text-center lg:text-start min-w-[140px]">
+              <ul className="space-y-2 sm:space-y-3 mt-8">
+                {rightNavItems.map((item) => (
+                  <li key={item.label}>
+                    <button
+                      onClick={() => scrollToSection(item.href.slice(1))}
+                      className="text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium cursor-pointer"
+                    >
+                      {item.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Contact Column (no email) */}
             <div className="text-center lg:text-start min-w-[140px]">
               <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
                 Contact
               </h4>
               <div className="flex flex-col items-center sm:items-start gap-3 sm:gap-4">
-                <a
-                  href={`mailto:${email}`}
-                  className="flex items-center gap-2 sm:gap-3 text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium"
-                >
-                  <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/20 shrink-0">
-                    <Mail className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
-                  </div>
-                  <span>{email}</span>
-                </a>
                 {socials.filter(s => s.name !== "Email").map(({ name, href, icon: Icon }) => (
                   <a
                     key={name}
@@ -121,7 +127,7 @@ export default function Footer({ profile }: Props) {
         {/* Row 3: Credit */}
         <div className="mt-4 sm:mt-6 lg:mt-8 text-center">
           <p className="text-white/80 text-xs sm:text-sm font-medium">
-            Built with <span className="text-white font-bold">Next.js</span> and <span className="text-white font-bold">Supabase</span>
+            © 2026 Rhesa Tsaqif Adyatma. All rights reserved.
           </p>
         </div>
       </div>

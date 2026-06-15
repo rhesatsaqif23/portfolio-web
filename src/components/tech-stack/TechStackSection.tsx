@@ -173,7 +173,7 @@ export default function TechStackSection({ skills }: Props) {
                   className="group flex flex-col items-center gap-2 md:gap-3"
                 >
                   {skill.iconUrl && (
-                    <div className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0 transition-transform duration-300 group-hover:scale-110 rounded-md overflow-hidden bg-white/5">
+                    <div className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0 transition-transform duration-300 group-hover:scale-110 rounded-md overflow-hidden bg-transparent">
                       <ImageWithFallback
                         src={skill.iconUrl}
                         alt={skill.name}

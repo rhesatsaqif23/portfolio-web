@@ -3,8 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import clsx from "clsx";
-import Link from "next/link";
-import { ArrowRight, Folder, Globe, Smartphone, ListTodo } from "lucide-react";
+import { Folder, Globe, Smartphone, ListTodo } from "lucide-react";
 import HeroButton from "../hero/HeroButton";
 
 const categories = [

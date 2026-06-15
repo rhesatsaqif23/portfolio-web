@@ -67,7 +67,7 @@ export default function ContactSection({ profile }: Props) {
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 lg:mb-8">
           Get In Touch
         </h2>
-        <p className="max-w-3xl mx-auto text-sm md:text-md lg:text-lg text-white/80 leading-relaxed">
+        <p className="max-w-3xl mx-auto text-sm md:text-md lg:text-lg text-white leading-relaxed">
           Have a project or idea in mind? I&apos;m open to internships,
           collaborations, and opportunities in software development. Feel free
           to reach out and let&apos;s create something meaningful together.
@@ -184,14 +184,14 @@ export default function ContactSection({ profile }: Props) {
             className="flex-1 space-y-3 md:space-y-4"
           >
             <div>
-              <h3 className="text-xs md:text-sm font-semibold text-white/60 mb-2 md:mb-3">
+              <h3 className="text-xs md:text-sm font-semibold text-white/80 mb-2 md:mb-3">
                 EMAIL
               </h3>
               <Link
                 href={`mailto:${email}`}
                 className="
                 group relative inline-flex flex-col justify-center
-                text-white/80 transition-all duration-300 py-1
+                text-white transition-all duration-300 py-1
             "
               >
                 <div className="relative h-[1.6em] overflow-hidden">
@@ -217,21 +217,21 @@ export default function ContactSection({ profile }: Props) {
                         will-change-transform will-change-opacity
                     "
                   >
-                    <span className="text-sm md:text-md font-bold text-white/90">
+                    <span className="text-sm md:text-base font-semibold text-white">
                       Send Me an Email
                     </span>
-                    <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white/90" />
+                    <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
                   </div>
                 </div>
               </Link>
             </div>
 
             <div>
-              <h3 className="text-xs md:text-sm font-semibold text-white/60 mb-2 md:mb-3">
+              <h3 className="text-xs md:text-sm font-semibold text-white/80 mb-2 md:mb-3">
                 LOCATION
               </h3>
-              <div className="flex items-center gap-2 md:gap-3 text-white/80">
-                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-white/80" />
+              <div className="flex items-center gap-2 md:gap-3 text-white">
+                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 <span className="text-sm md:text-base">{location}</span>
               </div>
             </div>
@@ -252,7 +252,7 @@ export default function ContactSection({ profile }: Props) {
             }}
             className="flex-1"
           >
-            <h3 className="text-xs md:text-sm font-semibold text-white/60 mb-2 md:mb-3">SOCIAL</h3>
+            <h3 className="text-xs md:text-sm font-semibold text-white/80 mb-2 md:mb-3">SOCIAL</h3>
 
             <div className="flex flex-col gap-4 md:gap-5">
               {socialLinks.map((item, i) => (
@@ -274,10 +274,10 @@ export default function ContactSection({ profile }: Props) {
                     target="_blank"
                     className="
                         group relative inline-flex flex-col justify-center
-                        text-white/80 transition-all duration-300
+                        text-white transition-all duration-300
                     "
                   >
-                    <div className="relative h-[1.6em] overflow-hidden">
+                    <div className="relative h-[1.6em] overflow-hidden w-max">
                       <div
                         className="
                             flex items-center gap-2 md:gap-3 transition-transform duration-200 ease-out
@@ -296,10 +296,10 @@ export default function ContactSection({ profile }: Props) {
                             transition-all duration-250 ease-[cubic-bezier(0.25,1,0.3,1)]
                         "
                       >
-                        <span className="text-sm md:text-md font-semibold text-white/90">
+                        <span className="text-sm md:text-base font-semibold text-white whitespace-nowrap">
                           Follow on {item.name}
                         </span>
-                        <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white/90" />
+                        <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
                       </div>
                     </div>
                   </Link>

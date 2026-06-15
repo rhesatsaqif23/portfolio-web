@@ -2,7 +2,7 @@
 
 import ImageWithFallback from "../common/ImageWithFallback";
 import Link from "next/link";
-import { ExternalLink, Github, Layers, X, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import HeroButton from "../hero/HeroButton";
 import { Project } from "@/src/types/project";
@@ -88,14 +88,12 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                     {project.title}
                   </h2>
                   {project.thumbnailUrl && (
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                    <div
                       className="
                         relative aspect-video w-full
                         rounded-xl overflow-hidden
                         border border-white/10
-                        will-change-transform
+                        group/thumb
                       "
                     >
                       <ImageWithFallback
@@ -103,9 +101,49 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                         alt={project.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 800px"
-                        className="object-cover"
+                        className="object-cover transition-transform duration-500 ease-out group-hover/thumb:scale-105"
                       />
-                    </motion.div>
+                    </div>
+                  )}
+                  {/* View Case Study – below image */}
+                  {project.slug && (
+                    <div className="flex justify-center">
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="
+                          group relative inline-flex flex-col justify-center
+                          text-white/80 transition-all duration-300 py-1 w-fit
+                        "
+                      >
+                        <div className="relative h-[1.6em] overflow-hidden">
+                          <div
+                            className="
+                              flex items-center gap-2 md:gap-3
+                              transition-transform duration-200 ease-out
+                              group-hover:-translate-y-[40%] group-hover:opacity-0
+                              will-change-transform will-change-opacity
+                            "
+                          >
+                            <span className="text-sm md:text-base font-semibold text-white">View Case Study</span>
+                            <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                          </div>
+                          <div
+                            className="
+                              pointer-events-none
+                              absolute left-0 top-0 flex items-center gap-2
+                              translate-y-[40%] opacity-0
+                              group-hover:translate-y-0 group-hover:opacity-100
+                              transition-all duration-250 ease-[cubic-bezier(0.25,1,0.3,1)]
+                              will-change-transform will-change-opacity
+                            "
+                          >
+                            <span className="text-sm md:text-base font-bold text-cyan-300">View Case Study</span>
+                            <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-cyan-300" />
+                          </div>
+                        </div>
+                        <div className="h-px w-full bg-cyan-400/0 transition-colors duration-300 group-hover:bg-cyan-400/50 mt-1" />
+                      </Link>
+                    </div>
                   )}
                 </div>
 
@@ -139,67 +177,27 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                     </section>
                   </div>
 
-                  <div className="pt-2 mt-auto">
-                    <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:gap-4 mt-4">
-                      {project.liveUrl && (
-                        <HeroButton
-                          href={project.liveUrl}
-                          label="View Live Demo"
-                          icon={<ExternalLink className="h-4 w-4" />}
-                          external={true}
-                          size="sm"
-                        />
-                      )}
-                      {project.githubUrl && (
-                        <HeroButton
-                          href={project.githubUrl}
-                          label="View on GitHub"
-                          icon={<Github className="h-4 w-4" />}
-                          external={true}
-                          size="sm"
-                        />
-                      )}
-                    </div>
-                    <div className="mt-2">
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        className="
-                          group relative inline-flex flex-col justify-center
-                          text-white/80 transition-all duration-300 py-1 w-fit
-                        "
-                      >
-                        <div className="relative h-[1.6em] overflow-hidden">
-                          <div
-                            className="
-                              flex items-center gap-2 md:gap-3
-                              transition-transform duration-200 ease-out
-                              group-hover:-translate-y-[40%] group-hover:opacity-0
-                              will-change-transform will-change-opacity
-                            "
-                          >
-                            <span className="text-sm md:text-base font-semibold text-white">View Case Study</span>
-                            <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                          </div>
-
-                          <div
-                            className="
-                              pointer-events-none
-                              absolute left-0 top-0 flex items-center gap-2
-                              translate-y-[40%] opacity-0
-                              group-hover:translate-y-0 group-hover:opacity-100
-                              transition-all duration-250 ease-[cubic-bezier(0.25,1,0.3,1)]
-                              will-change-transform will-change-opacity
-                            "
-                          >
-                            <span className="text-sm md:text-base font-bold text-cyan-300">
-                              View Case Study
-                            </span>
-                            <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-cyan-300" />
-                          </div>
-                        </div>
-                        <div className="h-px w-full bg-cyan-400/0 transition-colors duration-300 group-hover:bg-cyan-400/50 mt-1" />
-                      </Link>
-                    </div>
+                  <div className="grid grid-cols-2 gap-3 mt-auto pt-2">
+                    {project.liveUrl && (
+                      <HeroButton
+                        href={project.liveUrl}
+                        label="View Live Demo"
+                        icon={<ExternalLink className="h-4 w-4" />}
+                        external={true}
+                        size="sm"
+                        className="w-full"
+                      />
+                    )}
+                    {project.githubUrl && (
+                      <HeroButton
+                        href={project.githubUrl}
+                        label="View on GitHub"
+                        icon={<Github className="h-4 w-4" />}
+                        external={true}
+                        size="sm"
+                        className="w-full"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
