@@ -13,8 +13,8 @@ const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Stack", href: "#stack" },
-  { label: "Experiences", href: "#experiences" },
   { label: "Projects", href: "#projects" },
+  { label: "Experiences", href: "#experiences" },
   { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
 ];

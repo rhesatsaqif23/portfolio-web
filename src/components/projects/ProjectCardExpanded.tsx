@@ -2,8 +2,9 @@
 
 import ImageWithFallback from "../common/ImageWithFallback";
 import Link from "next/link";
-import { ExternalLink, Github, Layers, X } from "lucide-react";
+import { ExternalLink, Github, Layers, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import HeroButton from "../hero/HeroButton";
 import { Project } from "@/src/types/project";
 import ModalPortal from "../common/ModalPortal";
 
@@ -50,7 +51,7 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                 fixed z-50
                 top-1/2 left-1/2
                 -translate-x-1/2 -translate-y-1/2
-                w-[92vw] max-w-2xl
+                w-[92vw] max-w-5xl
                 rounded-2xl
                 border border-white/15
                 bg-slate-900/90 backdrop-blur-xl
@@ -80,115 +81,125 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                 <X className="h-4 w-4" />
               </button>
 
-              <div className="p-6 sm:p-7 space-y-5">
-                <header className="space-y-1">
-                  <h2 className="text-xl sm:text-2xl font-semibold text-white">
+              <div className="p-6 sm:p-7 md:p-10 grid md:grid-cols-2 gap-8 md:gap-10 max-h-[85vh] overflow-y-auto">
+                {/* Left Column */}
+                <div className="flex flex-col space-y-5 md:space-y-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
                     {project.title}
                   </h2>
-                </header>
-
-                {project.thumbnailUrl && (
-                  <motion.div
-                    whileHover={{ scale: 1.045 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 22,
-                    }}
-                    className="
-                      relative aspect-video
-                      max-h-50 sm:max-h-60 md:max-h-70
-                      rounded-xl overflow-hidden
-                      border border-white/10 mx-auto
-                      will-change-transform
-                    "
-                  >
-                  <ImageWithFallback
-                    src={storageUrl(project.thumbnailUrl)}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                    className="object-cover"
-                  />
-                  </motion.div>
-                )}
-
-                <p className="text-sm text-white/90 leading-relaxed">
-                  {project.descriptionShort}
-                </p>
-
-                <section className="flex flex-wrap gap-2 sm:gap-3">
-                  {project.techStacks.map((tech) => (
-                    <span
-                      key={tech}
+                  {project.thumbnailUrl && (
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 260, damping: 22 }}
                       className="
-                        inline-flex items-center gap-2
-                        rounded-lg bg-white/5
-                        border border-white/15
-                        px-3 py-1.5
-                        text-xs sm:text-sm text-white/85
-                        transition-[transform,background-color,border-color,color]
-                        duration-120 ease-out
-                        hover:border-cyan-400/70
-                        hover:bg-cyan-400/10 hover:text-white
-                        hover:scale-[1.05]
+                        relative aspect-video w-full
+                        rounded-xl overflow-hidden
+                        border border-white/10
+                        will-change-transform
                       "
                     >
-                      <Layers className="h-4 w-4 text-cyan-300" />
-                      {tech}
-                    </span>
-                  ))}
-                </section>
+                      <ImageWithFallback
+                        src={storageUrl(project.thumbnailUrl)}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 800px"
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  )}
+                </div>
 
-                {project.liveUrl || project.githubUrl ? (
-                  <>
-                    <div className="h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
+                {/* Right Column */}
+                <div className="flex flex-col space-y-6 md:space-y-8 justify-center">
+                  <div className="flex items-center gap-3">
+                    {project.category && (
+                      <span className="inline-flex items-center rounded-full border border-cyan-400/40 px-3 py-1 text-xs md:text-sm font-semibold text-cyan-300 bg-cyan-400/10">
+                        {project.category}
+                      </span>
+                    )}
+                  </div>
 
-                    <footer className="flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed">
+                    {project.descriptionShort}
+                  </p>
+
+                  <div className="space-y-3">
+                    <h3 className="text-xs md:text-sm font-semibold text-white uppercase">Tech Stack</h3>
+                    <section className="flex flex-wrap gap-2">
+                      {project.techStacks.map((tech) => (
+                        <span
+                          key={tech}
+                          className="
+                            rounded-full border border-white/20 bg-white/10 px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm font-medium text-white
+                          "
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </section>
+                  </div>
+
+                  <div className="pt-2 mt-auto">
+                    <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:gap-4 mt-4">
                       {project.liveUrl && (
-                        <Link
+                        <HeroButton
                           href={project.liveUrl}
-                          target="_blank"
-                          className="
-                            inline-flex items-center justify-center gap-3
-                            rounded-md bg-white/5 border border-white/20
-                            px-6 py-2.5 text-sm font-medium text-white/80
-                            transition-[transform,background-color,border-color,color,box-shadow]
-                            duration-150 ease-out
-                            hover:border-cyan-400 hover:text-cyan-300
-                            hover:bg-cyan-400/10
-                            hover:shadow-[0_0_18px_rgba(34,211,238,0.35)]
-                            hover:scale-[1.03]
-                          "
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                          View Live Demo
-                        </Link>
+                          label="View Live Demo"
+                          icon={<ExternalLink className="h-4 w-4" />}
+                          external={true}
+                          size="sm"
+                        />
                       )}
-
                       {project.githubUrl && (
-                        <Link
+                        <HeroButton
                           href={project.githubUrl}
-                          target="_blank"
-                          className="
-                            inline-flex items-center justify-center gap-3
-                            rounded-md bg-white/5 border border-white/20
-                            px-6 py-2.5 text-sm font-medium text-white/80
-                            transition-[transform,background-color,border-color,color,box-shadow]
-                            duration-150 ease-out
-                            hover:border-cyan-400 hover:text-cyan-300
-                            hover:bg-cyan-400/10
-                            hover:shadow-[0_0_18px_rgba(34,211,238,0.35)]
-                            hover:scale-[1.03]
-                          "
-                        >
-                          <Github className="h-4 w-4" />
-                          View on GitHub
-                        </Link>
+                          label="View on GitHub"
+                          icon={<Github className="h-4 w-4" />}
+                          external={true}
+                          size="sm"
+                        />
                       )}
-                    </footer>
-                  </>
-                ) : null}
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="
+                          group relative inline-flex flex-col justify-center
+                          text-white/80 transition-all duration-300 py-1 w-fit
+                        "
+                      >
+                        <div className="relative h-[1.6em] overflow-hidden">
+                          <div
+                            className="
+                              flex items-center gap-2 md:gap-3
+                              transition-transform duration-200 ease-out
+                              group-hover:-translate-y-[40%] group-hover:opacity-0
+                              will-change-transform will-change-opacity
+                            "
+                          >
+                            <span className="text-sm md:text-base font-semibold text-white">View Case Study</span>
+                            <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                          </div>
+
+                          <div
+                            className="
+                              pointer-events-none
+                              absolute left-0 top-0 flex items-center gap-2
+                              translate-y-[40%] opacity-0
+                              group-hover:translate-y-0 group-hover:opacity-100
+                              transition-all duration-250 ease-[cubic-bezier(0.25,1,0.3,1)]
+                              will-change-transform will-change-opacity
+                            "
+                          >
+                            <span className="text-sm md:text-base font-bold text-cyan-300">
+                              View Case Study
+                            </span>
+                            <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-cyan-300" />
+                          </div>
+                        </div>
+                        <div className="h-px w-full bg-cyan-400/0 transition-colors duration-300 group-hover:bg-cyan-400/50 mt-1" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.article>
           </>

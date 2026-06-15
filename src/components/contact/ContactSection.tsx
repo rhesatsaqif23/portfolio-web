@@ -155,12 +155,14 @@ export default function ContactSection({ profile }: Props) {
           ease: [0.16, 1, 0.3, 1],
         }}
         className="
-    mt-6 md:mt-8 lg:mt-12 mx-auto max-w-5xl
-    rounded-2xl border border-white/10 bg-white/4
-    backdrop-blur-lg
-    p-6 md:p-8 lg:p-12
-    shadow-[0_0_40px_rgba(34,211,238,0.1)]
-  "
+          mt-6 md:mt-8 lg:mt-12 mx-auto max-w-5xl
+          rounded-2xl border-2 border-white/10
+          bg-slate-950/60 backdrop-blur-xl
+          p-6 md:p-8 lg:p-12
+          transition-colors duration-300
+          hover:border-cyan-400/50
+          hover:shadow-[0_12px_48px_rgba(34,211,238,0.15)]
+        "
       >
         <div
           className="

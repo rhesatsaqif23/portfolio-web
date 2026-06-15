@@ -25,8 +25,8 @@ export default async function Home() {
       <Hero profile={profile} />
       <AboutSection profile={profile} stats={stats} />
       <TechStackSection skills={skills} />
-      <ExperienceSection experiences={experiences} />
       <ProjectSection projects={featuredProjects} showViewAll />
+      <ExperienceSection experiences={experiences} />
       <AchievementSection achievements={achievements} />
       <ContactSection profile={profile} />
       <Footer profile={profile} />
