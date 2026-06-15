@@ -13,8 +13,8 @@ const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Stack", href: "#stack" },
-  { label: "Experiences", href: "#experiences" },
   { label: "Projects", href: "#projects" },
+  { label: "Experiences", href: "#experiences" },
   { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
 ];
@@ -48,7 +48,7 @@ export default function Navbar() {
   }, [scrollActive, clicked]);
 
   return (
-    <div className="fixed top-4 md:top-6 inset-x-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
+    <div className="fixed top-3 md:top-4 lg:top-6 inset-x-0 z-50 flex justify-center px-3 md:px-4 lg:px-8 pointer-events-none">
       <motion.nav
         layout
         initial={{ y: -100, opacity: 0 }}
@@ -73,16 +73,16 @@ export default function Navbar() {
           layout="position"
           className={clsx(
             "flex items-center w-full",
-            "justify-between px-4 py-2 md:px-6 md:py-3",
+            "justify-between px-3 md:px-4 lg:px-6 py-2",
             "lg:justify-center lg:gap-4 xl:gap-6 lg:px-6 lg:py-4",
           )}
         >
           {/* Logo Section */}
           <button
             onClick={() => scrollToSection("home")}
-            className="flex items-center gap-3 md:gap-4 shrink-0 cursor-pointer group"
+            className="flex items-center gap-2 md:gap-3 lg:gap-4 shrink-0 cursor-pointer group"
           >
-            <div className="relative h-8 w-8 md:h-10 md:w-10 rounded-full overflow-hidden border border-white/10 bg-black/20 transition-transform duration-300 group-hover:scale-110">
+            <div className="relative h-7 w-7 md:h-8 md:w-8 lg:h-10 lg:w-10 rounded-full overflow-hidden border border-white/10 bg-black/20 transition-transform duration-300 group-hover:scale-110">
               <Image
                 src="/images/logo.png"
                 alt="Logo"
@@ -117,7 +117,7 @@ export default function Navbar() {
           {/* Mobile/Tablet Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-white/80 hover:text-white transition-colors"
+            className="lg:hidden p-1.5 md:p-2 text-white/80 hover:text-white transition-colors"
           >
             <AnimatePresence mode="wait" initial={false}>
               {isOpen ? (
@@ -128,7 +128,7 @@ export default function Navbar() {
                   exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 md:w-6 md:h-6" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -138,7 +138,7 @@ export default function Navbar() {
                   exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5 md:w-6 md:h-6" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -155,7 +155,7 @@ export default function Navbar() {
               transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
               className="w-full overflow-hidden lg:hidden border-t border-white/10"
             >
-              <div className="flex flex-col p-4 gap-2">
+              <div className="flex flex-col p-3 md:p-4 gap-1.5 md:gap-2">
                 {navItems.map((item) => {
                   const id = item.href.slice(1);
                   const isActive = active === id;

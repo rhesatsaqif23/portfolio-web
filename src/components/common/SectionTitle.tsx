@@ -17,8 +17,7 @@ export default function SectionTitle({
   const { ref, visible } = useInView<HTMLDivElement>(0.6);
 
   return (
-    // WRAPPER DIV: Memegang ref & styling layout (margin/align), tidak dianimasi.
-    <div ref={ref} className={`text-center mb-12 ${className}`}>
+    <div ref={ref} className={`text-center mb-8 md:mb-12 ${className}`}>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{
@@ -30,11 +29,11 @@ export default function SectionTitle({
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-white/80 text-md md:text-lg max-w-2xl mx-auto">
+          <p className="text-white/80 text-sm md:text-md lg:text-lg max-w-2xl mx-auto">
             {subtitle}
           </p>
         )}

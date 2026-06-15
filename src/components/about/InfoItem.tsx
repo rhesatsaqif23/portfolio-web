@@ -1,48 +1,44 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
 
 interface InfoItemProps {
   icon: React.ReactNode;
   title: string;
   desc: string;
-  variants: Variants;
 }
 
 export default function InfoItem({ icon, title, desc }: InfoItemProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.04 }}
+      whileHover={{ y: -6, scale: 1.01 }}
       transition={{
-        type: "spring",
-        stiffness: 220,
-        damping: 18,
+        y: { type: "spring", stiffness: 220, damping: 26, mass: 0.7 },
       }}
       className="
-        group relative flex items-center gap-4
-        rounded-xl border border-white/15
-        bg-white/5 p-4 backdrop-blur-xl
-        transition-colors duration-300
-        hover:border-cyan-400
-        hover:shadow-[0_0_32px_rgba(34,211,238,0.35)]
+        group relative flex items-center justify-between gap-3 md:gap-4
+        rounded-2xl border-2 border-white/10
+        bg-slate-950/60 p-4 md:p-5 backdrop-blur-xl
+        transition-all duration-300
+        hover:border-cyan-400/50
+        hover:shadow-[0_12px_48px_rgba(34,211,238,0.15)]
       "
     >
-      {/* Icon */}
-      <div
-        className="
-        relative z-10 text-cyan-300
-        transition-transform duration-300
-        group-hover:scale-110 group-hover:rotate-[-8deg]
-      "
-      >
-        {icon}
+      <div className="flex items-center gap-3 md:gap-5 z-10">
+        <div
+          className="
+            text-cyan-300
+            transition-transform duration-300
+            group-hover:scale-110 group-hover:rotate-[-8deg]
+          "
+        >
+          {icon}
+        </div>
+        <p className="text-white/90 font-medium text-sm md:text-base">{title}</p>
       </div>
 
-      {/* Text */}
-      <div className="relative z-10">
-        <p className="text-white font-semibold mb-1">{title}</p>
-        <p className="text-white/80 text-sm leading-relaxed">{desc}</p>
+      <div className="relative z-10 text-right max-w-[50%]">
+        <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-white tracking-tight drop-shadow-sm leading-none">{desc}</p>
       </div>
     </motion.div>
   );

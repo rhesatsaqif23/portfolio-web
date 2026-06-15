@@ -1,10 +1,13 @@
+export type ExpType = 'work' | 'organization' | 'volunteer' | 'education'
+
 export interface Experience {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  startDate: string;
-  endDate: string | null;
-  description: string[];
-  image: string;
+  id: string
+  orgName: string
+  role: string
+  startDate: string
+  endDate: string | null
+  description: string[]
+  type: ExpType
+  imageUrl: string | null
+  sortOrder: number | null
 }

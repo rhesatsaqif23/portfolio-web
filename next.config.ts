@@ -28,6 +28,10 @@ const nextConfig: NextConfig = {
         hostname: "ipkrjpftddtxwzmylxtf.supabase.co",
         pathname: "/storage/v1/**",
       },
+      {
+        protocol: "https",
+        hostname: "skillicons.dev",
+      },
     ],
   },
 };
