@@ -159,6 +159,8 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                           size="sm"
                         />
                       )}
+                    </div>
+                    <div className="mt-2">
                       <Link
                         href={`/projects/${project.slug}`}
                         className="
