@@ -6,6 +6,7 @@ import { useActiveSection } from "./useActiveSection";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import NavItem from "./NavItem";
 
 // Configuration: Navigation Links
@@ -24,9 +25,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const scrollActive = useActiveSection();
   const active = clicked ?? scrollActive;
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
-  // Logic: Smooth Scroll
   const scrollToSection = (id: string) => {
+    if (!isHome) {
+      window.location.href = `/#${id}`;
+      return;
+    }
     const el = document.getElementById(id);
     if (!el) return;
 

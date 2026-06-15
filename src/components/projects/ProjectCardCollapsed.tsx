@@ -2,7 +2,7 @@
 
 import ImageWithFallback from "../common/ImageWithFallback";
 import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import { Project } from "@/src/types/project";
 import useInView from "@/src/hooks/useInView";
@@ -60,6 +60,15 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
           )}
 
           <div className="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover/img:opacity-100 flex items-center justify-center gap-4">
+            {project.slug && (
+              <Link
+                href={`/projects/${project.slug}`}
+                onClick={(e) => e.stopPropagation()}
+                className="p-2 md:p-3 rounded-full border-2 border-white/20 bg-black/40 text-white hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:scale-110"
+              >
+                <BookOpen className="h-5 w-5 md:h-6 md:w-6" />
+              </Link>
+            )}
             {project.liveUrl && (
               <Link
                 href={project.liveUrl}

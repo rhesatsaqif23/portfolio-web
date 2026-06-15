@@ -3,6 +3,7 @@ export interface Project {
   title: string
   slug: string
   descriptionShort: string | null
+  longDescription: string | null
   thumbnailUrl: string | null
   techStacks: string[]
   isFeatured: boolean
