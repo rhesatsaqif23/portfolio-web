@@ -5,6 +5,8 @@ import Navbar from "../components/navbar/Navbar";
 import ThemeBackground from "../components/common/ThemeBackground";
 import ClickSpark from "@/src/components/common/ClickSpark";
 import { ThemeProvider } from "../components/common/ThemeProvider";
+import Footer from "../components/common/Footer";
+import { getProfile } from "../lib/data";
 
 const workSans = Work_Sans({
   subsets: ["latin"],
@@ -17,11 +19,13 @@ export const metadata: Metadata = {
   description: "Mobile & Front-End Developer Portfolio",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const profile = await getProfile();
+
   return (
     <html
       lang="en"
@@ -51,6 +55,9 @@ export default function RootLayout({
 
             {/* PAGE CONTENT */}
             <main className="relative z-10 grow">{children}</main>
+
+            {/* FOOTER */}
+            <Footer profile={profile} />
           </ClickSpark>
         </ThemeProvider>
       </body>

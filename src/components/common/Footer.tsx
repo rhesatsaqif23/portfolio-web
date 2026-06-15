@@ -1,6 +1,7 @@
 "use client";
 
 import { Mail, Linkedin, Github, Instagram } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { Profile } from "@/src/types/profile";
 
 interface Props {
@@ -19,14 +20,20 @@ const rightNavItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const scrollToSection = (id: string) => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const top = el.getBoundingClientRect().top + document.documentElement.scrollTop - 25;
-  window.scrollTo({ top, behavior: "smooth" });
-};
-
 export default function Footer({ profile }: Props) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const scrollToSection = (id: string) => {
+    if (!isHome) {
+      window.location.assign(`/#${id}`);
+      return;
+    }
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + document.documentElement.scrollTop - 25;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
   const email = profile?.email ?? "atstsaqif23@gmail.com";
   const github = profile?.github ?? "https://github.com/rhesatsaqif23";
   const linkedin = profile?.linkedin ?? "https://linkedin.com/in/rhesa-tsaqif";
@@ -59,38 +66,41 @@ export default function Footer({ profile }: Props) {
 
           {/* Right side wrapper: Navigation & Contact */}
           <div className="w-full lg:w-1/2 flex flex-col sm:flex-row justify-center lg:justify-end gap-12 sm:gap-16 lg:gap-24 lg:pr-8">
-            {/* Left Navigation Column */}
-            <div className="text-center lg:text-start min-w-[140px]">
-              <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
-                Navigation
-              </h4>
-              <ul className="space-y-2 sm:space-y-3">
-                {leftNavItems.map((item) => (
-                  <li key={item.label}>
-                    <button
-                      onClick={() => scrollToSection(item.href.slice(1))}
-                      className="text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium cursor-pointer"
-                    >
-                      {item.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* Right Navigation Column (no title) */}
-            <div className="text-center lg:text-start min-w-[140px]">
-              <ul className="space-y-2 sm:space-y-3 mt-8">
-                {rightNavItems.map((item) => (
-                  <li key={item.label}>
-                    <button
-                      onClick={() => scrollToSection(item.href.slice(1))}
-                      className="text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium cursor-pointer"
-                    >
-                      {item.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+            {/* Navigation Columns Group (always 2 columns side-by-side) */}
+            <div className="flex flex-row justify-center lg:justify-start gap-8 sm:gap-16">
+              {/* Left Navigation Column */}
+              <div className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
+                <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
+                  Navigation
+                </h4>
+                <ul className="space-y-2 sm:space-y-3">
+                  {leftNavItems.map((item) => (
+                    <li key={item.label}>
+                      <button
+                        onClick={() => scrollToSection(item.href.slice(1))}
+                        className="text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium cursor-pointer"
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Right Navigation Column (no title) */}
+              <div className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
+                <ul className="space-y-2 sm:space-y-3 mt-[28px] sm:mt-[36px]">
+                  {rightNavItems.map((item) => (
+                    <li key={item.label}>
+                      <button
+                        onClick={() => scrollToSection(item.href.slice(1))}
+                        className="text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium cursor-pointer"
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             {/* Contact Column (no email) */}
             <div className="text-center lg:text-start min-w-[140px]">

@@ -1,6 +1,5 @@
 import AboutSection from "../components/about/AboutSection";
 import AchievementSection from "../components/achievements/AchievementSection";
-import Footer from "../components/common/Footer";
 import ContactSection from "../components/contact/ContactSection";
 import ExperienceSection from "../components/experience/ExperienceSection";
 import Hero from "../components/hero/Hero";
@@ -29,7 +28,6 @@ export default async function Home() {
       <ExperienceSection experiences={experiences} />
       <AchievementSection achievements={achievements} />
       <ContactSection profile={profile} />
-      <Footer profile={profile} />
     </>
   );
 }

@@ -16,27 +16,16 @@ export interface CaseStudyFeature {
   description: string;
 }
 
-export interface CaseStudyTechCategory {
-  category: string;
-  items: { name: string }[];
-}
-
-export interface CaseStudyTeamMember {
-  name: string;
-  role: string;
-  avatar?: string | null;
+export interface CaseStudyResult {
+  icon: string;
+  title: string;
+  description: string;
 }
 
 export interface CaseStudyGalleryItem {
   url: string;
   caption: string;
   alt: string;
-}
-
-export interface CaseStudyResult {
-  icon: string;
-  title: string;
-  description: string;
 }
 
 export interface CaseStudy {
@@ -50,10 +39,6 @@ export interface CaseStudy {
   solutions: CaseStudySection[];
   features: CaseStudyFeature[];
   contributions: string[];
-  techStacks: CaseStudyTechCategory[];
-  challenges: CaseStudySection[];
   results: CaseStudyResult[];
-  futurePlans: string[];
-  team: CaseStudyTeamMember[];
   gallery: CaseStudyGalleryItem[];
 }

@@ -177,11 +177,7 @@ function mapCaseStudy(c: any): CaseStudy {
     solutions: c.solutions ?? [],
     features: c.features ?? [],
     contributions: c.contributions ?? [],
-    techStacks: c.tech_stacks ?? [],
-    challenges: c.challenges ?? [],
     results: c.results ?? [],
-    futurePlans: c.future_plans ?? [],
-    team: c.team ?? [],
     gallery: c.gallery ?? [],
   };
 }
@@ -206,4 +202,34 @@ export async function getCaseStudyByProjectId(projectId: string): Promise<CaseSt
     .maybeSingle();
   if (!data) return null;
   return mapCaseStudy(data);
+}
+
+export async function getProjectNeighbors(slug: string): Promise<{ prev: Project | null; next: Project | null }> {
+  const projects = await getAllProjects();
+  const idx = projects.findIndex((p) => p.slug === slug);
+  if (idx === -1) return { prev: null, next: null };
+  return {
+    prev: idx > 0 ? projects[idx - 1] : null,
+    next: idx < projects.length - 1 ? projects[idx + 1] : null,
+  };
+}
+
+export async function getAllProjects(): Promise<Project[]> {
+  return getProjects();
+}
+
+export async function getSkillsByNames(names: string[]): Promise<Skill[]> {
+  if (names.length === 0) return [];
+  const supabase = createSupabaseClient();
+  const { data } = await supabase
+    .from("skills")
+    .select("*")
+    .in("name", names);
+  return (data ?? []).map((s) => ({
+    id: s.id,
+    name: s.name,
+    category: s.category,
+    iconUrl: s.icon_url,
+    sortOrder: s.sort_order,
+  }));
 }
