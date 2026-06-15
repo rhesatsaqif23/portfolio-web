@@ -6,27 +6,30 @@ import ExperienceSection from "../components/experience/ExperienceSection";
 import Hero from "../components/hero/Hero";
 import ProjectSection from "../components/projects/ProjectSection";
 import TechStackSection from "../components/tech-stack/TechStackSection";
-import { getAchievements } from "../lib/db/achievements";
-import { getExperiences } from "../lib/db/experiences";
-import { getProjects } from "../lib/db/projects";
+import { getProfile, getSkills, getExperiences, getProjects, getAchievements, getStats } from "../lib/data";
 
 export default async function Home() {
-  const [experiences, projects, achievements] = await Promise.all([
+  const [profile, skills, experiences, projects, achievements, stats] = await Promise.all([
+    getProfile(),
+    getSkills(),
     getExperiences(),
     getProjects(),
     getAchievements(),
+    getStats(),
   ]);
+
+  const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 8);
 
   return (
     <>
-      <Hero />
-      <AboutSection />
-      <TechStackSection />
+      <Hero profile={profile} />
+      <AboutSection profile={profile} stats={stats} />
+      <TechStackSection skills={skills} />
       <ExperienceSection experiences={experiences} />
-      <ProjectSection projects={projects} />
+      <ProjectSection projects={featuredProjects} showViewAll />
       <AchievementSection achievements={achievements} />
-      <ContactSection />
-      <Footer />
+      <ContactSection profile={profile} />
+      <Footer profile={profile} />
     </>
   );
 }

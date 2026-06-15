@@ -2,101 +2,76 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Award } from "lucide-react";
 import { Achievement } from "@/src/types/achievement";
-import { resolvePosition } from "@/src/utils/resolvePosition";
-import useInView from "@/src/hooks/useInView";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "../ui/accordion";
+import { item } from "./motion";
 
 interface Props {
   achievement: Achievement;
 }
 
 export default function AchievementCard({ achievement }: Props) {
-  const { ref, visible } = useInView<HTMLLIElement>({
-    threshold: [0, 0.05],
-    rootMargin: "0px 0px -5% 0px",
-  });
-  const { icon: Icon, label } = resolvePosition(achievement.position);
-
   return (
-    <motion.li
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{
-        opacity: visible ? 1 : 0,
-        y: visible ? 0 : 40,
-      }}
-      transition={{
-        opacity: {
-          duration: visible ? 0.45 : 0.25,
-          ease: "easeOut",
-        },
-        y: {
-          type: "spring",
-          stiffness: 220,
-          damping: 26,
-          mass: 0.8,
-        },
-      }}
-      style={{ pointerEvents: visible ? "auto" : "none" }}
-      className="
-        group relative
-        grid grid-cols-[0.15fr_1fr]
-        gap-6
-        px-6 py-6
-        rounded-2xl
-        border border-transparent
-        transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-        hover:bg-white/8
-        hover:backdrop-blur-lg
-        hover:border-white/12
-        hover:shadow-[0_0_56px_rgba(34,211,238,0.14)]
-      "
-    >
-      {/* LEFT */}
-      <div className="relative flex flex-col items-center gap-3 pt-1">
-        <div className="relative flex items-center justify-center h-10 w-10">
-          <Icon className="h-7 w-7 text-white/85 transition-all duration-500 group-hover:scale-110 group-hover:text-cyan-300" />
-          <span className="absolute inset-0 rounded-full blur-lg bg-cyan-400/30 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        </div>
+    <motion.div variants={item}>
+      <AccordionItem
+        value={achievement.id}
+        className="border-b border-white/10 last:border-b-0"
+      >
+        <AccordionTrigger className="px-4 md:px-5">
+          <div className="flex items-center gap-3 md:gap-4">
+            <Award className="h-4 w-4 md:h-5 md:w-5 text-cyan-300 shrink-0 mt-0.5" />
+            <div className="text-left">
+              <h3 className="text-sm md:text-base font-semibold text-white/90">
+                {achievement.title}
+              </h3>
+              {achievement.eventName && (
+                <p className="text-[13px] md:text-[15px] text-white/80">{achievement.eventName}</p>
+              )}
+            </div>
+          </div>
+        </AccordionTrigger>
 
-        <span className="text-md font-medium text-white/90 text-center">
-          {label}
-        </span>
-      </div>
+        <AccordionContent>
+          <div className="space-y-2 md:space-y-3 px-4 md:px-5 pb-3 md:pb-4">
+            {achievement.organizer && (
+              <p className="text-[13px] md:text-[15px] text-white/90">
+                <span className="text-white/80">Organizer:</span> {achievement.organizer}
+              </p>
+            )}
 
-      {/* CONTENT */}
-      <div className="space-y-2.5">
-        <h3 className="text-lg md:text-xl font-medium text-white group-hover:text-cyan-300 transition-colors">
-          {achievement.title}
-        </h3>
+            {achievement.description && (
+              <p className="text-[13px] md:text-[15px] text-white/90 leading-relaxed">
+                {achievement.description}
+              </p>
+            )}
 
-        <p className="text-white/80">{achievement.issuer}</p>
+            <div className="flex flex-wrap items-center gap-2 md:gap-3 pt-0 md:pt-1">
+              <span className="rounded-full border border-white/20 bg-white/6 px-2 md:px-3 py-0.5 md:py-1 text-xs md:text-sm text-white/90">
+                {new Date(achievement.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                })}
+              </span>
 
-        {achievement.description && (
-          <p className="text-sm text-white/65 leading-relaxed max-w-2xl">
-            {achievement.description}
-          </p>
-        )}
-
-        <div className="pt-3 flex flex-wrap gap-2">
-          {achievement.date && (
-            <span className="rounded-full border border-white/20 bg-white/6 px-3 py-1 text-xs text-white/75">
-              {new Date(achievement.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-              })}
-            </span>
-          )}
-
-          {achievement.category && (
-            <span className="rounded-full border border-white/20 bg-white/6 px-3 py-1 text-xs text-white/75">
-              {achievement.category}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <span className="absolute bottom-0 left-6 right-6 h-px bg-white/10 group-hover:opacity-0 transition-opacity" />
-    </motion.li>
+              {achievement.url && (
+                <a
+                  href={achievement.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 md:px-3 py-0.5 md:py-1 text-xs md:text-sm text-cyan-300/90 hover:bg-cyan-400/20 transition-colors"
+                >
+                  View Credential
+                </a>
+              )}
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </motion.div>
   );
 }

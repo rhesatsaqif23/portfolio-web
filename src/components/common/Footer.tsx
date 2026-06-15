@@ -2,31 +2,22 @@
 
 import { Mail, Linkedin, Github, Instagram } from "lucide-react";
 import Link from "next/link";
+import { Profile } from "@/src/types/profile";
 
-const socials = [
-  {
-    name: "Email",
-    href: "mailto:atstsaqif23@gmail.com",
-    icon: Mail,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://linkedin.com/in/rhesa-tsaqif",
-    icon: Linkedin,
-  },
-  {
-    name: "GitHub",
-    href: "https://github.com/rhesatsaqif23",
-    icon: Github,
-  },
-  {
-    name: "Instagram",
-    href: "https://instagram.com/ats_tsaqif_23",
-    icon: Instagram,
-  },
-];
+interface Props {
+  profile: Profile | null;
+}
 
-export default function Footer() {
+export default function Footer({ profile }: Props) {
+  const socials = [
+    { name: "Email", href: `mailto:${profile?.email ?? "atstsaqif23@gmail.com"}`, icon: Mail },
+    { name: "LinkedIn", href: profile?.linkedin ?? "https://linkedin.com/in/rhesa-tsaqif", icon: Linkedin },
+    { name: "GitHub", href: profile?.github ?? "https://github.com/rhesatsaqif23", icon: Github },
+    { name: "Instagram", href: profile?.instagram ?? "https://instagram.com/ats_tsaqif_23", icon: Instagram },
+  ];
+
+  const fullName = profile?.fullName ?? "RHESA TSAQIF ADYATMA";
+
   return (
     <footer
       className="
@@ -40,21 +31,19 @@ export default function Footer() {
           mx-auto max-w-7xl
           px-6 md:px-20 lg:px-28
           py-6
-          flex flex-col gap-6
+          flex flex-col gap-4 md:gap-6
           md:flex-row items-center md:justify-between
         "
       >
-        {/* LEFT */}
-        <div className="text-sm text-white/60 flex items-center gap-1">
+        <div className="text-xs md:text-sm text-white/60 flex items-center gap-1">
           <span>©</span>
           <span>2026</span>
           <span className="text-white/60 font-medium">
-            RHESA TSAQIF ADYATMA
+            {fullName.toUpperCase()}
           </span>
         </div>
 
-        {/* RIGHT */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 md:gap-5">
           {socials.map(({ name, href, icon: Icon }) => (
             <Link
               key={name}
@@ -63,18 +52,18 @@ export default function Footer() {
               aria-label={name}
               className="
                 group relative
-                flex h-10 w-10 items-center justify-center
+                flex h-8 w-8 md:h-10 md:w-10 items-center justify-center
                 rounded-full
                 bg-white/3
                 border border-white/10
-                text-white/70
+                text-white/80
 
                 transition-all duration-300 ease-out
                 hover:text-white
                 hover:-translate-y-1
               "
             >
-              <Icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+              <Icon className="h-4 w-4 md:h-5 md:w-5 transition-transform duration-300 group-hover:scale-110" />
             </Link>
           ))}
         </div>

@@ -1,13 +1,19 @@
 "use client";
 
-import Image from "next/image";
+import ImageWithFallback from "../common/ImageWithFallback";
 import Link from "next/link";
-import { ExternalLink, Github, Star, ArrowRight } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import { Project } from "@/src/types/project";
-import { supabaseImage } from "@/src/utils/supabaseImage";
 import useInView from "@/src/hooks/useInView";
 import React from "react";
+
+const STORAGE = "https://ipkrjpftddtxwzmylxtf.supabase.co/storage/v1/object/public";
+
+function storageUrl(path: string) {
+  if (path.startsWith("http")) return path;
+  return `${STORAGE}/${path}`;
+}
 
 interface Props {
   project: Project;
@@ -18,7 +24,7 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
   const { ref, visible } = useInView<HTMLDivElement>(0.1);
 
   return (
-    <div ref={ref} className="w-full">
+    <div ref={ref} className="w-full h-full">
       <motion.article
         initial={{ opacity: 0, y: 40 }}
         animate={{
@@ -27,42 +33,62 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
         }}
         transition={{
           opacity: { duration: 0.35, ease: "easeOut" },
-          y: {
-            type: "spring",
-            stiffness: 220,
-            damping: 26,
-            mass: 0.7,
-          },
+          y: { type: "spring", stiffness: 220, damping: 26, mass: 0.7 },
         }}
         whileHover={{ y: -6, scale: 1.01 }}
         style={{ pointerEvents: visible ? "auto" : "none" }}
+        onClick={onOpen}
         className="
-          group relative w-full rounded-2xl
+          group relative w-full h-full rounded-2xl flex flex-col
           border-2 border-white/10
           bg-slate-950/60 backdrop-blur-xl
-          overflow-hidden
+          overflow-hidden cursor-pointer
           transition-colors duration-300
           hover:border-cyan-400/50
           hover:shadow-[0_12px_48px_rgba(34,211,238,0.15)]
         "
       >
-        {/* THUMB */}
-        <div className="relative h-52 w-full overflow-hidden bg-black/40">
-          <Image
-            src={supabaseImage(project.thumbnailUrl || "", 1200)}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        <div className="relative h-56 sm:h-64 lg:h-72 w-full overflow-hidden bg-black/40 group/img">
+          {project.thumbnailUrl && (
+            <ImageWithFallback
+              src={storageUrl(project.thumbnailUrl)}
+              alt={project.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          )}
+
+          <div className="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover/img:opacity-100 flex items-center justify-center gap-4">
+            {project.liveUrl && (
+              <Link
+                href={project.liveUrl}
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+                className="p-2 md:p-3 rounded-full border-2 border-white/20 bg-black/40 text-white hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:scale-110"
+              >
+                <ExternalLink className="h-5 w-5 md:h-6 md:w-6" />
+              </Link>
+            )}
+            {project.githubUrl && (
+              <Link
+                href={project.githubUrl}
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+                className="p-2 md:p-3 rounded-full border-2 border-white/20 bg-black/40 text-white hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:scale-110"
+              >
+                <Github className="h-5 w-5 md:h-6 md:w-6" />
+              </Link>
+            )}
+          </div>
 
           {project.category && (
             <span
               className="
-                absolute top-4 right-4
-                rounded-full bg-black/60
-                border-2 border-white/10
-                px-3 py-1 text-xs text-white/90
+                absolute top-3 md:top-4 right-3 md:right-4 z-10
+                rounded-full bg-black/70
+                border-2 border-white/15
+                px-2.5 md:px-3 py-0.5 md:py-1 text-xs font-semibold text-white
                 backdrop-blur-md
               "
             >
@@ -71,66 +97,31 @@ function ProjectCardCollapsed({ project, onOpen }: Props) {
           )}
         </div>
 
-        <div className="p-6 flex flex-col gap-4">
-          {/* TITLE */}
+        <div className="p-4 md:p-5 lg:p-6 flex flex-col gap-3 md:gap-4 flex-grow">
           <div className="flex items-start gap-2">
-            <h3 className="text-white font-semibold text-xl leading-tight">
+            <h3 className="text-white font-semibold text-lg md:text-xl lg:text-2xl leading-tight">
               {project.title}
             </h3>
-            {project.isFeatured && (
-              <Star className="h-4 w-4 text-cyan-300 mt-1 shrink-0" />
-            )}
           </div>
 
-          <p className="text-white/70 text-sm leading-relaxed line-clamp-3">
-            {project.description}
+          <p className="text-white/90 text-xs md:text-sm leading-relaxed line-clamp-3 flex-grow">
+            {project.descriptionShort}
           </p>
 
-          {/* ACTION BAR */}
-          <div className="mt-2 flex items-center gap-3">
-            <button
-              onClick={onOpen}
-              className="
-                group/viewmore flex-1 inline-flex items-center justify-center gap-2
-                /* Button background lebih gelap (black/20) */
-                rounded-lg border-2 border-white/10 bg-black/20
-                px-4 py-2 text-sm font-medium text-cyan-300
-                transition-all duration-300 cursor-pointer
-                hover:border-cyan-400 hover:bg-cyan-400/10 hover:scale-[1.03]
-                hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]
-              "
-            >
-              View More
-              <ArrowRight className="h-4 w-4 transition-transform group-hover/viewmore:translate-x-1" />
-            </button>
-
-            <div className="flex gap-2">
-              {project.demoUrl && (
-                <Link
-                  href={project.demoUrl}
-                  target="_blank"
-                  className="group/icon p-2 rounded-xl border-2 border-white/10 bg-black/20
-                             text-white/70 transition-all duration-300
-                             hover:border-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10
-                             hover:scale-[1.08] hover:-translate-y-0.5"
-                >
-                  <ExternalLink className="h-4 w-4 group-hover/icon:rotate-[-8deg]" />
-                </Link>
-              )}
-
-              {project.repoUrl && (
-                <Link
-                  href={project.repoUrl}
-                  target="_blank"
-                  className="group/icon p-2.5 rounded-lg border-2 border-white/10 bg-black/20
-                             text-white/70 transition-all duration-300
-                             hover:border-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10
-                             hover:scale-[1.08] hover:-translate-y-0.5"
-                >
-                  <Github className="h-4 w-4 group-hover/icon:rotate-[-8deg]" />
-                </Link>
-              )}
-            </div>
+          <div className="flex flex-wrap gap-1.5 md:gap-2 mt-1 md:mt-2">
+            {project.techStacks.slice(0, 5).map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-white/20 bg-white/10 px-2 md:px-2.5 py-0.5 md:py-1 text-[10px] md:text-xs font-medium text-white/95"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.techStacks.length > 5 && (
+              <span className="rounded-full border border-white/15 bg-black/30 px-2 md:px-2.5 py-0.5 md:py-1 text-[10px] md:text-xs font-medium text-white/80">
+                +{project.techStacks.length - 5}
+              </span>
+            )}
           </div>
         </div>
       </motion.article>

@@ -20,7 +20,7 @@ export default function ExperienceSection({ experiences }: Props) {
   return (
     <section
       id="experiences"
-      className="relative min-h-screen px-4 sm:px-8 md:px-12 lg:px-20 py-24 pb-40"
+      className="relative min-h-screen px-4 sm:px-8 md:px-12 lg:px-20 py-16 md:py-24 pb-32 md:pb-40"
     >
       <SectionTitle
         title="Experiences"
@@ -30,31 +30,31 @@ export default function ExperienceSection({ experiences }: Props) {
       <div
         ref={timelineRef}
         className="
-          relative z-10 mt-10 sm:mt-20
-          
+          relative z-10 mt-8 md:mt-10 lg:mt-20
+
           /* --- Global Cleanups --- */
           [&_.vertical-timeline::before]:hidden
           [&_.vertical-timeline-element-content-arrow]:hidden
           [&_.vertical-timeline-element-content]:shadow-none!
           [&_.vertical-timeline-element-content]:bg-transparent!
-          
+
           /* --- Mobile Layout (< 768px) --- */
           /* Hide dot, align content left */
-          [&_.vertical-timeline-element-icon]:hidden 
-          [&_.vertical-timeline-element-content]:ml-12! 
+          [&_.vertical-timeline-element-icon]:hidden
+          [&_.vertical-timeline-element-content]:ml-12!
           [&_.vertical-timeline-element-content]:w-[calc(100%-3rem)]!
-          
+
           /* --- Tablet & Desktop Layout (>= 768px) --- */
           /* Show dot centered */
-          md:[&_.vertical-timeline-element-icon]:block 
-          md:[&_.vertical-timeline-element-icon]:left-1/2! 
+          md:[&_.vertical-timeline-element-icon]:block
+          md:[&_.vertical-timeline-element-icon]:left-1/2!
           md:[&_.vertical-timeline-element-icon]:-translate-x-1/2!
           md:[&_.vertical-timeline-element-icon]:ml-0!
-          
+
           /* Reset margins & set width for zig-zag */
-          md:[&_.vertical-timeline-element-content]:ml-0! 
+          md:[&_.vertical-timeline-element-content]:ml-0!
           md:[&_.vertical-timeline-element-content]:w-[44%]!
-          
+
           /* Force Zig-Zag Floats (Odd=Left, Even=Right) */
           md:[&_.vertical-timeline-element:nth-child(odd)_.vertical-timeline-element-content]:float-left
           md:[&_.vertical-timeline-element:nth-child(even)_.vertical-timeline-element-content]:float-right
