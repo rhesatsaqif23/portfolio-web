@@ -11,7 +11,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="pt-16 md:pt-24">
-      <ProjectSection projects={projects} />
+      <ProjectSection projects={projects} showViewAll={false} />
     </div>
   );
 }

@@ -3,47 +3,48 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Project } from "@/src/types/project";
-import { container } from "./motion";
+import { Skill } from "@/src/types/skill";
 import SectionTitle from "../common/SectionTitle";
-import ProjectCard from "./ProjectCard";
+import ProjectCardHorizontal from "./ProjectCardHorizontal";
 import ProjectFilterBar from "./ProjectFilterBar";
 import { Skeleton } from "../ui/skeleton";
-import Badge from "../common/Badge";
 import { Rocket, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-function ProjectSkeletonCard() {
+function HorizontalSkeletonCard() {
   return (
-    <div className="w-full h-full">
-      <article className="relative w-full h-full rounded-2xl flex flex-col border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl overflow-hidden">
-        <Skeleton className="h-56 sm:h-64 lg:h-72 w-full rounded-none" />
-        <div className="p-4 md:p-5 lg:p-6 flex flex-col gap-3 md:gap-4 flex-grow">
-          <Skeleton className="h-6 md:h-7 w-3/4 rounded-md" />
-          <div className="space-y-2 mt-1 flex-grow">
-            <Skeleton className="h-3 md:h-4 w-full" />
-            <Skeleton className="h-3 md:h-4 w-5/6" />
-            <Skeleton className="h-3 md:h-4 w-4/6" />
+    <div className="w-full rounded-2xl overflow-hidden bg-slate-950/60 backdrop-blur-xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+        <div className="relative aspect-[3/2] md:aspect-auto md:min-h-[400px] bg-black/40">
+          <Skeleton className="absolute inset-0 rounded-none" />
+        </div>
+        <div className="flex flex-col justify-center p-5 md:p-7 lg:p-8 gap-4 md:gap-5">
+          <Skeleton className="h-7 w-3/4 rounded-md" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-4 w-4/6" />
           </div>
-          <div className="flex flex-wrap gap-1.5 md:gap-2 mt-2">
-            <Skeleton className="h-5 w-12 rounded-full" />
-            <Skeleton className="h-5 w-16 rounded-full" />
-            <Skeleton className="h-5 w-14 rounded-full" />
-            <Skeleton className="h-5 w-10 rounded-full" />
+          <div className="flex flex-wrap gap-2 mt-1">
+            <Skeleton className="h-6 w-16 rounded-full" />
+            <Skeleton className="h-6 w-20 rounded-full" />
+            <Skeleton className="h-6 w-14 rounded-full" />
+            <Skeleton className="h-6 w-12 rounded-full" />
           </div>
         </div>
-      </article>
+      </div>
     </div>
   );
 }
 
 interface Props {
   projects: Project[];
+  skills: Skill[];
   showViewAll?: boolean;
 }
 
-export default function ProjectSection({ projects, showViewAll }: Props) {
+export default function ProjectSectionHorizontal({ projects, skills, showViewAll }: Props) {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
   const [fetchedProjects, setFetchedProjects] = useState<Project[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -82,62 +83,38 @@ export default function ProjectSection({ projects, showViewAll }: Props) {
   return (
     <section
       id="projects"
-      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-16 md:py-24"
+      className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 pt-12 md:pt-16 pb-16 md:pb-20"
     >
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center mb-4 md:mb-6"
-      >
-        <Badge text="My Projects Showcase" />
-      </motion.div>
-
       <SectionTitle
-        title="Selected Projects"
-        subtitle="A curated collection of projects I've built across mobile and web development, ranging from full-stack platforms and real-time applications to AI-powered tools and community-driven solutions."
+        title="Projects"
+        subtitle="Selected projects showcasing my experience in mobile and web development."
       />
 
       <ProjectFilterBar
         activeCategory={activeCategory}
-        onChange={(val) => {
-          setActiveCategory(val);
-          setActiveProjectId(null);
-        }}
+        onChange={(val) => setActiveCategory(val)}
       />
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{
-          once: false,
-          amount: 0.25,
-          margin: "-120px",
-        }}
-        className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
-      >
+      <div className="mx-auto max-w-7xl flex flex-col gap-12 md:gap-16">
         {isLoading ? (
-          Array.from({ length: 4 }).map((_, i) => (
-            <ProjectSkeletonCard key={i} />
+          Array.from({ length: 3 }).map((_, i) => (
+            <HorizontalSkeletonCard key={i} />
           ))
         ) : displayProjects.length > 0 ? (
-          displayProjects.map((project) => (
-            <ProjectCard
+          displayProjects.map((project, index) => (
+            <ProjectCardHorizontal
               key={project.id}
               project={project}
-              isActive={activeProjectId === project.id}
-              onOpen={() => setActiveProjectId(project.id)}
-              onClose={() => setActiveProjectId(null)}
+              index={index}
+              skills={skills}
             />
           ))
         ) : (
-          <div className="col-span-full text-center text-white/40 py-12 md:py-16">
+          <div className="text-center text-white/60 py-12 md:py-16">
             No projects in this category yet.
           </div>
         )}
-      </motion.div>
+      </div>
 
       {showViewAll && (
         <motion.div

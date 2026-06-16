@@ -3,8 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import clsx from "clsx";
-import { Folder, Globe, Smartphone, ListTodo } from "lucide-react";
-import HeroButton from "../hero/HeroButton";
+import { Folder, Globe, Smartphone } from "lucide-react";
 
 const categories = [
   { label: "All", value: "All", icon: Folder },
@@ -15,10 +14,9 @@ const categories = [
 interface Props {
   activeCategory: string;
   onChange: (value: string) => void;
-  showViewAll?: boolean;
 }
 
-export default function ProjectFilterBar({ activeCategory, onChange, showViewAll }: Props) {
+export default function ProjectFilterBar({ activeCategory, onChange }: Props) {
   return (
     <div className="relative flex items-center justify-center max-w-7xl mx-auto mb-8 md:mb-12">
       <motion.div
@@ -91,23 +89,6 @@ export default function ProjectFilterBar({ activeCategory, onChange, showViewAll
           })}
         </div>
       </motion.div>
-
-      {showViewAll && (
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="absolute right-0"
-        >
-          <HeroButton
-            href="/projects"
-            label="View All"
-            icon={<ListTodo className="h-4 w-4" />}
-            size="sm"
-          />
-        </motion.div>
-      )}
     </div>
   );
 }

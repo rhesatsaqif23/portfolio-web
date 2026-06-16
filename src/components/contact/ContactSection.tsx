@@ -94,14 +94,14 @@ export default function ContactSection({ profile }: Props) {
             overflow-hidden
             rounded-full
             bg-linear-to-r from-cyan-400 to-blue-500
-            px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3
+            px-6 md:px-8 lg:px-10 py-3 md:py-3.5 lg:py-4
             font-medium text-black
-            text-xs md:text-sm lg:text-base
+            text-sm md:text-base lg:text-lg
 
             shadow-[0_0_18px_rgba(34,211,238,0.45)]
             transition-all duration-300
 
-            hover:px-5 md:hover:px-6 lg:hover:px-8
+            hover:px-8 md:hover:px-10 lg:hover:px-12
             hover:shadow-[0_0_30px_rgba(34,211,238,0.7)]
 
             active:scale-[0.97]
@@ -126,15 +126,15 @@ export default function ContactSection({ profile }: Props) {
                 group-hover:-translate-x-3
             "
           >
-            <Mail className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
+            <Mail className="h-5 w-5 md:h-6 md:w-6" />
             Email Me
           </span>
 
           <ChevronRight
             className="
                 pointer-events-none
-                absolute right-2 md:right-3 lg:right-4
-                h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6
+                absolute right-3 md:right-4 lg:right-5
+                h-5 w-5 md:h-6 md:w-6
                 opacity-0
                 transition-all duration-200
                 group-hover:opacity-100

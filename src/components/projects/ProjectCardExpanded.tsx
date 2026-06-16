@@ -178,12 +178,12 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
 
                 {/* Right Column */}
                 <div className="flex flex-col space-y-6 md:space-y-8 justify-center">
-                  <p className="text-sm md:text-base text-white/90 leading-relaxed text-justify">
+                  <p className="text-xs md:text-sm text-white/90 leading-relaxed text-justify">
                     {project.longDescription ?? project.descriptionShort}
                   </p>
 
                   <div className="space-y-3">
-                    <h3 className="text-xs md:text-sm font-semibold text-white uppercase">Tech Stack</h3>
+                    <h3 className="text-sm md:text-base font-semibold text-white uppercase">Tech Stack</h3>
                     <section className="flex flex-wrap gap-2">
                       {project.techStacks.map((tech) => (
                         <span

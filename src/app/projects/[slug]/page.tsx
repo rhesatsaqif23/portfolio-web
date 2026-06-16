@@ -24,8 +24,8 @@ interface Props {
 
 const SECTIONS = [
   { key: "overview", color: "text-cyan-400", label: "Overview", num: "01" },
-  { key: "problems", color: "text-red-400", label: "Problems", num: "02" },
-  { key: "solutions", color: "text-emerald-400", label: "Solutions", num: "03" },
+  { key: "problems", color: "text-white/60", label: "Problems", num: "02" },
+  { key: "solutions", color: "text-white/60", label: "Solutions", num: "03" },
   { key: "contributions", color: "text-amber-400", label: "Contributions", num: "04" },
   { key: "features", color: "text-purple-400", label: "Features", num: "05" },
   { key: "techStack", color: "text-emerald-400", label: "Tech Stack", num: "06" },
@@ -75,18 +75,12 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 function AccentCard({ children }: { children: React.ReactNode }) {
   return (
     <div className={`relative rounded-2xl border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl overflow-hidden group transition-all duration-300 hover:border-white/20`}>
-      <div className="absolute top-0 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-white/20 to-transparent pointer-events-none" />
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
       <div className="p-5 relative z-10">
         {children}
       </div>
     </div>
   );
-}
-
-function toSentenceCase(str: string) {
-  if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -125,14 +119,14 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-6 sm:px-10 md:px-20 lg:px-28">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <BreadcrumbNav projectTitle={project.title} />
 
         {caseStudy ? (
           <div className="space-y-16">
 
             {/* ─── HERO ─── */}
-            <header className="relative overflow-hidden rounded-3xl border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl p-6 md:p-10 lg:p-14">
+            <header className="relative overflow-hidden rounded-3xl border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-6 md:px-10 py-4 md:py-6">
               <DecorativeGrid />
               <DecorativeOrb className="-top-40 -right-40 w-80 h-80 bg-cyan-500/5" />
               <DecorativeOrb className="-bottom-40 -left-40 w-80 h-80 bg-blue-500/5" />
@@ -143,54 +137,21 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
 
               <div className="relative z-10">
-                {project.thumbnailUrl && (
-                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 mb-8 shadow-2xl shadow-black/40">
-                    <ImageWithFallback
-                      src={storageUrl(project.thumbnailUrl)}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                   {project.title}
                 </h1>
 
-                <p className="text-white/80 text-base md:text-lg leading-relaxed text-justify mb-8 max-w-2xl">
+                <p className="text-white/90 text-base md:text-lg leading-relaxed text-justify mb-8">
                   {project.descriptionShort}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-3 mb-8">
-                  {project.category && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white/80 bg-white/5">
-                      {project.category === "Mobile App" ? <Smartphone className="h-4 w-4 text-white/75" /> : <Globe className="h-4 w-4 text-white/75" />}
-                      {project.category}
-                    </span>
-                  )}
-                  {caseStudy?.role && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white/80 bg-white/5">
-                      <User className="h-4 w-4 text-white/75" />
-                      {toSentenceCase(caseStudy.role)}
-                    </span>
-                  )}
-                  {caseStudy?.startDate && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white/80 bg-white/5">
-                      <Calendar className="h-4 w-4 text-white/75" />
-                      {new Date(caseStudy.startDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
-                      {caseStudy.endDate && ` – ${new Date(caseStudy.endDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 mb-8">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-5 py-1.5 md:px-6 md:py-2 text-xs md:text-sm font-medium text-white transition-all duration-300 ease-out hover:border-cyan-400 hover:px-7 md:hover:px-8"
+                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-5 py-2 md:px-6 md:py-3 text-xs md:text-sm font-medium text-white transition-all duration-300 ease-out hover:border-cyan-400 hover:px-7 md:hover:px-8"
                     >
                       <span className="relative z-10 inline-flex items-center gap-2 transition-transform duration-300 group-hover:-translate-x-3">
                         <span className="text-cyan-400"><ExternalLink className="h-4 w-4" /></span>
@@ -204,7 +165,7 @@ export default async function CaseStudyPage({ params }: Props) {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-5 py-1.5 md:px-6 md:py-2 text-xs md:text-sm font-medium text-white transition-all duration-300 ease-out hover:border-cyan-400 hover:px-7 md:hover:px-8"
+                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-5 py-2 md:px-6 md:py-3 text-xs md:text-sm font-medium text-white transition-all duration-300 ease-out hover:border-cyan-400 hover:px-7 md:hover:px-8"
                     >
                       <span className="relative z-10 inline-flex items-center gap-2 transition-transform duration-300 group-hover:-translate-x-3">
                         <span className="text-cyan-400"><Github className="h-4 w-4" /></span>
@@ -212,6 +173,55 @@ export default async function CaseStudyPage({ params }: Props) {
                       </span>
                       <ArrowRight className="absolute right-3 md:right-4 h-4 w-4 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-cyan-400" />
                     </a>
+                  )}
+                </div>
+
+                {project.thumbnailUrl && (
+                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 mb-8">
+                    <ImageWithFallback
+                      src={storageUrl(project.thumbnailUrl)}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 1024px"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+
+                <div className="max-w-2xl divide-y divide-white/20">
+                  {project.category && (
+                    <div className="flex items-center py-4">
+                      <div className="flex items-center gap-3 w-32 md:w-48 shrink-0">
+                        {project.category === "Mobile App" ? (
+                          <Smartphone className="h-5 w-5 text-white/90" />
+                        ) : (
+                          <Globe className="h-5 w-5 text-white/90" />
+                        )}
+                        <span className="text-sm md:text-base font-medium text-white/90 tracking-wide">Category</span>
+                      </div>
+                      <span className="text-sm md:text-base font-medium text-white">{project.category}</span>
+                    </div>
+                  )}
+                  {caseStudy?.role && (
+                    <div className="flex items-center py-4">
+                      <div className="flex items-center gap-3 w-32 md:w-48 shrink-0">
+                        <User className="h-5 w-5 text-white/90" />
+                        <span className="text-sm md:text-base font-medium text-white/90 tracking-wide">Role</span>
+                      </div>
+                      <span className="text-sm md:text-base font-medium text-white">{caseStudy.role}</span>
+                    </div>
+                  )}
+                  {caseStudy?.startDate && (
+                    <div className="flex items-center py-4">
+                      <div className="flex items-center gap-3 w-32 md:w-48 shrink-0">
+                        <Calendar className="h-5 w-5 text-white/90" />
+                        <span className="text-sm md:text-base font-medium text-white/90 tracking-wide">Timeline</span>
+                      </div>
+                      <span className="text-sm md:text-base font-medium text-white">
+                        {new Date(caseStudy.startDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                        {caseStudy.endDate && ` – ${new Date(caseStudy.endDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}`}
+                      </span>
+                    </div>
                   )}
                 </div>
               </div>
@@ -222,7 +232,7 @@ export default async function CaseStudyPage({ params }: Props) {
               <section className="relative">
                 <SectionHeading section={s.overview} />
                 <Card className="p-6 md:p-8">
-                  <p className="text-white/80 leading-relaxed text-justify text-sm md:text-base">{caseStudy.overview}</p>
+                  <p className="text-white/90 leading-relaxed text-justify text-sm md:text-base">{caseStudy.overview}</p>
                 </Card>
               </section>
             )}
@@ -234,13 +244,11 @@ export default async function CaseStudyPage({ params }: Props) {
                 <div className="grid gap-5 md:grid-cols-2">
                   {caseStudy.problems.map((p, i) => (
                     <AccentCard key={i}>
-                      <div className="flex items-start gap-3 mb-2">
-                        <span className="flex items-center justify-center h-6 w-6 rounded-full bg-red-400/10 border border-red-400/20 text-xs font-bold text-red-400 shrink-0">
-                          {i + 1}
-                        </span>
-                        <p className="font-semibold text-white text-sm md:text-base">{p.title}</p>
+                      <div className="mb-3">
+                        <span className="text-3xl">{p.icon}</span>
                       </div>
-                      <p className="text-white/80 text-sm md:text-base leading-relaxed text-justify pl-9">{p.description}</p>
+                      <h3 className="text-white font-semibold text-base md:text-lg mb-1">{p.title}</h3>
+                      <p className="text-white/90 text-sm md:text-base leading-relaxed text-justify">{p.description}</p>
                     </AccentCard>
                   ))}
                 </div>
@@ -254,13 +262,11 @@ export default async function CaseStudyPage({ params }: Props) {
                 <div className="grid gap-5 md:grid-cols-2">
                   {caseStudy.solutions.map((sol, i) => (
                     <AccentCard key={i}>
-                      <div className="flex items-start gap-3 mb-2">
-                        <span className="flex items-center justify-center h-6 w-6 rounded-full bg-emerald-400/10 border border-emerald-400/20 text-xs font-bold text-emerald-400 shrink-0">
-                          {i + 1}
-                        </span>
-                        <p className="font-semibold text-white text-sm md:text-base">{sol.title}</p>
+                      <div className="mb-3">
+                        <span className="text-3xl">{sol.icon}</span>
                       </div>
-                      <p className="text-white/80 text-sm md:text-base leading-relaxed text-justify pl-9">{sol.description}</p>
+                      <h3 className="text-white font-semibold text-base md:text-lg mb-1">{sol.title}</h3>
+                      <p className="text-white/90 text-sm md:text-base leading-relaxed text-justify">{sol.description}</p>
                     </AccentCard>
                   ))}
                 </div>
@@ -274,11 +280,9 @@ export default async function CaseStudyPage({ params }: Props) {
                 <div className="grid gap-4 grid-cols-1">
                   {caseStudy.contributions.map((c, i) => (
                     <AccentCard key={i}>
-                      <div className="flex gap-3 items-start">
-                        <div className="flex items-center justify-center h-6 w-6 rounded-full bg-amber-400/10 border border-amber-400/20 shrink-0">
-                          <CheckCircle className="h-3.5 w-3.5 text-amber-400" />
-                        </div>
-                        <p className="text-white/80 text-sm md:text-base leading-relaxed text-justify">{c}</p>
+                      <div className="flex gap-4 items-center">
+                        <CheckCircle className="h-6 w-6 md:h-7 md:w-7 text-white shrink-0" />
+                        <p className="text-white/90 text-sm md:text-base leading-relaxed text-justify">{c}</p>
                       </div>
                     </AccentCard>
                   ))}
@@ -297,7 +301,7 @@ export default async function CaseStudyPage({ params }: Props) {
                         <span className="text-3xl">{f.icon}</span>
                       </div>
                       <h3 className="text-white font-semibold text-base md:text-lg mb-1">{f.title}</h3>
-                      <p className="text-white/80 text-sm md:text-base leading-relaxed text-justify">{f.description}</p>
+                      <p className="text-white/90 text-sm md:text-base leading-relaxed text-justify">{f.description}</p>
                     </AccentCard>
                   ))}
                 </div>
@@ -316,7 +320,7 @@ export default async function CaseStudyPage({ params }: Props) {
             {caseStudy.gallery.length > 0 && (
               <section className="relative">
                 <SectionHeading section={s.gallery} />
-                <Card className="p-4 md:p-6">
+                <Card className="p-4 md:p-8 lg:p-10">
                   <GalleryCarousel items={caseStudy.gallery} />
                 </Card>
               </section>
@@ -333,7 +337,7 @@ export default async function CaseStudyPage({ params }: Props) {
                         <span className="text-3xl">{r.icon}</span>
                       </div>
                       <h3 className="text-white font-semibold text-base md:text-lg mb-1">{r.title}</h3>
-                      <p className="text-white/80 text-sm md:text-base leading-relaxed text-justify">{r.description}</p>
+                      <p className="text-white/90 text-sm md:text-base leading-relaxed text-justify">{r.description}</p>
                     </AccentCard>
                   ))}
                 </div>
@@ -341,7 +345,7 @@ export default async function CaseStudyPage({ params }: Props) {
             )}
 
             {/* ─── Footer Navigation Section (dense & compact) ─── */}
-            <div className="space-y-6 pt-4">
+            <div className="space-y-6">
               {/* Divider */}
               <div className="h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
@@ -361,10 +365,10 @@ export default async function CaseStudyPage({ params }: Props) {
                         <ArrowLeft className="h-6 w-6 md:h-7 md:w-7 text-white/90 group-hover:text-cyan-300 transition-colors" />
                       </div>
                       <div>
+                        <p className="text-sm md:text-mdd text-white/90 mb-1">Previous Project</p>
                         <p className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors">
                           {prevProject.title}
                         </p>
-                        <p className="text-xs md:text-sm text-white/80 mt-0.5">Previous Project</p>
                       </div>
                     </div>
                   </Link>
@@ -374,26 +378,20 @@ export default async function CaseStudyPage({ params }: Props) {
                 {nextProject ? (
                   <Link
                     href={`/projects/${nextProject.slug}`}
-                    className="group relative overflow-hidden rounded-2xl border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-6 py-4 md:px-8 md:py-5 transition-all duration-300 hover:border-cyan-400/30 hover:bg-slate-950/80 sm:text-right"
+                    className="group relative overflow-hidden rounded-2xl border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-6 py-4 md:px-8 md:py-5 transition-all duration-300 hover:border-cyan-400/30 hover:bg-slate-950/80"
                   >
-                    <div className="absolute -bottom-6 -left-4 text-[4rem] md:text-[6rem] font-bold text-white/[0.015] select-none pointer-events-none leading-none">
+                    <div className="absolute -bottom-6 -right-4 text-[4rem] md:text-[6rem] font-bold text-white/[0.015] select-none pointer-events-none leading-none">
                       {nextProject.title.split(" ")[0]}
                     </div>
-                    <div className="relative z-10 flex items-center gap-4 md:gap-5 justify-end">
-                      <div className="sm:hidden order-2">
-                        <p className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors">
-                          {nextProject.title}
-                        </p>
-                        <p className="text-xs md:text-sm text-white/80 mt-0.5">Next Project</p>
-                      </div>
-                      <div className="hidden sm:block">
-                        <p className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors">
-                          {nextProject.title}
-                        </p>
-                        <p className="text-xs md:text-sm text-white/80 mt-0.5">Next Project</p>
-                      </div>
+                    <div className="relative z-10 flex items-center gap-4 md:gap-5">
                       <div className="flex items-center justify-center h-12 w-12 md:h-14 md:w-14 rounded-full border-2 border-white/10 group-hover:border-cyan-400/30 group-hover:bg-cyan-400/10 transition-all duration-300 shrink-0">
                         <ArrowRight className="h-6 w-6 md:h-7 md:w-7 text-white/90 group-hover:text-cyan-300 transition-colors" />
+                      </div>
+                      <div>
+                        <p className="text-sm md:text-mdd text-white/90 mb-1">Next Project</p>
+                        <p className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors">
+                          {nextProject.title}
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -402,16 +400,15 @@ export default async function CaseStudyPage({ params }: Props) {
                 )}
               </nav>
 
-              {/* Back to Home */}
+              {/* Back to Projects */}
               <div className="text-center pt-2">
                 <Link
-                  href="/"
+                  href="/projects"
                   className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-8 py-2.5 md:px-10 md:py-3 text-sm md:text-base font-medium text-white transition-all duration-300 ease-out hover:border-cyan-400 hover:px-10 md:hover:px-12"
                 >
                   <span className="pointer-events-none absolute inset-0 w-[200%] -left-[150%] bg-linear-to-r from-transparent via-white/20 to-transparent animate-[shine_4s_ease-in-out_infinite]" />
                   <span className="relative z-10 inline-flex items-center gap-3 transition-transform duration-300 group-hover:-translate-x-3">
-                    <span className="text-cyan-400"><ArrowLeft className="h-5 w-5 md:h-6 md:w-6" /></span>
-                    Back to Home
+                    Back to Projects
                   </span>
                   <ChevronRight className="absolute right-6 md:right-7 h-5 w-5 md:h-6 md:w-6 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-cyan-400" />
                 </Link>
@@ -420,16 +417,15 @@ export default async function CaseStudyPage({ params }: Props) {
 
           </div>
         ) : (
-          <div className="text-center py-20">
+          <div className="text-center py-28">
             <p className="text-white/80 text-lg">No case study available for this project yet.</p>
             <Link
-              href="/"
+              href="/projects"
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl px-8 py-2.5 md:px-10 md:py-3 text-sm md:text-base font-medium text-white transition-all duration-300 ease-out hover:border-cyan-400 hover:px-10 md:hover:px-12 mt-6"
             >
               <span className="pointer-events-none absolute inset-0 w-[200%] -left-[150%] bg-linear-to-r from-transparent via-white/20 to-transparent animate-[shine_4s_ease-in-out_infinite]" />
               <span className="relative z-10 inline-flex items-center gap-3 transition-transform duration-300 group-hover:-translate-x-3">
-                <span className="text-cyan-400"><ArrowLeft className="h-5 w-5 md:h-6 md:w-6" /></span>
-                Back to Home
+                Back to Projects
               </span>
               <ChevronRight className="absolute right-6 md:right-7 h-5 w-5 md:h-6 md:w-6 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-cyan-400" />
             </Link>

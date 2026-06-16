@@ -59,7 +59,7 @@ export default function ExperienceTimelineItem({ experience }: Props) {
           className="relative flex items-center justify-center h-full w-full"
         >
           {/* Dot Indicator */}
-          <div className="relative h-5 w-5 md:h-6 md:w-6 rounded-full bg-[#0b1220] border-[3px] border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.6)] z-20" />
+          <div className="relative h-5 w-5 md:h-6 md:w-6 rounded-full bg-[#0b1220] border-[3px] border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.6)] z-28" />
         </motion.div>
       }
     >

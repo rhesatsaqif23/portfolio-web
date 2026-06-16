@@ -1,15 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, Rocket } from "lucide-react";
+import { FileText, Rocket } from "lucide-react";
 import { fadeUpVariants } from "./motion";
 import HeroButton from "./HeroButton";
 
-interface Props {
-  cvUrl: string | null;
-}
-
-export default function HeroActions({ cvUrl }: Props) {
+export default function HeroActions() {
   return (
     <motion.div
       variants={fadeUpVariants}
@@ -18,7 +14,7 @@ export default function HeroActions({ cvUrl }: Props) {
       <HeroButton
         href="/api/cv"
         label="View My CV"
-        icon={<Download className="h-5 w-5" />}
+        icon={<FileText className="h-5 w-5" />}
         external
         shineDelay="0s"
       />

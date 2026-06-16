@@ -3,7 +3,7 @@ import AchievementSection from "../components/achievements/AchievementSection";
 import ContactSection from "../components/contact/ContactSection";
 import ExperienceSection from "../components/experience/ExperienceSection";
 import Hero from "../components/hero/Hero";
-import ProjectSection from "../components/projects/ProjectSection";
+import ProjectSectionHorizontal from "../components/projects/ProjectSectionHorizontal";
 import TechStackSection from "../components/tech-stack/TechStackSection";
 import { getProfile, getSkills, getExperiences, getProjects, getAchievements, getStats } from "../lib/data";
 
@@ -17,14 +17,14 @@ export default async function Home() {
     getStats(),
   ]);
 
-  const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 8);
+  const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 6);
 
   return (
     <>
       <Hero profile={profile} />
       <AboutSection profile={profile} stats={stats} />
       <TechStackSection skills={skills} />
-      <ProjectSection projects={featuredProjects} showViewAll />
+      <ProjectSectionHorizontal projects={featuredProjects} skills={skills} showViewAll />
       <ExperienceSection experiences={experiences} />
       <AchievementSection achievements={achievements} />
       <ContactSection profile={profile} />

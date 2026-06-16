@@ -6,6 +6,7 @@ export type DevRole =
   | "mobile developer";
 
 export interface CaseStudySection {
+  icon: string;
   title: string;
   description: string;
 }

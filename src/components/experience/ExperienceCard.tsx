@@ -2,7 +2,7 @@
 
 import ImageWithFallback from "../common/ImageWithFallback";
 import { Experience } from "@/src/types/experience";
-import { formatMonthYear } from "@/src/utils/formatDate";
+import { formatDateRange } from "@/src/utils/formatDate";
 import React from "react";
 
 interface Props {
@@ -58,10 +58,7 @@ function ExperienceCard({ experience }: Props) {
               </p>
             </div>
             <span className="inline-flex self-start rounded-full border border-white/20 bg-white/5 px-3 py-1 md:px-3.5 md:py-1 text-xs md:text-sm font-medium text-white/80">
-              {formatMonthYear(experience.startDate)} –{" "}
-              {experience.endDate
-                ? formatMonthYear(experience.endDate)
-                : "Present"}
+              {formatDateRange(experience.startDate, experience.endDate)}
             </span>
           </div>
         </div>
