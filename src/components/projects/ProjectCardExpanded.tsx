@@ -113,7 +113,7 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                     </div>
                   )}
                   {/* Buttons */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className={`grid gap-3 ${project.liveUrl && project.githubUrl ? "grid-cols-2" : "grid-cols-1 justify-items-center"}`}>
                     {project.liveUrl && (
                       <HeroButton
                         href={project.liveUrl}
@@ -121,7 +121,7 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                         icon={<ExternalLink className="h-4 w-4" />}
                         external={true}
                         size="sm"
-                        className="w-full"
+                        className={project.liveUrl && project.githubUrl ? "w-full" : "w-full max-w-[260px]"}
                       />
                     )}
                     {project.githubUrl && (
@@ -131,7 +131,7 @@ function ProjectCardExpanded({ project, isActive, onClose }: Props) {
                         icon={<Github className="h-4 w-4" />}
                         external={true}
                         size="sm"
-                        className="w-full"
+                        className={project.liveUrl && project.githubUrl ? "w-full" : "w-full max-w-[260px]"}
                       />
                     )}
                   </div>

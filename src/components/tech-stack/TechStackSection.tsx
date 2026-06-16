@@ -3,16 +3,16 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import ImageWithFallback from "../common/ImageWithFallback";
-import { 
-  MonitorSmartphone, 
-  LayoutTemplate, 
-  Server, 
-  Database, 
-  Settings, 
-  Cloud, 
-  Paintbrush, 
-  Wrench, 
-  Code 
+import {
+  Smartphone,
+  LayoutTemplate,
+  Server,
+  Database,
+  Settings,
+  Cloud,
+  Paintbrush,
+  Wrench,
+  Code
 } from "lucide-react";
 import SectionTitle from "../common/SectionTitle";
 import { Skill, SkillCategory } from "@/src/types/skill";
@@ -27,7 +27,7 @@ const categoryLabels: Record<string, string> = {
   frontend: "Frontend",
   backend: "Backend",
   database: "Database",
-  devops: "Devops",
+  devops: "DevOps",
   deployment: "Cloud & Deployment",
   cloud: "Cloud & Deployment",
   cloud_deployment: "Cloud & Deployment",
@@ -37,38 +37,27 @@ const categoryLabels: Record<string, string> = {
 };
 
 const categoryIcons: Record<string, React.ElementType> = {
-  "Mobile": MonitorSmartphone,
-  "Frontend": LayoutTemplate,
-  "Backend": Server,
-  "Database": Database,
-  "Devops": Settings,
-  "Cloud & Deployment": Cloud,
-  "Design": Paintbrush,
-  "Tools": Wrench,
-  "Other": Code,
+  "mobile": Smartphone,
+  "frontend": LayoutTemplate,
+  "backend": Server,
+  "database": Database,
+  "devops": Settings,
+  "cloud & deployment": Cloud,
+  "design": Paintbrush,
+  "tools": Wrench,
+  "other": Code,
 };
 
 const bentoClasses: Record<string, string> = {
-  "Frontend": "lg:col-span-2 lg:row-span-1",
-  "Tools": "lg:col-span-1 lg:row-span-1",
-  "Devops": "lg:col-span-1 lg:row-span-1",
-  "Cloud & Deployment": "lg:col-span-1 lg:row-span-1",
-  "Backend": "lg:col-span-2 lg:row-span-1",
-  "Database": "lg:col-span-1 lg:row-span-2",
-  "Design": "lg:col-span-1 lg:row-span-1",
-  "Mobile": "lg:col-span-2 lg:row-span-1",
+  "frontend": "lg:col-span-2 lg:row-span-1",
+  "tools": "lg:col-span-1 lg:row-span-1",
+  "devops": "lg:col-span-1 lg:row-span-1",
+  "cloud & deployment": "lg:col-span-1 lg:row-span-1",
+  "backend": "lg:col-span-2 lg:row-span-1",
+  "database": "lg:col-span-1 lg:row-span-2",
+  "design": "lg:col-span-1 lg:row-span-1",
+  "mobile": "lg:col-span-2 lg:row-span-1",
 };
-
-const order = [
-  "Frontend",
-  "Tools",
-  "Devops",
-  "Cloud & Deployment",
-  "Backend",
-  "Database",
-  "Design",
-  "Mobile"
-];
 
 function groupByCategory(skills: Skill[]): Record<string, Skill[]> {
   return skills.reduce(
@@ -85,6 +74,16 @@ function groupByCategory(skills: Skill[]): Record<string, Skill[]> {
 }
 
 export default function TechStackSection({ skills }: Props) {
+  const order = [
+    "Frontend",
+    "Tools",
+    "Cloud & Deployment",
+    "Design",
+    "Backend",
+    "Database",
+    "Devops",
+    "Mobile"
+  ];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.05, margin: "-60px 0px" });
   const grouped = groupByCategory(skills);
@@ -92,16 +91,17 @@ export default function TechStackSection({ skills }: Props) {
   const entries = Object.entries(grouped)
     .map(([category, categorySkills]) => {
       const label = categoryLabels[category] ?? category;
+      const key = label.toLowerCase();
       return {
         category,
         skills: categorySkills,
         label,
-        bentoClass: bentoClasses[label] || "lg:col-span-1 lg:row-span-1",
+        bentoClass: bentoClasses[key] || "lg:col-span-1 lg:row-span-1",
       };
     })
     .sort((a, b) => {
-      const idxA = order.indexOf(a.label);
-      const idxB = order.indexOf(b.label);
+      const idxA = order.findIndex((item) => item.toLowerCase() === a.label.toLowerCase());
+      const idxB = order.findIndex((item) => item.toLowerCase() === b.label.toLowerCase());
       if (idxA === -1 && idxB === -1) return 0;
       if (idxA === -1) return 1;
       if (idxB === -1) return -1;
@@ -148,7 +148,7 @@ export default function TechStackSection({ skills }: Props) {
             `}
           >
             {(() => {
-              const BgIcon = categoryIcons[label] || Code;
+              const BgIcon = categoryIcons[label.toLowerCase()] || Code;
               return (
                 <div className="absolute -bottom-6 -right-6 md:-bottom-8 md:-right-8 opacity-5 md:opacity-10 pointer-events-none transition-all duration-500 group-hover:opacity-[0.15] group-hover:scale-110 z-0">
                   <BgIcon className="w-40 h-40 md:w-56 md:h-56 text-cyan-300" strokeWidth={1} />
@@ -162,32 +162,33 @@ export default function TechStackSection({ skills }: Props) {
               </h3>
               <div className="h-px w-full bg-white/10 mb-4 md:mb-6" />
 
-            <div className={`grid gap-4 md:gap-y-8 md:gap-x-4 ${["Frontend", "Backend", "Mobile"].includes(label) ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
-              {categorySkills.map((skill, i) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="group flex flex-col items-center gap-2 md:gap-3"
-                >
-                  {skill.iconUrl && (
-                    <div className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0 transition-transform duration-300 group-hover:scale-110 rounded-md overflow-hidden bg-transparent">
-                      <ImageWithFallback
-                        src={skill.iconUrl}
-                        alt={skill.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <span className="text-xs md:text-sm font-semibold text-white/80 group-hover:text-white transition-colors text-center">
-                    {skill.name}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+              <div className={`grid gap-4 md:gap-y-8 md:gap-x-4 ${["frontend", "backend", "mobile"].includes(label.toLowerCase()) ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
+                {categorySkills.map((skill, i) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    className="group flex flex-col items-center gap-2 md:gap-3"
+                  >
+                    {skill.iconUrl && (
+                      <div className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0 transition-transform duration-300 group-hover:scale-110 rounded-md overflow-hidden bg-transparent">
+                        <ImageWithFallback
+                          src={skill.iconUrl}
+                          alt={skill.name}
+                          fill
+                          sizes="(max-width: 640px) 40px, (max-width: 768px) 48px, 56px"
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <span className="text-xs md:text-sm font-semibold text-white/80 group-hover:text-white transition-colors text-center">
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         ))}

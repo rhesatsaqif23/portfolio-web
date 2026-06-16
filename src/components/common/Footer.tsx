@@ -56,7 +56,7 @@ export default function Footer({ profile }: Props) {
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Row 1: Tagline | Navigation | Contact */}
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-12 mb-4 w-full">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-12 mb-2 md:mb-4 w-full">
           {/* Left: Tagline (50%) */}
           <div className="w-full lg:w-1/2 text-center xl:text-left xl:pr-8">
             <p className="text-white text-lg md:text-xl font-semibold leading-relaxed lg:max-w-md md:px-16 mx-auto">
@@ -67,7 +67,7 @@ export default function Footer({ profile }: Props) {
           {/* Right side wrapper: Navigation & Contact */}
           <div className="w-full lg:w-1/2 flex flex-col sm:flex-row justify-center lg:justify-end gap-12 sm:gap-16 lg:gap-24 lg:pr-8">
             {/* Navigation Columns Group (always 2 columns side-by-side) */}
-            <div className="flex flex-row justify-center lg:justify-start gap-8 sm:gap-16">
+            <div className="hidden sm:flex flex-row justify-center lg:justify-start gap-8 sm:gap-16">
               {/* Left Navigation Column */}
               <div className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
                 <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
@@ -128,7 +128,7 @@ export default function Footer({ profile }: Props) {
         </div>
 
         {/* Row 2: Big name text */}
-        <div className="text-center my-2 md:my-4 select-none">
+        <div className="text-center my-4 select-none">
           <p className="text-4xl sm:text-5xl md:text-6xl lg:text-[8rem] xl:text-[10rem] font-bold text-white leading-none tracking-wide">
             {displayName}
           </p>
