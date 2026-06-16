@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 import React, { useEffect, useRef, useCallback } from "react";
 
 // Interactive starry background with parallax effect and responsive density

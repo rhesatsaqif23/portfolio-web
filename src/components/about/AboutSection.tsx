@@ -5,13 +5,13 @@ import { useRef } from "react";
 import { GraduationCap, Rocket, Code2, BookOpen } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import InfoItem from "./InfoItem";
+import SectionTitle from "../common/SectionTitle";
 import {
   infoContainer,
   infoItem,
   profileReveal,
   sectionContainer,
   textReveal,
-  titleFade,
 } from "./motion";
 import { Profile } from "@/src/types/profile";
 import { Stat } from "@/src/types/stat";
@@ -47,12 +47,10 @@ export default function AboutSection({ profile, stats }: Props) {
       animate={isInView ? "show" : "hidden"}
       className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-16 md:py-24"
     >
-      <motion.h2
-        variants={titleFade}
-        className="text-center text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 md:mb-12"
-      >
-        About Me
-      </motion.h2>
+      <SectionTitle
+        title="About Me"
+        subtitle="Get to know more about me, my background, and what drives my passion for development."
+      />
 
       <motion.div
         className="

@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import ImageWithFallback from "../common/ImageWithFallback";
 import {
   Smartphone,
@@ -84,8 +83,6 @@ export default function TechStackSection({ skills }: Props) {
     "Devops",
     "Mobile"
   ];
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.05, margin: "-60px 0px" });
   const grouped = groupByCategory(skills);
 
   const entries = Object.entries(grouped)
@@ -110,7 +107,6 @@ export default function TechStackSection({ skills }: Props) {
 
   return (
     <section
-      ref={ref}
       id="stack"
       className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-16 md:py-24"
     >
@@ -120,21 +116,41 @@ export default function TechStackSection({ skills }: Props) {
       />
 
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={{
+          hidden: { opacity: 0, y: 40 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 0.9,
+              ease: [0.16, 1, 0.3, 1],
+              staggerChildren: 0.1,
+            },
+          },
+        }}
         className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
       >
         {entries.map(({ category, skills: categorySkills, label, bentoClass }) => (
           <motion.div
             key={category}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                },
+              },
+            }}
             whileHover={{ y: -6, scale: 1.01 }}
             transition={{
-              duration: 0.5,
-              y: { type: "spring", stiffness: 220, damping: 26, mass: 0.7 },
+              duration: 0.4,
+              ease: [0.16, 1, 0.3, 1],
             }}
             className={`
               group relative w-full rounded-2xl overflow-hidden

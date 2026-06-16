@@ -83,7 +83,7 @@ export default function Hero({ profile }: Props) {
         </motion.h2>
 
         <HeroSocials profile={profile} />
-        <HeroActions cvUrl={profile?.cvUrl ?? null} />
+        <HeroActions />
       </motion.div>
 
       <DecorBackground />

@@ -31,6 +31,7 @@ export default function TechStackIcons({ skills }: Props) {
               src={skill.iconUrl ? storageUrl(skill.iconUrl) : ""}
               alt={skill.name}
               fill
+              sizes="56px"
               className="object-contain transition-transform duration-300 group-hover:scale-110"
             />
           </div>

@@ -30,7 +30,7 @@ export async function GET() {
         "Content-Disposition": "inline; filename=CV_Rhesa_Tsaqif_Adyatma.pdf",
       },
     });
-  } catch (error) {
+  } catch {
     return new NextResponse("Error fetching CV", { status: 500 });
   }
 }

@@ -8,6 +8,9 @@ import SectionTitle from "../common/SectionTitle";
 import ProjectCard from "./ProjectCard";
 import ProjectFilterBar from "./ProjectFilterBar";
 import { Skeleton } from "../ui/skeleton";
+import Badge from "../common/Badge";
+import { Rocket, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 function ProjectSkeletonCard() {
   return (
@@ -54,7 +57,7 @@ export default function ProjectSection({ projects, showViewAll }: Props) {
     const fetchCategoryProjects = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`/api/projects?category=${encodeURIComponent(activeCategory)}&limit=8`);
+        const res = await fetch(`/api/projects?category=${encodeURIComponent(activeCategory)}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         if (isMounted) {
@@ -81,9 +84,19 @@ export default function ProjectSection({ projects, showViewAll }: Props) {
       id="projects"
       className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-16 md:py-24"
     >
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="text-center mb-4 md:mb-6"
+      >
+        <Badge text="My Projects Showcase" />
+      </motion.div>
+
       <SectionTitle
-        title="Projects"
-        subtitle="Selected projects showcasing my experience in mobile and web development."
+        title="Selected Projects"
+        subtitle="A curated collection of projects I've built across mobile and web development, ranging from full-stack platforms and real-time applications to AI-powered tools and community-driven solutions."
       />
 
       <ProjectFilterBar
@@ -92,7 +105,6 @@ export default function ProjectSection({ projects, showViewAll }: Props) {
           setActiveCategory(val);
           setActiveProjectId(null);
         }}
-        showViewAll={showViewAll}
       />
 
       <motion.div
@@ -126,6 +138,71 @@ export default function ProjectSection({ projects, showViewAll }: Props) {
           </div>
         )}
       </motion.div>
+
+      {showViewAll && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="flex justify-center mt-12 md:mt-16 lg:mt-20"
+        >
+          <Link
+            href="/projects"
+            className="
+              group relative inline-flex items-center justify-center
+              overflow-hidden
+              rounded-full
+              bg-linear-to-r from-cyan-400 to-blue-500
+              px-6 md:px-8 lg:px-10 py-3 md:py-3.5 lg:py-4
+              font-medium text-black
+              text-sm md:text-base lg:text-lg
+
+              shadow-[0_0_18px_rgba(34,211,238,0.45)]
+              transition-all duration-300
+
+              hover:px-8 md:hover:px-10 lg:hover:px-12
+              hover:shadow-[0_0_30px_rgba(34,211,238,0.7)]
+
+              active:scale-[0.97]
+              focus-visible:outline-none
+              focus-visible:ring-2 focus-visible:ring-cyan-400/60
+            "
+          >
+            <span
+              className="
+                pointer-events-none absolute inset-0
+                w-[200%]
+                -left-[150%]
+                bg-linear-to-r from-transparent via-white/45 to-transparent
+                animate-[shine_2.6s_ease-in-out_infinite]
+              "
+            />
+
+            <span
+              className="
+                relative z-10 inline-flex items-center gap-2 md:gap-3
+                transition-transform duration-300
+                group-hover:-translate-x-3
+              "
+            >
+              <Rocket className="h-5 w-5 md:h-6 md:w-6" />
+              View All Projects
+            </span>
+
+            <ChevronRight
+              className="
+                pointer-events-none
+                absolute right-3 md:right-4 lg:right-5
+                h-5 w-5 md:h-6 md:w-6
+                opacity-0
+                transition-all duration-200
+                group-hover:opacity-100
+              "
+            />
+          </Link>
+        </motion.div>
+      )}
     </section>
   );
 }

@@ -33,7 +33,7 @@ export default function SectionTitle({
           {title}
         </h1>
         {subtitle && (
-          <p className="text-white/80 text-sm md:text-md lg:text-lg max-w-2xl mx-auto">
+          <p className="text-white/80 text-sm md:text-md lg:text-lg max-w-4xl mx-auto">
             {subtitle}
           </p>
         )}
