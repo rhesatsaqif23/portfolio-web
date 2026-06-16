@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import ImageWithFallback from "../common/ImageWithFallback";
 import {
   Smartphone,
@@ -84,8 +83,6 @@ export default function TechStackSection({ skills }: Props) {
     "Devops",
     "Mobile"
   ];
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.05, margin: "-60px 0px" });
   const grouped = groupByCategory(skills);
 
   const entries = Object.entries(grouped)
@@ -110,7 +107,6 @@ export default function TechStackSection({ skills }: Props) {
 
   return (
     <section
-      ref={ref}
       id="stack"
       className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-16 md:py-24"
     >

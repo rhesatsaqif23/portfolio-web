@@ -4,11 +4,10 @@ import ImageWithFallback from "../common/ImageWithFallback";
 import TiltedCard from "../common/TiltedCard";
 import { useRouter } from "next/navigation";
 import { ExternalLink, Github, ArrowUpRight, Folder, Globe, Smartphone } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Project } from "@/src/types/project";
 import { Skill } from "@/src/types/skill";
 import HeroButton from "../hero/HeroButton";
-import useInView from "@/src/hooks/useInView";
 import React, { useState } from "react";
 
 const STORAGE =
@@ -59,7 +58,7 @@ function ProjectCardHorizontal({ project, index, skills }: Props) {
   };
   const CategoryIcon = categoryIcons[project.category ?? ""] ?? Folder;
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
@@ -72,7 +71,7 @@ function ProjectCardHorizontal({ project, index, skills }: Props) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
