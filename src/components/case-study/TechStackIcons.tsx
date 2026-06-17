@@ -12,7 +12,7 @@ interface Props {
 const STORAGE = "https://ipkrjpftddtxwzmylxtf.supabase.co/storage/v1/object/public";
 
 function storageUrl(path: string) {
-  if (path.startsWith("http")) return path;
+  if (path.startsWith("http") || path.startsWith("/")) return path;
   return `${STORAGE}/${path}`;
 }
 
@@ -28,7 +28,7 @@ export default function TechStackIcons({ skills }: Props) {
         >
           <div className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0">
             <ImageWithFallback
-              src={skill.iconUrl ? storageUrl(skill.iconUrl) : ""}
+              src={skill.iconUrl ? storageUrl(skill.iconUrl) : "/images/fallback-icon.png"}
               alt={skill.name}
               fill
               sizes="56px"
