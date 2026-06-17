@@ -108,10 +108,18 @@ export default async function CaseStudyPage({ params }: Props) {
 
   if (!project) notFound();
 
+  const allTechSkills = project.techStacks.map((name) => {
+    const found = techSkills.find((s) => s.name === name);
+    return {
+      name,
+      iconUrl: found ? found.iconUrl : null,
+    };
+  });
+
   const STORAGE = "https://ipkrjpftddtxwzmylxtf.supabase.co/storage/v1/object/public";
 
   function storageUrl(path: string) {
-    if (path.startsWith("http")) return path;
+    if (path.startsWith("http") || path.startsWith("/")) return path;
     return `${STORAGE}/${path}`;
   }
 
@@ -145,7 +153,7 @@ export default async function CaseStudyPage({ params }: Props) {
                   {project.descriptionShort}
                 </p>
 
-                <div className="flex flex-wrap gap-3 mb-8">
+                <div className="flex flex-row items-center gap-3 mb-8 overflow-x-auto scrollbar-none pb-1">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
@@ -309,10 +317,10 @@ export default async function CaseStudyPage({ params }: Props) {
             )}
 
             {/* ─── 06 Tech Stack ─── */}
-            {techSkills.length > 0 && (
+            {allTechSkills.length > 0 && (
               <section className="relative">
                 <SectionHeading section={s.techStack} />
-                <TechStackIcons skills={techSkills} />
+                <TechStackIcons skills={allTechSkills} />
               </section>
             )}
 

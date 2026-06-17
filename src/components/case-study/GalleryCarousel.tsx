@@ -1,7 +1,7 @@
 "use client";
 
 import ImageWithFallback from "../common/ImageWithFallback";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { CaseStudyGalleryItem } from "@/src/types/case-study";
 import {
   Carousel,
@@ -21,6 +21,12 @@ export default function GalleryCarousel({ items }: Props) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
+  // Stable carousel options to prevent infinite re-renders
+  const carouselOptions = useMemo(() => ({
+    align: "center" as const,
+    loop: true,
+  }), []);
+
   useEffect(() => {
     if (!api) return;
 
@@ -34,31 +40,13 @@ export default function GalleryCarousel({ items }: Props) {
 
   const count = items.length;
 
-  const handlePrev = useCallback(() => {
-    api?.scrollPrev();
-  }, [api]);
-
-  const handleNext = useCallback(() => {
-    api?.scrollNext();
-  }, [api]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "ArrowRight") handleNext();
-    }
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [handlePrev, handleNext]);
-
   if (items.length === 0) return null;
 
   const STORAGE = "https://ipkrjpftddtxwzmylxtf.supabase.co/storage/v1/object/public";
 
   function storageUrl(path: string) {
     if (!path) return "/images/fallback-icon.png";
-    if (path.startsWith("http")) return path;
+    if (path.startsWith("http") || path.startsWith("/")) return path;
     return `${STORAGE}/${path}`;
   }
 
@@ -66,10 +54,7 @@ export default function GalleryCarousel({ items }: Props) {
     <div className="w-full">
       <Carousel
         setApi={setApi}
-        opts={{
-          align: "center",
-          loop: true,
-        }}
+        opts={carouselOptions}
         className="w-full group/carousel"
       >
         <CarouselContent>
@@ -98,14 +83,14 @@ export default function GalleryCarousel({ items }: Props) {
           ))}
         </CarouselContent>
         <CarouselPrevious
-          className="left-4 md:-left-6 size-12 md:size-14 rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl text-white/90 transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0"
+          className="left-4 md:-left-6 size-12 md:size-14 rounded-full text-white/90 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0 cursor-pointer flex items-center justify-center"
         >
-          <ArrowLeft className="h-6 w-6 md:h-7 md:w-7" />
+          <ArrowLeft className="h-8 w-8 md:h-10 md:w-10 shrink-0" />
         </CarouselPrevious>
         <CarouselNext
-          className="right-4 md:-right-6 size-12 md:size-14 rounded-full border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl text-white/90 transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0"
+          className="right-4 md:-right-6 size-12 md:size-14 rounded-full text-white/90 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0 cursor-pointer flex items-center justify-center"
         >
-          <ArrowRight className="h-6 w-6 md:h-7 md:w-7" />
+          <ArrowRight className="h-8 w-8 md:h-10 md:w-10 shrink-0" />
         </CarouselNext>
       </Carousel>
 
