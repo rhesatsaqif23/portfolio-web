@@ -32,7 +32,7 @@ export default function TechStackIcons({ skills }: Props) {
               alt={skill.name}
               fill
               sizes="56px"
-              className="object-contain transition-transform duration-300 group-hover:scale-110"
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
             />
           </div>
           <span className="text-xs md:text-sm font-semibold text-white/80 group-hover:text-white transition-colors text-center">
