@@ -66,7 +66,8 @@ export default function GalleryCarousel({ items }: Props) {
                     src={storageUrl(item.url)}
                     alt={item.alt || `Gallery image ${i + 1}`}
                     fill
-                    sizes="(max-width: 768px) 100vw, 800px"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1400px"
+                    quality={90}
                     className="object-cover"
                     priority={i === 0}
                   />
@@ -83,14 +84,14 @@ export default function GalleryCarousel({ items }: Props) {
           ))}
         </CarouselContent>
         <CarouselPrevious
-          className="left-4 md:-left-6 size-12 md:size-14 rounded-full text-white/90 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0 cursor-pointer flex items-center justify-center"
+          className="left-1.5 md:-left-6 size-7 md:size-14 rounded-full text-white/80 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0 cursor-pointer flex items-center justify-center bg-black/40 md:bg-transparent border-white/20 md:border-white/30"
         >
-          <ArrowLeft className="h-8 w-8 md:h-10 md:w-10 shrink-0" />
+          <ArrowLeft className="h-3.5 w-3.5 md:h-10 md:w-10 shrink-0" />
         </CarouselPrevious>
         <CarouselNext
-          className="right-4 md:-right-6 size-12 md:size-14 rounded-full text-white/90 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0 cursor-pointer flex items-center justify-center"
+          className="right-1.5 md:-right-6 size-7 md:size-14 rounded-full text-white/80 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-0 cursor-pointer flex items-center justify-center bg-black/40 md:bg-transparent border-white/20 md:border-white/30"
         >
-          <ArrowRight className="h-8 w-8 md:h-10 md:w-10 shrink-0" />
+          <ArrowRight className="h-3.5 w-3.5 md:h-10 md:w-10 shrink-0" />
         </CarouselNext>
       </Carousel>
 
