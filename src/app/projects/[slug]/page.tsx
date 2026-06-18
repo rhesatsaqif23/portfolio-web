@@ -145,15 +145,15 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
 
               <div className="relative z-10">
-                <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 md:mb-4 leading-tight">
                   {project.title}
                 </h1>
 
-                <p className="text-white/90 text-base md:text-lg leading-relaxed text-justify mb-8">
+                <p className="text-white/90 text-base md:text-lg leading-relaxed text-justify mb-4 md:mb-6">
                   {project.descriptionShort}
                 </p>
 
-                <div className="flex flex-row items-center gap-3 mb-8 overflow-x-auto scrollbar-none pb-1">
+                <div className="flex flex-row items-center gap-3 mb-4 md:mb-6 overflow-x-auto scrollbar-none pb-1">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
@@ -185,7 +185,7 @@ export default async function CaseStudyPage({ params }: Props) {
                 </div>
 
                 {project.thumbnailUrl && (
-                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 mb-8">
+                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 mb-6 md:mb-8">
                     <ImageWithFallback
                       src={storageUrl(project.thumbnailUrl)}
                       alt={project.title}
@@ -196,9 +196,9 @@ export default async function CaseStudyPage({ params }: Props) {
                   </div>
                 )}
 
-                <div className="max-w-2xl divide-y divide-white/20">
+                <div className="w-full divide-y divide-white/20">
                   {project.category && (
-                    <div className="flex items-center py-4">
+                    <div className="flex items-center py-2 md:py-4">
                       <div className="flex items-center gap-3 w-32 md:w-48 shrink-0">
                         {project.category === "Mobile App" ? (
                           <Smartphone className="h-5 w-5 text-white/90" />
