@@ -49,28 +49,20 @@ export const metadata: Metadata = {
     title: "Rhesa Tsaqif | Portfolio — Mobile & Full-Stack Developer",
     description:
       "Full-stack Web & Mobile Developer from Indonesia. Building scalable, user-centered applications with Next.js, React, and Kotlin.",
-    images: [
-      {
-        url: `${BASE_URL}/images/og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Rhesa Tsaqif Portfolio",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Rhesa Tsaqif | Portfolio",
     description:
       "Full-stack Web & Mobile Developer from Indonesia. Specializing in Next.js, React, and Kotlin Jetpack Compose.",
-    images: [`${BASE_URL}/images/og.png`],
   },
   robots: {
     index: true,
     follow: true,
   },
   icons: {
-    icon: "/icon.png",
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
   },
 };
 
