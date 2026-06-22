@@ -7,6 +7,8 @@ import ProjectSectionHorizontal from "../components/projects/ProjectSectionHoriz
 import TechStackSection from "../components/tech-stack/TechStackSection";
 import { getProfile, getSkills, getExperiences, getProjects, getAchievements, getStats } from "../lib/data";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const [profile, skills, experiences, projects, achievements, stats] = await Promise.all([
     getProfile(),

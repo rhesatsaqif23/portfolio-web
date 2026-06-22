@@ -1,6 +1,8 @@
 import ProjectSection from "../../components/projects/ProjectSection";
 import { getProjects } from "../../lib/data";
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "All Projects | Rhesa Tsaqif",
   description: "All projects by Rhesa Tsaqif Adyatma",
