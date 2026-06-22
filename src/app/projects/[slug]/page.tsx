@@ -150,6 +150,27 @@ export default async function CaseStudyPage({ params }: Props) {
           }}
         />
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": project.category === "Mobile App" ? "SoftwareApplication" : "WebApplication",
+              "name": project.title,
+              "description": project.descriptionShort || "",
+              "applicationCategory": project.category === "Mobile App" ? "MobileApplication" : "WebApplication",
+              "operatingSystem": project.category === "Mobile App" ? "Android, iOS" : "Browser",
+              "url": `https://rhesatsaqif.vercel.app/projects/${slug}`,
+              "image": project.thumbnailUrl ? storageUrl(project.thumbnailUrl) : undefined,
+              "author": {
+                "@type": "Person",
+                "name": "Rhesa Tsaqif Adyatma",
+                "url": "https://rhesatsaqif.vercel.app"
+              }
+            }),
+          }}
+        />
+
         {caseStudy ? (
           <div className="space-y-16">
 
