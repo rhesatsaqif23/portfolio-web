@@ -69,7 +69,7 @@ export default function Footer({ profile }: Props) {
             {/* Navigation Columns Group (always 2 columns side-by-side) */}
             <div className="hidden sm:flex flex-row justify-center lg:justify-start gap-8 sm:gap-16">
               {/* Left Navigation Column */}
-              <div className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
+              <nav className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
                 <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
                   Navigation
                 </h4>
@@ -85,9 +85,9 @@ export default function Footer({ profile }: Props) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </nav>
               {/* Right Navigation Column (no title) */}
-              <div className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
+              <nav className="text-center lg:text-start min-w-[120px] sm:min-w-[140px]">
                 <ul className="space-y-2 sm:space-y-3 mt-[28px] sm:mt-[36px]">
                   {rightNavItems.map((item) => (
                     <li key={item.label}>
@@ -100,29 +100,30 @@ export default function Footer({ profile }: Props) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </nav>
             </div>
             {/* Contact Column (no email) */}
             <div className="text-center lg:text-start min-w-[140px]">
               <h4 className="text-white font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wide">
                 Contact
               </h4>
-              <div className="flex flex-col items-center sm:items-start gap-3 sm:gap-4">
+              <ul className="flex flex-col items-center sm:items-start gap-3 sm:gap-4">
                 {socials.filter(s => s.name !== "Email").map(({ name, href, icon: Icon }) => (
-                  <a
-                    key={name}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 sm:gap-3 text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium"
-                  >
-                    <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/20 shrink-0">
-                      <Icon className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
-                    </div>
-                    <span>{name}</span>
-                  </a>
+                  <li key={name}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 sm:gap-3 text-white/80 hover:text-white text-xs sm:text-sm transition-colors font-medium"
+                    >
+                      <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/20 shrink-0">
+                        <Icon className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+                      </div>
+                      <span>{name}</span>
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </div>

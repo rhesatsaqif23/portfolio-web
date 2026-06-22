@@ -178,9 +178,9 @@ export default function TechStackSection({ skills }: Props) {
               </h3>
               <div className="h-px w-full bg-white/10 mb-4 md:mb-6" />
 
-              <div className={`grid gap-4 md:gap-y-8 md:gap-x-4 ${["frontend", "backend", "mobile"].includes(label.toLowerCase()) ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
+              <ul className={`grid gap-4 md:gap-y-8 md:gap-x-4 ${["frontend", "backend", "mobile"].includes(label.toLowerCase()) ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
                 {categorySkills.map((skill, i) => (
-                  <motion.div
+                  <motion.li
                     key={skill.name}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -202,9 +202,9 @@ export default function TechStackSection({ skills }: Props) {
                     <span className="text-xs md:text-sm font-semibold text-white/80 group-hover:text-white transition-colors text-center">
                       {skill.name}
                     </span>
-                  </motion.div>
+                  </motion.li>
                 ))}
-              </div>
+              </ul>
             </div>
           </motion.div>
         ))}

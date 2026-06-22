@@ -21,7 +21,7 @@ interface Props {
 
 export default function ContactSection({ profile }: Props) {
   const { ref: headerRef, visible: headerVisible } =
-    useInView<HTMLDivElement>(0.25);
+    useInView<HTMLElement>(0.25);
   const { ref: cardRef, visible: cardVisible } =
     useInView<HTMLDivElement>(0.15);
 
@@ -51,7 +51,7 @@ export default function ContactSection({ profile }: Props) {
       id="contact"
       className="relative min-h-screen px-6 sm:px-10 md:px-20 lg:px-28 py-16 md:py-24"
     >
-      <motion.div
+      <motion.header
         ref={headerRef}
         initial={{ opacity: 0, y: 40 }}
         animate={{
@@ -72,7 +72,7 @@ export default function ContactSection({ profile }: Props) {
           collaborations, and opportunities in software development. Feel free
           to reach out and let&apos;s create something meaningful together.
         </p>
-      </motion.div>
+      </motion.header>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -254,58 +254,59 @@ export default function ContactSection({ profile }: Props) {
           >
             <h3 className="text-xs md:text-sm font-semibold text-white/80 mb-2 md:mb-3">SOCIAL</h3>
 
-            <div className="flex flex-col gap-4 md:gap-5">
+            <ul className="flex flex-col gap-4 md:gap-5">
               {socialLinks.map((item, i) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{
-                    opacity: cardVisible ? 1 : 0,
-                    y: cardVisible ? 0 : 15,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.4 + i * 0.1,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  <Link
-                    href={item.href}
-                    target="_blank"
-                    className="
-                        group relative inline-flex flex-col justify-center
-                        text-white transition-all duration-300
-                    "
+                <li key={item.name}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{
+                      opacity: cardVisible ? 1 : 0,
+                      y: cardVisible ? 0 : 15,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.4 + i * 0.1,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
                   >
-                    <div className="relative h-[1.6em] overflow-hidden w-max">
-                      <div
-                        className="
-                            flex items-center gap-2 md:gap-3 transition-transform duration-200 ease-out
-                            group-hover:-translate-y-[40%] group-hover:opacity-0
-                        "
-                      >
-                        {item.icon}
-                        <span className="text-sm md:text-base">Follow on {item.name}</span>
-                      </div>
+                    <Link
+                      href={item.href}
+                      target="_blank"
+                      className="
+                          group relative inline-flex flex-col justify-center
+                          text-white transition-all duration-300
+                      "
+                    >
+                      <div className="relative h-[1.6em] overflow-hidden w-max">
+                        <div
+                          className="
+                              flex items-center gap-2 md:gap-3 transition-transform duration-200 ease-out
+                              group-hover:-translate-y-[40%] group-hover:opacity-0
+                          "
+                        >
+                          {item.icon}
+                          <span className="text-sm md:text-base">Follow on {item.name}</span>
+                        </div>
 
-                      <div
-                        className="
-                            pointer-events-none absolute left-0 top-0 flex items-center gap-2
-                            translate-y-[40%] opacity-0
-                            group-hover:translate-y-0 group-hover:opacity-100
-                            transition-all duration-250 ease-[cubic-bezier(0.25,1,0.3,1)]
-                        "
-                      >
-                        <span className="text-sm md:text-base font-semibold text-white whitespace-nowrap">
-                          Follow on {item.name}
-                        </span>
-                        <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                        <div
+                          className="
+                              pointer-events-none absolute left-0 top-0 flex items-center gap-2
+                              translate-y-[40%] opacity-0
+                              group-hover:translate-y-0 group-hover:opacity-100
+                              transition-all duration-250 ease-[cubic-bezier(0.25,1,0.3,1)]
+                          "
+                        >
+                          <span className="text-sm md:text-base font-semibold text-white whitespace-nowrap">
+                            Follow on {item.name}
+                          </span>
+                          <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </motion.div>
+                    </Link>
+                  </motion.div>
+                </li>
               ))}
-            </div>
+            </ul>
           </motion.div>
         </div>
       </motion.div>

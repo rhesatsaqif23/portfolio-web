@@ -20,9 +20,9 @@ export default function TechStackIcons({ skills }: Props) {
   if (skills.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+    <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
       {skills.map((skill) => (
-        <div
+        <li
           key={skill.name}
           className="group flex flex-col items-center gap-3 rounded-2xl border-2 border-white/10 bg-slate-950/60 backdrop-blur-xl p-4 transition-all duration-300 hover:border-cyan-400/50"
         >
@@ -38,8 +38,8 @@ export default function TechStackIcons({ skills }: Props) {
           <span className="text-xs md:text-sm font-semibold text-white/80 group-hover:text-white transition-colors text-center">
             {skill.name}
           </span>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

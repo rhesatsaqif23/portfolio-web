@@ -14,10 +14,10 @@ export default function SectionTitle({
   subtitle,
   className = "",
 }: SectionTitleProps) {
-  const { ref, visible } = useInView<HTMLDivElement>(0.6);
+  const { ref, visible } = useInView<HTMLElement>(0.6);
 
   return (
-    <div ref={ref} className={`text-center mb-8 md:mb-12 ${className}`}>
+    <header ref={ref} className={`text-center mb-8 md:mb-12 ${className}`}>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{
@@ -38,6 +38,6 @@ export default function SectionTitle({
           </p>
         )}
       </motion.div>
-    </div>
+    </header>
   );
 }
