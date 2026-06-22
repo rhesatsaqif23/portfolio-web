@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: Props) {
   ]);
   if (!project) return { title: "Project Not Found" };
   const description = caseStudy?.overview?.slice(0, 160) || project.descriptionShort ||
-    `Case study of ${project.title} — a ${project.category?.toLowerCase() || "software"} project by Rhesa Tsaqif.`;
+    `Case study of ${project.title} - a ${project.category?.toLowerCase() || "software"} project by Rhesa Tsaqif.`;
   return {
     title: `${project.title} | Rhesa Tsaqif`,
     description,

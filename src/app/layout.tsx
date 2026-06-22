@@ -19,7 +19,7 @@ const BASE_URL = "https://rhesatsaqif.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Rhesa Tsaqif | Portfolio — Mobile & Full-Stack Developer",
+    default: "Rhesa Tsaqif | Portfolio - Full-Stack & Mobile Developer",
     template: "%s | Rhesa Tsaqif",
   },
   description:
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: BASE_URL,
     siteName: "Rhesa Tsaqif",
-    title: "Rhesa Tsaqif | Portfolio — Mobile & Full-Stack Developer",
+    title: "Rhesa Tsaqif | Portfolio - Full-Stack & Mobile Developer",
     description:
       "Full-stack Web & Mobile Developer from Indonesia. Building scalable, user-centered applications with Next.js, React, and Kotlin.",
   },
@@ -91,7 +91,7 @@ export default async function RootLayout({
               "@type": "Person",
               name: "Rhesa Tsaqif Adyatma",
               url: BASE_URL,
-              jobTitle: "Mobile & Full-Stack Developer",
+              jobTitle: "Full-Stack & Mobile Developer",
               alumniOf: "Universitas Brawijaya",
               knowsAbout: [
                 "Web Development",

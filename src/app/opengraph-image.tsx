@@ -85,7 +85,7 @@ export default async function Image() {
               margin: "8px 0 0",
             }}
           >
-            Mobile & Full-Stack Developer
+            Full-Stack & Mobile Developer
           </p>
           <div
             style={{
