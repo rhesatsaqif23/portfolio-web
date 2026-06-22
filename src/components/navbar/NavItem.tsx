@@ -33,10 +33,8 @@ function NavItem({
         {label}
       </motion.span>
       {isActive && (
-        <motion.span
-          layoutId={isMobile ? "nav-indicator-mobile" : "nav-indicator-desktop"}
-          className="absolute inset-0 z-0 rounded-full bg-linear-to-r from-cyan-400/30 to-blue-500/30 border border-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
-          transition={{ type: "spring", stiffness: 500, damping: 38 }}
+        <span
+          className="absolute inset-0 z-0 rounded-full bg-linear-to-r from-cyan-400/30 to-blue-500/30 border border-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)] animate-[fadeIn_0.3s_ease-out]"
         />
       )}
     </button>

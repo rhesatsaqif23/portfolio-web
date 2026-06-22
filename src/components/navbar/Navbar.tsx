@@ -24,9 +24,12 @@ export default function Navbar() {
   const [clicked, setClicked] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const scrollActive = useActiveSection();
-  const active = clicked ?? scrollActive;
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  const active = clicked ?? (
+    !isHome && pathname.includes("/projects") ? "projects" : scrollActive
+  );
 
   const scrollToSection = (id: string) => {
     if (!isHome) {
@@ -56,7 +59,6 @@ export default function Navbar() {
   return (
     <header className="fixed top-3 md:top-4 lg:top-6 inset-x-0 z-50 flex justify-center px-3 md:px-4 lg:px-8 pointer-events-none">
       <motion.nav
-        layout
         initial={{ y: -150, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
@@ -74,7 +76,6 @@ export default function Navbar() {
       >
         {/* Top Bar */}
         <motion.div
-          layout="position"
           className={clsx(
             "flex items-center w-full",
             "justify-between px-3 md:px-4 lg:px-6 py-2",
