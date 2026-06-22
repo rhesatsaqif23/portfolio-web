@@ -19,13 +19,15 @@ export default function HeroSocials({ profile }: Props) {
   ];
 
   return (
-    <motion.div
+    <motion.ul
       variants={fadeUpVariants}
       className="mt-10 md:mt-14 flex flex-wrap justify-center gap-3 md:gap-4 lg:gap-6"
     >
       {socials.map((social, i) => (
-        <SocialIcon key={i} icon={social.icon} href={social.href} />
+        <li key={i}>
+          <SocialIcon icon={social.icon} href={social.href} />
+        </li>
       ))}
-    </motion.div>
+    </motion.ul>
   );
 }

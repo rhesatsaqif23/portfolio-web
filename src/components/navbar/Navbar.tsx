@@ -54,7 +54,7 @@ export default function Navbar() {
   }, [scrollActive, clicked]);
 
   return (
-    <div className="fixed top-3 md:top-4 lg:top-6 inset-x-0 z-50 flex justify-center px-3 md:px-4 lg:px-8 pointer-events-none">
+    <header className="fixed top-3 md:top-4 lg:top-6 inset-x-0 z-50 flex justify-center px-3 md:px-4 lg:px-8 pointer-events-none">
       <motion.nav
         layout
         initial={{ y: -150, opacity: 0 }}
@@ -101,23 +101,24 @@ export default function Navbar() {
           <div className="hidden lg:block h-8 w-0.5 bg-white/10" />
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => {
               const id = item.href.slice(1);
               const isActive = active === id;
               return (
-                <NavItem
-                  key={item.label}
-                  label={item.label}
-                  isActive={isActive}
-                  onClick={() => {
-                    setClicked(id);
-                    scrollToSection(id);
-                  }}
-                />
+                <li key={item.label}>
+                  <NavItem
+                    label={item.label}
+                    isActive={isActive}
+                    onClick={() => {
+                      setClicked(id);
+                      scrollToSection(id);
+                    }}
+                  />
+                </li>
               );
             })}
-          </div>
+          </ul>
 
           {/* Mobile/Tablet Toggle */}
           <button
@@ -160,28 +161,29 @@ export default function Navbar() {
               transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
               className="w-full overflow-hidden lg:hidden border-t border-white/10"
             >
-              <div className="flex flex-col p-3 md:p-4 gap-1.5 md:gap-2">
+              <ul className="flex flex-col p-3 md:p-4 gap-1.5 md:gap-2">
                 {navItems.map((item) => {
                   const id = item.href.slice(1);
                   const isActive = active === id;
                   return (
-                    <NavItem
-                      key={item.label}
-                      label={item.label}
-                      isActive={isActive}
-                      isMobile={true}
-                      onClick={() => {
-                        setClicked(id);
-                        scrollToSection(id);
-                      }}
-                    />
+                    <li key={item.label}>
+                      <NavItem
+                        label={item.label}
+                        isActive={isActive}
+                        isMobile={true}
+                        onClick={() => {
+                          setClicked(id);
+                          scrollToSection(id);
+                        }}
+                      />
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.nav>
-    </div>
+    </header>
   );
 }

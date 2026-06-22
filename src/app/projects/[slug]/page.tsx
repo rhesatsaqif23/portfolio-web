@@ -85,11 +85,16 @@ function AccentCard({ children }: { children: React.ReactNode }) {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, caseStudy] = await Promise.all([
+    getProjectBySlug(slug),
+    getCaseStudyByProjectSlug(slug),
+  ]);
   if (!project) return { title: "Project Not Found" };
+  const description = caseStudy?.overview?.slice(0, 160) || project.descriptionShort ||
+    `Case study of ${project.title} — a ${project.category?.toLowerCase() || "software"} project by Rhesa Tsaqif.`;
   return {
     title: `${project.title} | Rhesa Tsaqif`,
-    description: project.descriptionShort,
+    description,
   };
 }
 
@@ -129,6 +134,21 @@ export default async function CaseStudyPage({ params }: Props) {
     <div className="min-h-screen pt-24 pb-16 px-6 sm:px-10 md:px-20 lg:px-28">
       <div className="mx-auto max-w-6xl">
         <BreadcrumbNav projectTitle={project.title} />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: "https://rhesatsaqif.vercel.app" },
+                { "@type": "ListItem", position: 2, name: "Projects", item: "https://rhesatsaqif.vercel.app/projects" },
+                { "@type": "ListItem", position: 3, name: project.title, item: `https://rhesatsaqif.vercel.app/projects/${slug}` },
+              ],
+            }),
+          }}
+        />
 
         {caseStudy ? (
           <div className="space-y-16">
@@ -353,12 +373,12 @@ export default async function CaseStudyPage({ params }: Props) {
             )}
 
             {/* ─── Footer Navigation Section (dense & compact) ─── */}
-            <div className="space-y-6">
+            <nav className="space-y-6">
               {/* Divider */}
               <div className="h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
               {/* Prev / Next Project */}
-              <nav className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {prevProject ? (
                   <Link
                     href={`/projects/${prevProject.slug}`}
@@ -406,7 +426,7 @@ export default async function CaseStudyPage({ params }: Props) {
                 ) : (
                   <div />
                 )}
-              </nav>
+              </div>
 
               {/* Back to Projects */}
               <div className="text-center pt-2">
@@ -421,7 +441,7 @@ export default async function CaseStudyPage({ params }: Props) {
                   <ChevronRight className="absolute right-6 md:right-7 h-5 w-5 md:h-6 md:w-6 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-cyan-400" />
                 </Link>
               </div>
-            </div>
+            </nav>
 
           </div>
         ) : (

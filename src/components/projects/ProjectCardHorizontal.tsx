@@ -2,7 +2,7 @@
 
 import ImageWithFallback from "../common/ImageWithFallback";
 import TiltedCard from "../common/TiltedCard";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ExternalLink, Github, ArrowUpRight, Folder, Globe, Smartphone } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { Project } from "@/src/types/project";
@@ -27,20 +27,8 @@ interface Props {
 function ProjectCardHorizontal({ project, index, skills }: Props) {
   const imageLeft = index % 2 === 0;
   const [cardHovered, setCardHovered] = useState(false);
-  const router = useRouter();
 
   const slugHref = project.slug ? `/projects/${project.slug}` : "#";
-
-  function handleCardClick() {
-    if (project.slug) router.push(slugHref);
-  }
-
-  function handleCardKeyDown(e: React.KeyboardEvent) {
-    if ((e.key === "Enter" || e.key === " ") && project.slug) {
-      e.preventDefault();
-      router.push(slugHref);
-    }
-  }
 
   const skillMap = React.useMemo(() => {
     const map = new Map<string, string | null>();
@@ -85,13 +73,7 @@ function ProjectCardHorizontal({ project, index, skills }: Props) {
 
   return (
     <div className="w-full">
-      <div
-        role="link"
-        tabIndex={0}
-        onClick={handleCardClick}
-        onKeyDown={handleCardKeyDown}
-        className="block cursor-pointer"
-      >
+      <Link href={slugHref} className="block cursor-pointer">
         <motion.article
           variants={cardVariants}
           initial="hidden"
@@ -226,7 +208,7 @@ function ProjectCardHorizontal({ project, index, skills }: Props) {
             </div>
           </div>
         </motion.article>
-      </div>
+      </Link>
     </div>
   );
 }
